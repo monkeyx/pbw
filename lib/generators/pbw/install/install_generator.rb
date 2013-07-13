@@ -27,7 +27,8 @@ module Pbw
 		    end
 
 		    def config_mongoid
-		    	generate ""
+		    	generate "mongoid:config"
+		    	generate "mongoid:devise Player"
 		    end
 		end
 	end
