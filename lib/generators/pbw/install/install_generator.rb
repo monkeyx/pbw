@@ -1,3 +1,5 @@
+require 'generators/pbw/resource_helpers'
+
 module Pbw
 	module Generators
 		class InstallGenerator < Rails::Generators::NamedBase
@@ -22,6 +24,10 @@ module Pbw
 
 		    def create_app_file
 		        template "app.coffee", "app/assets/javascripts/#{application_name.underscore}.js.coffee"
+		    end
+
+		    def config_mongoid
+		    	generate ""
 		    end
 		end
 	end

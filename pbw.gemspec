@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "A Rails Engine for Play By Web games"
   s.description = "Provides engine and generators for building web games using common components"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
   s.add_dependency('rails', '~> 3.2.13')
   s.add_dependency('coffee-script', '~> 2.2.0')
