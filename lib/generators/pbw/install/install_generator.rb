@@ -28,7 +28,12 @@ module Pbw
 
 		    def config_mongoid
 		    	generate "mongoid:config"
-		    	generate "mongoid:devise Player"
+		    end
+
+		    def inject_routes
+		    	inject_into_file "config/routes.rb", :after => "do" do
+		    		"mount Pbw::Engine, :at => '/game'"
+		    	end
 		    end
 		end
 	end

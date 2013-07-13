@@ -12,7 +12,7 @@ ActiveRecord is not used.
 
 In your Gemfile, add this line:
 
-gem 'pbw'
+    gem 'pbw'
 
 Then run the following commands:
 

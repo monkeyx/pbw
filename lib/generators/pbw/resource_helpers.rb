@@ -3,7 +3,7 @@ module Pbw
     module ResourceHelpers
       
       def backbone_path
-        "app/assets/javascripts/backbone"
+        "app/assets/javascripts"
       end
       
       def model_namespace
@@ -31,7 +31,7 @@ module Pbw
       end
       
       def jst(action)
-        "backbone/templates/#{plural_name}/#{action}"
+        "templates/#{plural_name}/#{action}"
       end
       
       def js_app_name
