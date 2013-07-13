@@ -33,10 +33,6 @@ module Pbw
 		    def add_engine_routes
 		    	route "mount Pbw::Engine, :at => '/'"
 		    end
-
-		    def add_readme
-		    	readme "README.md"
-		    end
 		end
 	end
 end
