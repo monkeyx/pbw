@@ -30,10 +30,12 @@ module Pbw
 		    	generate "mongoid:config"
 		    end
 
-		    def inject_routes
-		    	inject_into_file "config/routes.rb", :after => "do" do
-		    		"\nmount Pbw::Engine, :at => '/'"
-		    	end
+		    def add_engine_routes
+		    	route "mount Pbw::Engine, :at => '/'"
+		    end
+
+		    def add_readme
+		    	readme "README.md"
 		    end
 		end
 	end

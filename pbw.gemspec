@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/monkeyx/pbw"
   s.summary     = "A Rails Engine for Play By Web games"
   s.description = "Provides engine and generators for building web games using common components"
+  s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
