@@ -1,4 +1,4 @@
-require 'generators/pbw/resource_helpers'
+require 'pbw/generators/resource_helpers'
 
 module Pbw
 	module Generators
