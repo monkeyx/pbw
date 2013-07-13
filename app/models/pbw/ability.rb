@@ -1,5 +1,5 @@
 class Ability
-  include CanCan::Ability
+  include ::CanCan::Ability
   
   def initialize(user)
     user.role.permissions.each do |permission|

@@ -1,6 +1,6 @@
 module Pbw
   class Permission
-    include Mongoid::Document
+    include ::Mongoid::Document
     field :subject_class, type: String
     field :action, type: String
     field :name, type: String

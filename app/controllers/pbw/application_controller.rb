@@ -1,6 +1,7 @@
 module Pbw
   class ApplicationController < ActionController::Base
-  	  rescue_from CanCan::AccessDenied do |exception|
+  	  
+  	  rescue_from ::CanCan::AccessDenied do |exception|
 	    flash[:alert] = "Access denied. You are not authorized to access the requested page."
 	    respond_to do |format|
 	    	format.json {render json: flash[:alert], status: 401}
