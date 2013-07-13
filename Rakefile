@@ -19,7 +19,9 @@ namespace :backbone do
   task :download_latest do
     files = {
       'underscore.js'=>'http://underscorejs.org/underscore.js',
-      'backbone.js' => 'http://backbonejs.org/backbone.js'
+      'backbone.js' => 'http://backbonejs.org/backbone.js',
+      'backbone_datalink.js' => 'https://raw.github.com/codebrew/backbone-rails/master/vendor/assets/javascripts/backbone_datalink.js',
+      'backbone_rails_sync.js' => 'https://raw.github.com/codebrew/backbone-rails/master/vendor/assets/javascripts/backbone_rails_sync.js'
     }
     
     vendor_dir = "vendor/assets/javascripts"

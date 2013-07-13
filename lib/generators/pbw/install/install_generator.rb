@@ -18,7 +18,7 @@ module Pbw
 		    def create_dir_layout
 		        %W{routers models views templates}.each do |dir|
 		          empty_directory "app/assets/javascripts/#{dir}" 
-		          create_file "app/assets/javascripts/backbone/#{dir}/.gitkeep" unless options[:skip_git]
+		          create_file "app/assets/javascripts/#{dir}/.gitkeep" unless options[:skip_git]
 		        end
 		    end
 
@@ -32,7 +32,7 @@ module Pbw
 
 		    def inject_routes
 		    	inject_into_file "config/routes.rb", :after => "do" do
-		    		"mount Pbw::Engine, :at => '/game'"
+		    		"\nmount Pbw::Engine, :at => '/'"
 		    	end
 		    end
 		end
