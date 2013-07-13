@@ -1,0 +1,5 @@
+Description:
+    This setups directories, configuration and essential files for PBW
+
+Example:
+    rails generate pbw:install

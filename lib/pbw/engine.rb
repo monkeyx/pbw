@@ -9,6 +9,5 @@ module Pbw
 	    g.helper		  :false
 	    g.javascript_engine :coffee
 	end
-	config.mongoid.logger = Logger.new($stdout, :warn)
   end
 end
