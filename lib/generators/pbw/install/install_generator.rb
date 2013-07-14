@@ -31,7 +31,7 @@ module Pbw
 		    end
 
 		    def add_engine_routes
-		    	route "mount Pbw::Engine, :at => '/'"
+		    	route "mount Pbw::Engine, :at => '/pbw'"
 		    end
 		end
 	end

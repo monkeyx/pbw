@@ -37,7 +37,10 @@ module Pbw
     private
 
     def is_super_admin?
-      redirect_to root_path and return unless current_user.super_admin?
+      unless current_user.super_admin?
+        render json: "Access denied. You are not authorized to access the requested page.", status: 401
+        return false
+      end
     end
   end
 end
