@@ -1,6 +1,7 @@
 module Pbw
   class User
     include ::Mongoid::Document
+    include ::Mongoid::Timestamps
     # Include default devise modules. Others available are:
     # :token_authenticatable, :confirmable,
     # :lockable, :timeoutable and :omniauthable
@@ -46,6 +47,9 @@ module Pbw
 
     ## Token authenticatable
     field :authentication_token, :type => String
+
+    has_many :resource_containers
+    has_many :user_tokens
 
     def super_admin?
       self.role.name == "Super Admin"

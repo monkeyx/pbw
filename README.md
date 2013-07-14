@@ -31,7 +31,7 @@ Then run the following commands:
 
 ### Rules
 
-#### Ability
+#### Capability
 
 #### Constraint
 
