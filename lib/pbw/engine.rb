@@ -3,7 +3,7 @@ module Pbw
   	isolate_namespace Pbw
     engine_name 'pbw'
 
-    config.mount_at = '/'
+    config.mount_at = '/pbw'
 
     rake_tasks do
       load File.join(File.dirname(__FILE__), 'tasks/pbw_tasks.rake')
