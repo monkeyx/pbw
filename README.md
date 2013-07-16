@@ -1,6 +1,6 @@
 # Pbw
 
-Play By Web Engine for Rails. This project is in early development. See [Wiki](wiki/) for more information.
+Play By Web Engine for Rails. This project is in early development. See [Wiki](https://github.com/monkeyx/pbw/wiki) for more information.
 
 ## Rails setup
 
