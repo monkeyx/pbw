@@ -2,12 +2,12 @@
 
 <form id="edit-<%= singular_table_name %>" name="<%= singular_table_name %>">
   <div class="field">
-    <label for="name"> name:</label>
+    <label for="name">Name:</label>
     <input type="text" name="name" id="name" value="<%%= name %>" >
   </div>
 <% attributes.each do |attribute| -%>
   <div class="field">
-    <label for="<%= attribute.name %>"> <%= attribute.name %>:</label>
+    <label for="<%= attribute.name %>"> <%= attribute.human_name %>:</label>
     <input type="text" name="<%= attribute.name %>" id="<%= attribute.name %>" value="<%%= <%= attribute.name %> %>" >
   </div>
 

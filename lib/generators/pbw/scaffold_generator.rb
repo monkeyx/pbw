@@ -18,9 +18,11 @@ module Pbw
 			end
 
 			def create_resources
-				generate "model", "#{class_name} name:string #{attributes.join(' ')}"
+				generate "model", "#{class_name} #{attributes.map{|attr| "#{attr.name}:#{attr.type}"}.join(' ')}"
 				generate "controller", "#{plural_name} index"
-				template "index.erb", "views/#{plural_name}/index.html.erb"
+				template "index.erb", "app/views/#{plural_name}/index.html.erb"
+				gsub_file "app/models/#{file_name}.rb", "class #{class_name}", "class #{class_name} < Pbw::Area"
+				gsub_file "app/models/#{file_name}.rb", "include Mongoid::Document", ""
 			end
 
 			def available_views
