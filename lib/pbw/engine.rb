@@ -1,4 +1,5 @@
-require 'version'
+require 'pbw/version'
+
 module Pbw
   class Engine < ::Rails::Engine
     isolate_namespace Pbw
