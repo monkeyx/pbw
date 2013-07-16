@@ -47,7 +47,7 @@ module Pbw
     field :authentication_token, :type => String
 
     has_many :resource_containers
-    has_many :user_tokens
+    has_many :tokens
 
     def super_admin?
       self.role.name == "Super Admin"

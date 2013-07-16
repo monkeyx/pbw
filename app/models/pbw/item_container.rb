@@ -5,7 +5,7 @@ module Pbw
     belongs_to :item
     field :quantity, :type => Float
 
-    belongs_to :user_token
+    belongs_to :tokens
     belongs_to :area
     belongs_to :user
   end

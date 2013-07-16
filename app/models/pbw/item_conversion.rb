@@ -3,7 +3,6 @@ module Pbw
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
     belongs_to :item
-    field :to_class, :type => String
-    field :conversion_rate, :type => Float
+    field :from_classes, :type => Hash
   end
 end

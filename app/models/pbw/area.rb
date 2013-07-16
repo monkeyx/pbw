@@ -6,7 +6,7 @@ module Pbw
     validates_presence_of :name
     validates_uniqueness_of :name
 
-    has_and_belongs_to_many :user_tokens
+    has_many :tokens
     has_many :item_containers
     has_and_belongs_to_many :constraints
     has_and_belongs_to_many :processes
