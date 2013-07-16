@@ -23,6 +23,18 @@ Then run the following commands:
 
 ### Areas
 
+Areas are locales within your game such as Rooms, Worlds or Regions. 
+
+They may contain Tokens and Items. They may also have Contraints and Triggers.
+
+The base Pbw::Area model contains the attribute "name" by default. Additional attributes can be defined for your specific models.
+
+    rails g pbw:areas [Class] [additional attributes]
+
+Example:
+
+    rails g pbw:area Room description:string
+
 ### Items
 
 ### Tokens
