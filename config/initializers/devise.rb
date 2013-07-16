@@ -63,8 +63,6 @@ Devise.setup do |config|
 
   config.reset_password_within = 6.hours
 
-  config.encryptor = :sha512
-
   config.token_authentication_key = :auth_token
 
   config.scoped_views = false

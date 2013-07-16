@@ -19,6 +19,14 @@ Then run the following commands:
     bundle install
     rails g pbw:install
 
+The install generator will create:
+
+* Backbone assets and directory layout in your app/assets/javascript directory
+* Configuration file for mongoid in config directory
+* Mount route for the pbw engine at "/pbw"
+* Devise view templates in app/views/devise
+* Application layout for the Pbw engine in app/views/pbw/layouts
+
 ## Generators
 
 ### Areas
@@ -34,6 +42,12 @@ The base Pbw::Area model contains the attribute "name" by default. Additional at
 Example:
 
     rails g pbw:area Room description:string
+
+The areas generator will create:
+
+* A model inheriting from Pbw::Area 
+* A controller with an index method for your area plus index.html.erb template calling Backbone
+* Backbone scaffold for your area class
 
 ### Items
 

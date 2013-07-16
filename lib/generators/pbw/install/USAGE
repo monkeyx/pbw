@@ -3,3 +3,10 @@ Description:
 
 Example:
     rails generate pbw:install
+
+	This will create:
+	* Backbone assets and directory layout in your app/assets/javascript directory
+	* Configuration file for mongoid in config directory
+	* Mount route for the pbw engine at "/pbw"
+	* Devise view templates in app/views/devise
+	* Application layout for the Pbw engine in app/views/pbw/layouts

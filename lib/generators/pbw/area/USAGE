@@ -1,8 +1,10 @@
 Description:
-    Explain the generator
+    Generates rails model and controller plus Backbone scaffold for your area class inheriting from Pbw::Area
 
 Example:
-    rails generate area Thing
+    rails generate area Room description:string
 
     This will create:
-        what/will/it/create
+        * A model inheriting from Pbw::Area 
+		* A controller with an index method for your area plus index.html.erb template calling Backbone
+		* Backbone scaffold for your area class
