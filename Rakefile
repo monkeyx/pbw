@@ -36,6 +36,13 @@ namespace :backbone do
   end
 end
 
+namespace :compass do
+  desc "Compile scss in public with compass"
+  task :compile do
+    system "cd public && compass compile"
+  end
+end
+
 
 Bundler::GemHelper.install_tasks
 
