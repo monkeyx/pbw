@@ -8,6 +8,8 @@ This engine requires the use of Rails 3.2 or greater, coffeescript, devise and m
 
 ActiveRecord is not used.
 
+It creates apps that use Backbone for the front-end.
+
 ## Installation
 
 In your Gemfile, add this line:
@@ -64,4 +66,10 @@ The areas generator will create:
 #### Process
 
 #### Trigger
+
+## Authentication and Authorisation
+
+Pbw uses Devise for authentication mounted within the Pbw engine itself.
+
+It uses CanCan for authorisation with dynamic roles and permissions associated with models.
 
