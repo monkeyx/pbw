@@ -18,7 +18,7 @@ module Pbw
 
     def edit
       @role = Role.find(params[:id])
-      @permissions = Permission.all.keep_if{|i| ["Part"].include? i.subject_class}.compact
+      @permissions = Permission.all
       @role_permissions = @role.permissions.collect{|p| p.id}
       render json: {role: @role, permissions: @permissions, role_permissions: @role_permissions}
     end
@@ -38,7 +38,7 @@ module Pbw
 
     def is_super_admin?
       unless current_user.super_admin?
-        render json: "Access denied. You are not authorized to access the requested page.", status: 401
+        render json: {:error => "Access denied. You are not authorized to access the requested page."}, status: 401
         return false
       end
     end

@@ -1,6 +1,6 @@
 module Pbw
   class Engine < ::Rails::Engine
-    isolate_namespace Pbw
+  	isolate_namespace Pbw
     engine_name 'pbw'
     
     config.generators do |g|

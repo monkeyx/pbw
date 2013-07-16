@@ -33,6 +33,10 @@ module Pbw
 		    def add_engine_routes
 		    	route "mount Pbw::Engine, :at => '/pbw'"
 		    end
+
+		    def devise_views
+		    	generate "devise:views"
+		    end
 		end
 	end
 end
