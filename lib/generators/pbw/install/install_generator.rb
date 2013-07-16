@@ -37,6 +37,10 @@ module Pbw
 		    def devise_views
 		    	generate "devise:views"
 		    end
+
+		    def engine_layout
+		    	template "application.html.erb", "app/views/pbw/layouts/application.html.erb"
+		    end
 		end
 	end
 end
