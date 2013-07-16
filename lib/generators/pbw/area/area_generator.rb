@@ -1,4 +1,4 @@
-require 'generators/pbw/model_helpers'
+require 'generators/pbw/scaffold_helpers'
 
 class Pbw::AreaGenerator < Rails::Generators::NamedBase
 	
