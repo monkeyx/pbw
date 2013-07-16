@@ -31,15 +31,15 @@ module Pbw
 
 		def new
 			authorize! :manage, Admin
-			@model = model_class.new
+			@model = real_model_class.new
 			respond_with(@model) do |format|
 				format.json { render json: @model }
 			end
 		end
 
 		def create
-			authorize! :manage, model_class
-			@model = model_class.new(params[model_param])
+			authorize! :manage, real_model_class
+			@model = real_model_class.new(params[model_param])
 			@model.image = @image if @image
 			if @model.save
 				respond_with(@model) do |format|
@@ -78,6 +78,17 @@ module Pbw
 					format.json { render json: @model.errors.full_messages, status: :unprocessable_entity}
 				end
 			end
+		end
+
+		def real_model_class
+			begin
+				unless params[:_type].blank?
+					klass = Kernel.get_const(params[:_type])
+					return klass if klass.ancestors.include?(self.model_class)
+				end
+			rescue
+			end
+			self.model_class
 		end
 
 		def model_param

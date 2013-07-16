@@ -1,9 +1,10 @@
 class <%= model_namespace %> extends Backbone.Model
   paramRoot: '<%= singular_table_name %>'
-  urlRoot: '/pbw/areas'
+  urlRoot: '/pbw/areas?_type=<%= class_name%>'
 
   defaults:
     name: null
+    _type: '<%= class_name%>'
 <% attributes.each do |attribute| -%>
     <%= attribute.name %>: null
 <% end -%>
