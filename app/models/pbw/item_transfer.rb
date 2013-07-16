@@ -1,9 +1,9 @@
 module Pbw
-  class ResourceConversion
+  class ItemTransfer
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
-    belongs_to :resource
+    belongs_to :item
+    field :from_class, :type => String
     field :to_class, :type => String
-    field :conversion_rate, :type => Float
   end
 end

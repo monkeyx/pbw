@@ -7,10 +7,10 @@ Pbw::Engine.routes.draw do
  	resources :capabilities
  	resources :constraints
  	resources :processes
- 	resources :resources
- 	resources :resource_containers
- 	resources :resource_conversions
- 	resources :resource_transfers
+ 	resources :items
+ 	resources :item_containers
+ 	resources :item_conversions
+ 	resources :item_transfers
  	resources :tokens
  	resources :triggers
  	resources :user_tokens

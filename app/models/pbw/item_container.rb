@@ -1,8 +1,8 @@
 module Pbw
-  class ResourceContainer
+  class ItemContainer
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
-    belongs_to :resource
+    belongs_to :item
     field :quantity, :type => Float
 
     belongs_to :user_token

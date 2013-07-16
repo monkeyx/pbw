@@ -9,7 +9,7 @@ module Pbw
     belongs_to :user
 
     has_and_belongs_to_many :areas
-    has_many :resource_containers
+    has_many :item_containers
     
     attr_accessible :name
   end
