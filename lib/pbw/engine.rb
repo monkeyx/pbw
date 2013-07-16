@@ -2,6 +2,12 @@ module Pbw
   class Engine < ::Rails::Engine
   	isolate_namespace Pbw
     engine_name 'pbw'
+
+    config.mount_at = '/'
+
+    rake_tasks do
+      load File.join(File.dirname(__FILE__), 'tasks/pbw_tasks.rake')
+    end
     
     config.generators do |g|
 	    g.orm             :mongoid
@@ -11,6 +17,14 @@ module Pbw
 	    g.helper		  :false
 	    g.javascript_engine :coffee
 	end
+
+	initializer "check config" do |app|
+      	config.mount_at += '/'  unless config.mount_at.last == '/'
+    end
+
+    initializer "static assets" do |app|
+      	app.middleware.use ::ActionDispatch::Static, "#{root}/public"
+    end
 
 	def self.config(&block)
 		yield Engine.config if block

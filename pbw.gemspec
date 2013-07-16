@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "Provides engine and generators for building web games using common components"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib,vendor,public}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
   s.add_dependency('rails', '~> 3.2.13')
   s.add_dependency('coffee-script', '~> 2.2.0')
@@ -27,6 +27,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency('sass')
   s.add_development_dependency('uglifier')
   s.add_development_dependency('rspec')
+  s.add_development_dependency('compass')
+  s.add_development_dependency('zurb-foundation')
 
   s.require_paths = ['lib']
 
