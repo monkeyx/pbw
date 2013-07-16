@@ -2,7 +2,7 @@ Description:
     Explain the generator
 
 Example:
-    rails generate resource Thing
+    rails generate item Thing
 
     This will create:
         what/will/it/create
