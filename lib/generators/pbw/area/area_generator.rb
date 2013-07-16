@@ -1,10 +1,5 @@
-require 'generators/pbw/scaffold_helpers'
+require 'generators/pbw/scaffold_generator'
 
-class Pbw::AreaGenerator < Rails::Generators::NamedBase
-	
+class Pbw::AreaGenerator < Pbw::Generators::ScaffoldGenerator
 	source_root File.expand_path("../templates", __FILE__)
-
-	argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
-
-	include Pbw::Generators::ScaffoldHelpers
 end

@@ -1,9 +1,8 @@
-require 'generators/pbw/model_helpers'
+require 'generators/pbw/model_generator'
 
 module Pbw
 	module Generators
-		module ScaffoldHelpers
-			include Pbw::Generators::ModelHelpers
+		class ScaffoldGenerator < ModelGenerator
 
 			def create_router_files 
 				template 'router.coffee', File.join(backbone_path, "routers", class_path, "#{plural_name}_router.js.coffee")
