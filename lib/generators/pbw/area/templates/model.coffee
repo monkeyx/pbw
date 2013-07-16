@@ -1,6 +1,6 @@
 class <%= model_namespace %> extends Backbone.Model
   paramRoot: '<%= singular_table_name %>'
-  urlRoot: '/pbw/areas?_type=<%= class_name%>'
+  urlRoot: '/pbw/areas/<%= class_name%>'
 
   defaults:
     name: null
@@ -11,4 +11,4 @@ class <%= model_namespace %> extends Backbone.Model
 
 class <%= collection_namespace %>Collection extends Backbone.Collection
   model: <%= model_namespace %>
-  url: '/pbw/areas'
+  url: '/pbw/areas/<%= class_name%>'
