@@ -1,7 +1,7 @@
 Devise.setup do |config|
-  config.mailer_sender = Pbw::Engine.config.mail_sender
+  #config.mailer_sender = Pbw::Engine.config.mail_sender
 
-  config.mailer = Pbw::Engine.config.mailer || "Devise::Mailer"
+  config.mailer = "Devise::Mailer"
 
   require 'devise/orm/mongoid'
 
