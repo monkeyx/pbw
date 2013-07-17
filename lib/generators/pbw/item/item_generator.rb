@@ -1,3 +1,8 @@
-class Pbw::ItemGenerator < Rails::Generators::NamedBase
-  source_root File.expand_path('../templates', __FILE__)
+class Pbw::ItemGenerator < Pbw::Generators::ScaffoldGenerator
+	source_root File.expand_path("../templates", __FILE__)
+
+	protected
+	def base_model_class
+		"Pbw::Item"
+	end
 end

@@ -53,13 +53,31 @@ The areas generator will create:
 
 ### Items
 
-### Tokens
+Items are classes of objects within your game such as Goods, Weapons or Vehicles. 
 
-### Commands
+Individual items can be contained within containers associated with areas, tokens or users. They may also have conversion to other objects or transfers between containers defined. 
+
+The base Pbw::Item model contains the attribute "name" by default. Additional attributes can be defined for your specific models.
+
+    rails g pbw:item [Class] [additional attributes]
+
+Example:
+
+    rails g pbw:item TradeGood value:float description:string
+
+The areas generator will create:
+
+* A model inheriting from Pbw::Item 
+* A controller with an index method for your area plus index.html.erb template calling Backbone
+* Backbone scaffold for your item class
+
+### Tokens
 
 ### Rules
 
 #### Capability
+
+#### Command
 
 #### Constraint
 

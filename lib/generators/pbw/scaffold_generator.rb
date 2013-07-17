@@ -21,10 +21,11 @@ module Pbw
 				generate "model", "#{class_name} #{attributes.map{|attr| "#{attr.name}:#{attr.type}"}.join(' ')}"
 				template "index.erb", "app/views/#{plural_name}/index.html.erb"
 				generate "controller", "#{plural_name} index --skip"
-				gsub_file "app/models/#{file_name}.rb", "class #{class_name}", "class #{class_name} < Pbw::Area"
+				gsub_file "app/models/#{file_name}.rb", "class #{class_name}", "class #{class_name} < #{base_model_class}"
 				gsub_file "app/models/#{file_name}.rb", "include Mongoid::Document", ""
 			end
 
+			protected
 			def available_views
 				%w(index show new edit)
 			end
