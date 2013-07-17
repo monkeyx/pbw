@@ -133,7 +133,41 @@ The constraint generator will create:
 
 #### Process
 
+Processes are executed actions caused by commands or triggers. 
+
+Processes may be tick based running in 0 or more ticks of the game engine or update based in which case they are scheduled to be run on the next engine update. 
+
+The base Pbw::Process model contains the attribute "name" by default. Additional attributes can be defined for your specific models.
+
+    rails g pbw:rules:process [Class] [additional attributes]
+
+Example:
+
+    rails g pbw:rules:process Travel
+
+The constraint generator will create:
+
+* A model inheriting from Pbw::Process 
+* A controller with an index method for your process plus index.html.erb template calling Backbone
+* Backbone scaffold for your process class
+
 #### Trigger
+
+Triggers are associated with areas and tokens and they are checked after processes are run. In turn, they may cause other processes to be run if they are run.
+
+The base Pbw::Trigger model contains the attribute "name" by default. Additional attributes can be defined for your specific models.
+
+    rails g pbw:rules:trigger [Class] [additional attributes]
+
+Example:
+
+    rails g pbw:rules:trigger BattleTrigger
+
+The constraint generator will create:
+
+* A model inheriting from Pbw::Trigger 
+* A controller with an index method for your trigger plus index.html.erb template calling Backbone
+* Backbone scaffold for your trigger class
 
 ## Authentication and Authorisation
 

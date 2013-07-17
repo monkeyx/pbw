@@ -1,8 +1,10 @@
 Description:
-    Explain the generator
+    Generates rails model and controller plus Backbone scaffold for your trigger class inheriting from Pbw::Trigger
 
 Example:
-    rails generate trigger Thing
+    rails generate pbw:rules:trigger BattleTrigger
 
     This will create:
-        what/will/it/create
+        * A model inheriting from Pbw::Trigger 
+		* A controller with an index method for your trigger plus index.html.erb template calling Backbone
+		* Backbone scaffold for your trigger class
