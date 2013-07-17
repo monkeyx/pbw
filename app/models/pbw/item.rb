@@ -11,5 +11,41 @@ module Pbw
     has_many :item_conversions
     
     attr_accessible :name
+
+    def before_add(container, quantity)
+        # stub method
+        true
+    end
+
+    def after_add(container, quantity)
+        # stub method
+    end
+
+    def before_remove(container, quantity)
+        # stub method
+        true
+    end
+
+    def after_remove(container, quantity)
+        # stub method
+    end
+
+    def before_transfer(from, to, quantity)
+        # stub method
+        true
+    end
+
+    def after_transfer(from, to, quantity)
+        # stub method
+    end
+
+    def before_conversion(to, quantity)
+        # stub method
+        true
+    end
+
+    def after_conversion(to, quantity)
+        # stub method
+    end
   end
 end

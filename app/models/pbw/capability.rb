@@ -1,5 +1,28 @@
 module Pbw
   class Capability < Rule
     has_and_belongs_to_many :tokens
+
+    def before_process(token, &changeset)
+    	# stub method
+    	true
+    end
+
+    def before_add(token)
+    	# stub method
+    	true
+    end
+
+    def after_add(token)
+    	# stub method
+    end
+
+    def before_remove(token)
+    	# stub method
+    	true
+    end
+
+    def after_remove(token)
+    	# stub method
+    end
   end
 end
