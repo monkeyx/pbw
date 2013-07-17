@@ -2,7 +2,7 @@ Description:
     Generates rails model and controller plus Backbone scaffold for your area class inheriting from Pbw::Area
 
 Example:
-    rails generate area Room description:string
+    rails generate pbw:area Room description:string
 
     This will create:
         * A model inheriting from Pbw::Area 

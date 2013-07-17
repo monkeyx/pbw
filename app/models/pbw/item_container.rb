@@ -18,16 +18,28 @@ module Pbw
     	container.add_item(quantity_to_add) && container.save ? container : false
     end
 
+    def self.find_for_token(token, item)
+        where(token: token, item: item).first
+    end
+
     def self.find_or_create_for_area(area, item, quantity_to_add)
     	container = where(area: area, item: item).first
     	container = new(area: area, item: item) unless container
     	container.add_item(quantity_to_add) && container.save ? container : false
     end
 
+    def self.find_for_area(area, item)
+        where(area: area, item: item).first
+    end
+
     def self.find_or_create_for_user(user, item, quantity_to_add)
     	container = where(user: user, item: item).first
     	container = new(user: user, item: item) unless container
     	container.add_item(quantity_to_add) && container.save ? container : false
+    end
+
+    def self.find_for_user(user, item)
+        where(user: user, item: item).first
     end
 
     def add_item(quantity)

@@ -31,6 +31,48 @@ module Pbw
         # stub method
     end
 
+    def before_add_item(item, quantity)
+        # stub method
+        true
+    end
+
+    def after_add_item(item, quantity)
+        # stub method
+    end
+
+    def before_remove_item(item, quantity)
+        # stub method
+        true
+    end
+
+    def after_remove_item(item, quantity)
+        # stub method
+    end
+
+    def count_item(item)
+        container = ItemContainer.find_for_area(self)
+        container ? container.quantity : 0
+    end
+
+    def add_item!(item, quantity)
+        return false unless quantity && quantity.responds_to?(:abs)
+        return remove_item!(item, quantity.abs) if quantity < 0
+        return false unless item && before_add_item(item,quantity)
+        ItemContainer.find_or_create_for_area(self, item, quantity)
+    end
+
+    def remove_item!(item, quantity)
+        return false unless quantity && quantity.responds_to?(:abs)
+        return add_item!(item, quantity.abs) if quantity < 0
+        return false unless item && before_remove_item(item,quantity)
+        ItemContainer.find_or_create_for_area(self, item, (0 - quantity))
+    end
+
+    def has_constraint?(constraint)
+        constraint = Constraint.find(constraint) if constraint.is_a?(String)
+        self.constraints.include?(constraint)
+    end
+
     def add_constraint!(constraint)
         return false unless constraint && constraint.before_add(self)
         self.constraints << constraint

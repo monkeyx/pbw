@@ -2,7 +2,7 @@ Description:
     Generates rails model and controller plus Backbone scaffold for your item class inheriting from Pbw::Item
 
 Example:
-    rails generate item TradeGood value:float description:string
+    rails generate pbw:item TradeGood value:float description:string
 
     This will create:
         * A model inheriting from Pbw::Item 

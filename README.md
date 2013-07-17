@@ -73,6 +73,24 @@ The areas generator will create:
 
 ### Tokens
 
+Tokens are classes of objects within your game such as Characters, Starships or Cities. 
+
+Tokens may have capabilities, commands and constraints that define what they may do. Tokens may belong to a user and a user may have multiple tokens. They may also be associated with an area.
+
+The base Pbw::Token model contains the attribute "name" by default. Additional attributes can be defined for your specific models.
+
+    rails g pbw:token [Class] [additional attributes]
+
+Example:
+
+    rails g pbw:token Adventurer health:integer experience:integer
+
+The tokens generator will create:
+
+* A model inheriting from Pbw::Token 
+* A controller with an index method for your token plus index.html.erb template calling Backbone
+* Backbone scaffold for your token class
+
 ### Rules
 
 #### Capability

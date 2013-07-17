@@ -24,5 +24,10 @@ module Pbw
     def after_remove(token)
     	# stub method
     end
+
+    def can_convert?(item)
+        # stub method
+        false
+    end
   end
 end

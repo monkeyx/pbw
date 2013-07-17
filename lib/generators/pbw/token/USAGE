@@ -1,8 +1,10 @@
 Description:
-    Explain the generator
+    Generates rails model and controller plus Backbone scaffold for your token class inheriting from Pbw::Token
 
 Example:
-    rails generate token Thing
+    rails generate pbw:token Adventurer health:integer experience:integer
 
     This will create:
-        what/will/it/create
+        * A model inheriting from Pbw::Token 
+		* A controller with an index method for your token plus index.html.erb template calling Backbone
+		* Backbone scaffold for your token class

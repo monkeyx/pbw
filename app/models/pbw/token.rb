@@ -32,6 +32,73 @@ module Pbw
         # stub method
     end
 
+    def before_add_item(item, quantity)
+        # stub method
+        true
+    end
+
+    def after_add_item(item, quantity)
+        # stub method
+    end
+
+    def before_remove_item(item, quantity)
+        # stub method
+        true
+    end
+
+    def after_remove_item(item, quantity)
+        # stub method
+    end
+
+    def can_convert?(item)
+        self.capabilities.any?{|c| c.can_convert?(item)}
+    end
+
+    def count_item(item)
+        container = ItemContainer.find_for_token(self)
+        container ? container.quantity : 0
+    end
+
+    def add_item!(item, quantity)
+        return false unless quantity && quantity.responds_to?(:abs)
+        return remove_item!(item, quantity.abs) if quantity < 0
+        return false unless item && before_add_item(item,quantity)
+        ItemContainer.find_or_create_for_token(self, item, quantity)
+    end
+
+    def remove_item!(item, quantity)
+        return false unless quantity && quantity.responds_to?(:abs)
+        return add_item!(item, quantity.abs) if quantity < 0
+        return false unless item && before_remove_item(item,quantity)
+        ItemContainer.find_or_create_for_token(self, item, (0 - quantity))
+    end
+
+    def set_ownership!(user)
+        return false unless user && before_ownership(user)
+        self.user = user
+        if save
+            after_ownership(user)
+        end
+        self.user
+    end
+
+    def move_to_area!(area)
+        return false unless area && before_move(area) && (self.area.nil? || self.area.before_token_leaves(self)) && area.before_token_enters(self)
+        old_area = self.area
+        self.area = area
+        if save
+            after_move(area)
+            old_area.after_token_leaves(self) if old_area
+            area.after_token_enters(self)
+        end
+        self.area
+    end
+
+    def has_constraint?(constraint)
+        constraint = Constraint.find(constraint) if constraint.is_a?(String)
+        self.constraints.include?(constraint)
+    end
+
     def add_constraint!(constraint)
         return false unless constraint && constraint.before_add(self)
         self.constraints << constraint
@@ -46,6 +113,11 @@ module Pbw
         save
         constraint.after_remove(self)
         self
+    end
+
+    def has_capability?(capability)
+        capability = Capability.find(capability) if capability.is_a?(String)
+        self.capabilities.include?(capability)
     end
 
     def add_capability!(capability)
