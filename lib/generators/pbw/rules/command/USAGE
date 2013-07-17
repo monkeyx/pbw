@@ -1,8 +1,9 @@
 Description:
-    Explain the generator
+    Generates command class plus Backbone scaffold
 
 Example:
-    rails generate command Thing
+    rails generate pbw:rules:command MoveArmy area:string
 
     This will create:
-        what/will/it/create
+        * A command class that defines the methods needed for processing commands
+		* Backbone scaffold for your command class
