@@ -1,8 +1,10 @@
 Description:
-    Explain the generator
+    Generates rails model and controller plus Backbone scaffold for your constraint class inheriting from Pbw::Constraint
 
 Example:
-    rails generate constraint Thing
+    rails generate pbw:rules:constraint ItemCapacity cargo:integer life:integer
 
     This will create:
-        what/will/it/create
+        * A model inheriting from Pbw::Constraint 
+		* A controller with an index method for your constraint plus index.html.erb template calling Backbone
+		* Backbone scaffold for your constraint class

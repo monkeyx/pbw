@@ -115,6 +115,22 @@ The capability generator will create:
 
 #### Constraint
 
+Constraints are associated with areas and tokens and may define a number of callback functions. 
+
+The base Pbw::Constraint model contains the attribute "name" by default. Additional attributes can be defined for your specific models.
+
+    rails g pbw:rules:constraint [Class] [additional attributes]
+
+Example:
+
+    rails g pbw:rules:constraint ItemCapacity cargo:integer life:integer
+
+The constraint generator will create:
+
+* A model inheriting from Pbw::Constraint 
+* A controller with an index method for your constraint plus index.html.erb template calling Backbone
+* Backbone scaffold for your constraint class
+
 #### Process
 
 #### Trigger
