@@ -1,5 +1,5 @@
 require 'generators/pbw/scaffold_generator'
-require 'generators/pbw/rules'
+require 'generators/pbw/rules/rules'
 
 class Pbw::Rules::CapabilityGenerator < Pbw::Generators::ScaffoldGenerator
   	source_root File.expand_path('../templates', __FILE__)
