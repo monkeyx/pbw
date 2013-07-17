@@ -1,0 +1,10 @@
+Description:
+    Generates rails model and controller plus Backbone scaffold for your capability class inheriting from Pbw::Capability
+
+Example:
+    rails generate pbw:rules:capability Movement surface:boolean air:boolean instant:boolean cloaked:boolean
+
+    This will create:
+        * A model inheriting from Pbw::Capability 
+		* A controller with an index method for your capability plus index.html.erb template calling Backbone
+		* Backbone scaffold for your capability class

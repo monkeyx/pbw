@@ -95,6 +95,22 @@ The tokens generator will create:
 
 #### Capability
 
+Capabilities are associated with tokens and may define a number of callback functions.
+
+The base Pbw::Capability model contains the attribute "name" by default. Additional attributes can be defined for your specific models.
+
+    rails g pbw:rules:capability [Class] [additional attributes]
+
+Example:
+
+    rails g pbw:rules:capability Movement surface:boolean air:boolean instant:boolean cloaked:boolean
+
+The capability generator will create:
+
+* A model inheriting from Pbw::Capability 
+* A controller with an index method for your capability plus index.html.erb template calling Backbone
+* Backbone scaffold for your capability class
+
 #### Command
 
 #### Constraint
