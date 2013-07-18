@@ -21,7 +21,7 @@ module Pbw
 				generate "model", "#{model_namespace}::#{class_name} #{attributes.map{|attr| "#{attr.name}:#{attr.type}"}.join(' ')}"
 				template "index.erb", "app/views/#{plural_name}/index.html.erb"
 				generate "controller", "#{plural_name} index --skip"
-				gsub_file "app/models/#{model_namespace.downcase}/#{file_name}.rb", "class #{class_name}", "class #{class_name} < #{base_model_class}"
+				gsub_file "app/models/#{model_namespace.downcase}/#{file_name}.rb", "class #{model_namespace}::#{class_name}", "class #{model_namespace}::#{class_name} < #{base_model_class}"
 				gsub_file "app/models/#{model_namespace.downcase}/#{file_name}.rb", "include Mongoid::Document", ""
 			end
 

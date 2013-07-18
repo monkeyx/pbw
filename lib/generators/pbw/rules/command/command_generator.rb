@@ -7,7 +7,7 @@ class Pbw::Rules::CommandGenerator < Pbw::Generators::ModelGenerator
 
 	def create_resources
 		generate "model", "Commands::#{class_name} #{attributes.map{|attr| "#{attr.name}:#{attr.type}"}.join(' ')}"
-		gsub_file "app/models/commands/#{file_name}.rb", "class #{class_name}", "class #{class_name} < #{base_model_class}"
+		gsub_file "app/models/commands/#{file_name}.rb", "class Commands::#{class_name}", "class Commands::#{class_name} < #{base_model_class}"
 		gsub_file "app/models/commands/#{file_name}.rb", "include Mongoid::Document", ""
 	end
 
