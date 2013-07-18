@@ -1,18 +1,14 @@
 require 'generators/pbw/resource_helpers'
+require 'generators/pbw/model_generator'
 require 'generators/pbw/rules/rules'
 
-class Pbw::Rules::CommandGenerator < Rails::Generators::NamedBase
-	include Pbw::Generators::ResourceHelpers
+class Pbw::Rules::CommandGenerator < Pbw::Generators::ModelGenerator
 	source_root File.expand_path('../templates', __FILE__)
 
-	argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
-
-	def create_command
-		template "command.rb", "app/models/commands/#{file_name}.rb"
-	end
-
-	def create_backbone_model
-		template "model.coffee", "#{backbone_path}/models/#{file_name}.js.coffee"
+	def create_resources
+		generate "model", "Commands::#{class_name} #{attributes.map{|attr| "#{attr.name}:#{attr.type}"}.join(' ')}"
+		gsub_file "app/models/commands/#{file_name}.rb", "class #{class_name}", "class #{class_name} < #{base_model_class}"
+		gsub_file "app/models/commands/#{file_name}.rb", "include Mongoid::Document", ""
 	end
 
 	def create_view_files
@@ -26,6 +22,10 @@ class Pbw::Rules::CommandGenerator < Rails::Generators::NamedBase
 
 	protected
 	def available_views
-		%w(index show new edit)
+		%w(new)
+	end
+
+	def base_model_class
+		"Pbw::Command"
 	end
 end

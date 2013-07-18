@@ -8,4 +8,8 @@ class Pbw::Rules::CapabilityGenerator < Pbw::Generators::ScaffoldGenerator
 	def base_model_class
 		"Pbw::Capability"
 	end
+
+	def model_namespace
+		"Capabilities"
+	end
 end

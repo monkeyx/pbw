@@ -8,4 +8,8 @@ class Pbw::Rules::ConstraintGenerator < Pbw::Generators::ScaffoldGenerator
 	def base_model_class
 		"Pbw::Constraint"
 	end
+
+	def model_namespace
+		"Constraints"
+	end
 end

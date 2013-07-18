@@ -8,4 +8,8 @@ class Pbw::Rules::TriggerGenerator < Pbw::Generators::ScaffoldGenerator
 	def base_model_class
 		"Pbw::Trigger"
 	end
+
+	def model_namespace
+		"Triggers"
+	end
 end

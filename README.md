@@ -113,18 +113,18 @@ The capability generator will create:
 
 #### Command
 
-Commands are user given orders to tokens that schedule a process to be executed.
+Commands are classes of orders given to tokens by users that schedule a process to be executed. They may have parameters which define the specific order to be given.
 
     rails g pbw:rules:command [Class] [parameters]
 
 Example:
 
-    rails g pbw:rules:command MoveArmy area:string
+    rails g pbw:rules:command MoveCommand area:string
 
 The command generator will create:
 
-* A command class that defines the methods needed for processing commands
-* Backbone scaffold for your command class
+* A model inheriting from Pbw::Command 
+* Backbone model, views and templates for submitting commands
 
 #### Constraint
 

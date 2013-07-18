@@ -8,4 +8,8 @@ class Pbw::Rules::ProcessGenerator < Pbw::Generators::ScaffoldGenerator
 	def base_model_class
 		"Pbw::Process"
 	end
+
+	def model_namespace
+		"Processes"
+	end
 end

@@ -7,4 +7,8 @@ class Pbw::TokenGenerator < Pbw::Generators::ScaffoldGenerator
 	def base_model_class
 		"Pbw::Token"
 	end
+
+	def model_namespace
+		"Tokens"
+	end
 end

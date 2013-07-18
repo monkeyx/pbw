@@ -3,6 +3,7 @@ class <%= model_namespace %> extends Backbone.Model
   urlRoot: '/pbw/commands/<%= class_name%>'
 
   defaults:
+    token: null
     _type: '<%= class_name%>'
 <% attributes.each do |attribute| -%>
     <%= attribute.name %>: null

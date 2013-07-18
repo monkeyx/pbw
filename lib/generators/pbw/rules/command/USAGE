@@ -1,9 +1,9 @@
 Description:
-    Generates command class plus Backbone scaffold
+    Generates command model class plus Backbone model, views and templates for submitting commands
 
 Example:
     rails generate pbw:rules:command MoveArmy area:string
 
     This will create:
-        * A command class that defines the methods needed for processing commands
-		* Backbone scaffold for your command class
+        * A model inheriting from Pbw::Command 
+		* Backbone model, views and templates for submitting commands
