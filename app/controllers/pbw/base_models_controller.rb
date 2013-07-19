@@ -9,6 +9,19 @@ module Pbw
 		before_filter :model_for_read, :only => [:show]
 		before_filter :model_for_update, :only => [:edit, :update, :destroy]
 		before_filter :index_models, :only => [:index]
+		before_filter :model_for_create, :only => [:new, :create]
+
+		def set_model_class
+			# stub method
+		end
+
+		def update_model_before_create(model)
+			# stub method
+		end
+
+		def update_model_before_update(model)
+			# stub method
+		end
 
 		def index
 	  		session[:referrer] = request.url
@@ -30,17 +43,12 @@ module Pbw
 		end
 
 		def new
-			authorize! :manage, Admin
-			@model = real_model_class.new
 			respond_with(@model) do |format|
 				format.json { render json: @model }
 			end
 		end
 
 		def create
-			authorize! :manage, real_model_class
-			@model = real_model_class.new(params[model_param])
-			@model.image = @image if @image
 			if @model.save
 				respond_with(@model) do |format|
 					format.json { render json: @model }
@@ -54,10 +62,6 @@ module Pbw
 
 		def update
 			if @model.update_attributes(params[model_param])
-				if @image
-					@model.image = @image 
-					@model.save
-				end
 				respond_with(@model) do |format|
 					format.json { render json: @model }
 				end
@@ -100,17 +104,25 @@ module Pbw
 		end
 
 		def index_models
-			authorize! :read, model_class
+			authorize! :manage, model_class
 			@models = model_class.desc(:created_at)
+		end
+
+		def model_for_create
+			authorize! :create, real_model_class
+			@model = real_model_class.new(params[model_param])
+			update_model_before_create(@model)
 		end
 
 	  	def model_for_read
 			@model = model_class.find(model_id)
+			authorize! :read, @model
 		end
 
 		def model_for_update
 			@model = model_class.find(model_id)
 			authorize! :update, @model
+			update_model_before_update(@model)
 		end
 	end
 
