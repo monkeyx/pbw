@@ -26,7 +26,9 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency('sass')
   s.add_development_dependency('uglifier')
-  s.add_development_dependency('rspec')
+  s.add_development_dependency('mocha')
+  s.add_development_dependency('turn')
+  s.add_development_dependency('minitest')
   s.add_development_dependency('compass')
   s.add_development_dependency('zurb-foundation')
 
