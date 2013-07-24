@@ -10,7 +10,7 @@ module Pbw
     has_and_belongs_to_many :capabilities
     has_and_belongs_to_many :constraints
     has_and_belongs_to_many :triggers
-    has_and_belongs_to_many :attached_processes
+    has_many :attached_processes
     has_many :item_containers
 
     attr_accessible :name

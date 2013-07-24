@@ -8,10 +8,10 @@ module Pbw
 
     has_many :tokens
     has_many :item_containers
+    has_many :attached_processes
     has_and_belongs_to_many :constraints
     has_and_belongs_to_many :triggers
-    has_and_belongs_to_many :attached_processes
-
+    
     attr_accessible :name
 
     def self.viewable_by?(user, subject)
