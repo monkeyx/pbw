@@ -28,7 +28,7 @@ module Pbw
 			def create_home_controller
 				template "index.erb", "app/views/home/index.html.erb"
 				generate "controller", "home index --skip"
-				gsub_file "config/routes.rb", "get \"home#index\"", "root :to => \"home#index\""
+				gsub_file "config/routes.rb", "get \"home/index\"", "root :to => \"home#index\""
 			end
 
 		    def create_dir_layout
