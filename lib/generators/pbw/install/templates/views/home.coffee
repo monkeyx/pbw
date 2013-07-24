@@ -1,7 +1,7 @@
 <%= home_view_namespace %> ||= {}
 
 class <%= home_view_namespace %>.HomeView extends Backbone.View
-  template: JST["<%= jst 'home' %>"]
+  template: JST["templates/home/index"]
 
   render: ->
     @$el.html(@template())
