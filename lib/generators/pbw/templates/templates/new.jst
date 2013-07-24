@@ -1,4 +1,6 @@
 <form id="new-<%= singular_table_name %>" name="<%= singular_table_name %>">
+   <div id="error"></div>
+   <input type="hidden" name="authenticity_token" value="<%= $("meta[name='csrf-token']").attr("content") %>">
    <fieldset>
     <legend>New <%= singular_table_name %></legend>
     <div class="field">
