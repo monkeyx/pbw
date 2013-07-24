@@ -6,13 +6,29 @@ module Pbw
     validates_presence_of :name
 
     belongs_to :area
+    belongs_to :user
     has_and_belongs_to_many :capabilities
     has_and_belongs_to_many :constraints
     has_and_belongs_to_many :triggers
-    has_and_belongs_to_many :users
     has_many :item_containers
 
     attr_accessible :name
+
+    def self.viewable_by?(user, subject)
+        user.admin? || subject.user == user
+    end
+
+    def self.creatable_by?(user, subject)
+        true
+    end
+
+    def self.editable_by?(user, subject)
+        user.admin? || subject.user == user
+    end
+
+    def self.deletable_by?(user, subject)
+        user.admin? || subject.user == user
+    end
 
     def before_ownership(user)
         # stub method

@@ -4,6 +4,22 @@ module Pbw
     belongs_to :token
     belongs_to :user
 
+    def self.viewable_by?(user, subject)
+        user.admin? || subject.user == user
+    end
+
+    def self.creatable_by?(user, subject)
+        user.admin? || subject.user.nil? || (subject.user == user && subject.token.user && subject.token.user == user)
+    end
+
+    def self.editable_by?(user, subject)
+        user.admin? || (subject.user == user && subject.token.user && subject.token.user == user)
+    end
+
+    def self.deletable_by?(user, subject)
+        user.admin? || (subject.user == user && subject.token.user && subject.token.user == user)
+    end
+
     def valid_for_token?(token)
         # stub method
         false

@@ -2,9 +2,11 @@ module Pbw
   class User
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
+
+    ROLES = %W{superadmin admin moderator player}
     
-    devise :database_authenticatable, :registerable, :timeoutable, :confirmable,
-           :recoverable, :rememberable, :trackable, :validatable, :lockable, :token_authenticatable
+    devise :database_authenticatable, :registerable, :timeoutable, 
+           :recoverable, :rememberable, :trackable, :validatable, :lockable
 
     ## Database authenticatable
     field :email,              :type => String, :default => ""
@@ -30,27 +32,46 @@ module Pbw
     validates_format_of :email, :with => /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
     validates_confirmation_of :password
 
-    belongs_to :role
-
-    ## Confirmable
-    field :confirmation_token,   :type => String
-    field :confirmed_at,         :type => Time
-    field :confirmation_sent_at, :type => Time
-    field :unconfirmed_email,    :type => String # Only if using reconfirmable
+    field :role, :type => String, :default => 'player'
 
     ## Lockable
     field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
     field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
     field :locked_at,       :type => Time
 
-    ## Token authenticatable
-    field :authentication_token, :type => String
-
     has_many :resource_containers
     has_many :tokens
 
-    def super_admin?
-      self.role.name == "Super Admin"
+    def superadmin?
+      self.role == "superadmin"
+    end
+
+    def admin?
+        self.role == "admin"
+    end
+
+    def moderator?
+        self.role == "moderator"
+    end
+
+    def player?
+        self.role == "player"
+    end
+
+    def self.viewable_by?(user, subject)
+        true
+    end
+
+    def self.creatable_by?(user, subject)
+        true
+    end
+
+    def self.editable_by?(user, subject)
+        user.admin? || subject == user
+    end
+
+    def self.deletable_by?(user, subject)
+        user.admin?
     end
   end
 end

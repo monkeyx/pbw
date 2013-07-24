@@ -5,6 +5,22 @@ module Pbw
     field :run_tick, :type => Boolean
     field :run_update, :type => Boolean
 
+    def self.viewable_by?(user, subject)
+        user.admin?
+    end
+
+    def self.creatable_by?(user, subject)
+        user.admin?
+    end
+
+    def self.editable_by?(user, subject)
+        user.admin?
+    end
+
+    def self.deletable_by?(user, subject)
+        user.admin?
+    end
+
     def before_run(token_or_area)
     	# stub method
     	true

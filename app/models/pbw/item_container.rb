@@ -12,6 +12,22 @@ module Pbw
 
     attr_accessible :item, :token, :area, :user, :quantity
 
+    def self.viewable_by?(user, subject)
+        user.admin? || subject.user == user || (subject.token && subject.token.user == user)
+    end
+
+    def self.creatable_by?(user, subject)
+        true
+    end
+
+    def self.editable_by?(user, subject)
+        user.admin? || subject.user == user || (subject.token && subject.token.user == user)
+    end
+
+    def self.deletable_by?(user, subject)
+        user.admin?
+    end
+
     def self.find_or_create_for_token(token, item, quantity_to_add)
     	container = where(token: token, item: item).first
     	container = new(token: token, item: item) unless container

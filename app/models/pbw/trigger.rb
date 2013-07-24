@@ -4,6 +4,26 @@ module Pbw
     has_and_belongs_to_many :areas
     belongs_to :process
 
+    def self.viewable_by?(user, subject)
+        return true if user.admin?
+        subject.tokens.each do |token|
+            return true token.user && token.user == user
+        end
+        false
+    end
+
+    def self.creatable_by?(user, subject)
+        user.admin?
+    end
+
+    def self.editable_by?(user, subject)
+        user.admin?
+    end
+
+    def self.deletable_by?(user, subject)
+        user.admin?
+    end
+
     def trigger?(token_or_area)
     	# stub method
     end

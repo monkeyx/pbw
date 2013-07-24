@@ -2,6 +2,26 @@ module Pbw
   class Capability < Rule
     has_and_belongs_to_many :tokens
 
+    def self.viewable_by?(user, subject)
+        return true if user.admin?
+        subject.tokens.each do |token|
+            return true token.user && token.user == user
+        end
+        false
+    end
+
+    def self.creatable_by?(user, subject)
+        user.admin?
+    end
+
+    def self.editable_by?(user, subject)
+        user.admin?
+    end
+
+    def self.deletable_by?(user, subject)
+        user.admin?
+    end
+
     def before_process(token, &changeset)
     	# stub method
     	true

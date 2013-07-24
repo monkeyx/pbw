@@ -29,14 +29,6 @@ Devise.setup do |config|
 
   config.pepper = "63818839cfabfff3dcf5983671b4d2f01708727af5d512fd79a8afe7e744187a8976280cd31e8d1b023c2c29f4f396810c90ef15de5faaa20595e84bee4c9545"
 
-  config.allow_unconfirmed_access_for = 2.days
-
-  config.confirm_within = 3.days
-
-  config.reconfirmable = true
-
-  config.confirmation_keys = [ :email ]
-
   config.remember_for = 2.weeks
 
   config.extend_remember_period = false
