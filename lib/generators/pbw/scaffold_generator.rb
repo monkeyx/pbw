@@ -52,6 +52,12 @@ module Pbw
 				gsub_file "app/models/#{model_namespace.downcase}/#{file_name}.rb", "include Mongoid::Document", ""
 			end
 
+			def append_app_file
+				inject_into_file "app/assets/javascripts/#{application_name.underscore}.js.coffee", :after => "Views: {}" do
+					"\nwindow.#{js_app_name}.Models.#{model_namespace} = {}\nwindow.#{js_app_name}.Collections.#{model_namespace} = {}\nwindow.#{js_app_name}.Views.#{model_namespace} = {}\n"
+				end
+			end
+
 			protected
 			def available_views
 				%w(index show new edit)
