@@ -6,7 +6,7 @@ module Pbw
         "app/assets/javascripts"
       end
       
-      def model_namespace
+      def js_model_namespace
         [js_app_name, "Models", class_name].join(".")
       end
       

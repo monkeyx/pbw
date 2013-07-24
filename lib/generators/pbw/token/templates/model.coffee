@@ -1,4 +1,4 @@
-class <%= model_namespace %> extends Backbone.Model
+class <%= js_model_namespace %> extends Backbone.Model
   paramRoot: '<%= singular_table_name %>'
   urlRoot: '/pbw/tokens/<%= class_name%>'
 
