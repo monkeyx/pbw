@@ -28,7 +28,6 @@ The install generator will create:
 * Mount route for the pbw engine at "/pbw"
 * Devise view templates in app/views/devise
 * Application layout for the Pbw engine in app/views/pbw/layouts
-* Pbw configuration initializer
 * User::Lifecycle class for hooking in behaviour around users
 
 ## Generators

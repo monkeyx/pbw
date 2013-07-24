@@ -42,10 +42,6 @@ module Pbw
 		    	template "application.html.erb", "app/views/pbw/layouts/application.html.erb"
 		    end
 
-		    def pbw_config
-		    	template "pbw.rb", "config/initializers/pbw.rb"
-		    end
-
 		    def user_lifecycle
 		    	template "lifecycle.rb", "app/models/user/lifecycle.rb"
 		    end
