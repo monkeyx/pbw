@@ -4,6 +4,9 @@ module Pbw
 	module Generators
 		class InstallGenerator < Rails::Generators::Base
 			include Pbw::Generators::ResourceHelpers
+
+			source_root File.expand_path("../templates", __FILE__)
+
 			class_option :skip_git, :type => :boolean, :aliases => "-G", :default => false,
                               :desc => "Skip Git ignores and keeps"
 
