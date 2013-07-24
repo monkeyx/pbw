@@ -1,6 +1,6 @@
 Pbw::Engine.routes.draw do
 	devise_for :users, {
-	    class_name: Pbw::Engine.user_class.to_s,
+	    class_name: 'Pbw::User',
 	    controllers: { registrations: 'pbw/registrations', :sessions => 'pbw/sessions'},
 	    module: :devise
  	}
