@@ -67,17 +67,17 @@ module Pbw
 
 			def route_method(method_name, view)
 				method_params = case view
-				when 'index', 'new'
+				when 'Index', 'New'
 					''
-				when 'edit', 'show'
+				when 'Edit', 'Show'
 					"(id) "
 				end
 				view_js = case view
-				when 'index'
+				when 'Index'
 					"@view = new #{view_namespace}.#{view}View(#{plural_model_name}: @#{plural_model_name})"
-				when 'new'
+				when 'New'
 					"#{singular_model_name} = new @#{plural_model_name}.model()\n        @view = new #{view_namespace}.#{view}View(#{plural_model_name}: @#{plural_model_name}, model: #{singular_model_name})"
-				when 'edit', 'show'
+				when 'Edit', 'Show'
 					"#{singular_model_name} = new @#{plural_model_name}.get(id)\n        @view = new #{view_namespace}.#{view}View(#{plural_model_name}: @#{plural_model_name}, model: #{singular_model_name})"
 				end
 				"
