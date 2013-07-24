@@ -59,11 +59,11 @@ module Pbw
 			end
 
 			def route_entry(path, method_name)
-				"  \"#{path}\"\t:\t\"#{method_name}\"\n"
+				"    \"#{path}\"\t:\t\"#{method_name}\"\n"
 			end
 
 			def route_method(method_name, view)
-				"\n  #{method_name}: ->\n  @view = new #{view_namespace}.#{view}View\n$(\"#app\").html(@view.render().el)"
+				"\n  #{method_name}: ->\n    @view = new #{view_namespace}.#{view}View\n    $(\"#app\").html(@view.render().el)"
 			end
 		end
 	end

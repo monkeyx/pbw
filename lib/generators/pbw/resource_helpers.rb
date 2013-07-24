@@ -7,7 +7,7 @@ module Pbw
       end
       
       def js_model_namespace
-        [js_app_name, "Models", class_name].join(".")
+        [js_app_name, "Models", model_namespace, class_name].join(".")
       end
       
       def singular_model_name
@@ -19,7 +19,7 @@ module Pbw
       end
       
       def collection_namespace
-        [js_app_name, "Collections", plural_name.camelize].join(".")
+        [js_app_name, "Collections", model_namespace, plural_name.camelize].join(".")
       end
 
       def home_view_namespace
@@ -27,11 +27,11 @@ module Pbw
       end
       
       def view_namespace
-        [js_app_name, "Views", plural_name.camelize].join(".")
+        [js_app_name, "Views", model_namespace, plural_name.camelize].join(".")
       end
       
       def jst(action)
-        "templates/#{plural_name}/#{action}"
+        "templates/#{model_namespace.downcase}/#{plural_name}/#{action}"
       end
       
       def js_app_name
