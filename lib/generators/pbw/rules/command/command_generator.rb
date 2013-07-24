@@ -3,6 +3,7 @@ require 'generators/pbw/scaffold_generator'
 require 'generators/pbw/rules/rules'
 
 class Pbw::Rules::CommandGenerator < Pbw::Generators::ScaffoldGenerator
+	source_root File.expand_path("../../../templates", __FILE__)
 	class_option :create_process, :type => :boolean, :aliases => "-P", :default => false,
                               :desc => "Create process for command"
 	def create_process
