@@ -1,7 +1,7 @@
 module Pbw
   class Process < Rule
     has_many :triggers
-    has_and_belongs_to_many :attached_processes
+    has_many :attached_processes
     
     def self.viewable_by?(user, subject)
         user.admin?
