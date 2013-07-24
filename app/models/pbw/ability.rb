@@ -3,7 +3,7 @@ require 'cancan'
 class Ability
     include CanCan::Ability
 
-    MANAGED_CLASSES = [Area, Capability, Command, Constraint, Item, ItemContainer, ItemConversion, ItemTransfer, Process, Rule, Token, Trigger, User]
+    MANAGED_CLASSES = [Area, Capability, Command, Constraint, Item, ItemContainer, ItemConversion, Process, Rule, Token, Trigger, User]
     
     def initialize(user)
         user ||= User.new
