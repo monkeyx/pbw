@@ -1,4 +1,4 @@
-Pbw.setup do |config|
+Pbw::Engine.config do |config|
 	# User lifecycle class
 	# default is generated class from rails g pbw:install
 	# if you use another class it needs to implement the following:

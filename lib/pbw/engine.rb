@@ -41,8 +41,4 @@ module Pbw
       self.config.user_lifecycle_class || User::Lifecycle
     end
   end
-
-  def self.setup
-    yield Engine.config
-  end
 end
