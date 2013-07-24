@@ -26,8 +26,8 @@ module Pbw
 				if available_views.include?('index') # needs to be at the end
 					routes << "#{route_entry("#{plural_model_name}/.*","index#{model_namespace}#{plural_name.camelize}")}" 
 				end
-				inject_into_file router_file, :after => 'routes:' do
-					"\n#{routes.join('')}"
+				inject_into_file router_file, :after => "routes:\n" do
+					"#{routes.join('')}"
 				end 
 				inject_into_file router_file, :before => '  home: ->' do
 					"#{route_methods.join("\n\n")}\n"

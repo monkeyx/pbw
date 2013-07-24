@@ -3,6 +3,7 @@ class AppRouter extends Backbone.Router
     
 
   routes:
+
     ""    : "home"
     
 
