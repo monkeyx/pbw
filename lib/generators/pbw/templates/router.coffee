@@ -1,4 +1,4 @@
-class AppRouter extends Backbone.Router
+class <%= router_name %> extends Backbone.Router
   initialize: (options) ->
     
 

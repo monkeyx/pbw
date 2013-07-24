@@ -33,6 +33,10 @@ module Pbw
       def jst(action)
         "templates/#{model_namespace.downcase}/#{plural_name}/#{action}"
       end
+
+      def router_name
+        [js_app_name, "Routers", 'AppRouter'].join(".")
+      end
       
       def js_app_name
         application_name.camelize
