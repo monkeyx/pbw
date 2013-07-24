@@ -26,6 +26,9 @@ module Pbw
 				if available_views.include?('index') # needs to be at the end
 					routes << "#{route_entry("#{plural_model_name}/.*","index#{model_namespace}#{plural_name.camelize}")}" 
 				end
+				inject_into_file router_file, :after => 'initialize: (options) ->' do
+					"\n    @#{plural_model_name} = new #{collection_namespace}Collection\n"
+				end
 				inject_into_file router_file, :after => 'routes:' do
 					"\n#{routes.join('')}"
 				end 
@@ -63,8 +66,29 @@ module Pbw
 			end
 
 			def route_method(method_name, view)
-				"\n  #{method_name}: ->\n    @view = new #{view_namespace}.#{view}View\n    $(\"#app\").html(@view.render().el)"
-			end
+				method_params = case view
+				when 'index', 'new'
+					''
+				when 'edit', 'show'
+					"(id) "
+				end
+				view_js = case view
+				when 'index'
+					"@view = new #{view_namespace}.#{view}View(#{plural_model_name}: @#{plural_model_name})"
+				when 'new'
+					"#{singular_model_name} = new @#{plural_model_name}.model()\n        @view = new #{view_namespace}.#{view}View(#{plural_model_name}: @#{plural_model_name}, model: #{singular_model_name})"
+				when 'edit', 'show'
+					"#{singular_model_name} = new @#{plural_model_name}.get(id)\n        @view = new #{view_namespace}.#{view}View(#{plural_model_name}: @#{plural_model_name}, model: #{singular_model_name})"
+				end
+				"
+  #{method_name}: #{method_params}->
+    @#{plural_model_name}.fetch
+      success: (collection) =>
+        #{view_js}
+        $(\"#app\").html(@view.render().el)
+      error: (model, response) ->
+        window.console && console.log response
+"
 		end
 	end
 end

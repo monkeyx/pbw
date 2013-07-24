@@ -7,5 +7,5 @@ class AppRouter extends Backbone.Router
     
 
   home: ->
-    @view = new <%= "#{js_app_name}.Home.HomeView" %>
+    @view = new <%= "#{js_app_name}.Home.IndexView" %>
     $("#app").html(@view.render().el)

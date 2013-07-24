@@ -4,7 +4,7 @@ class <%= view_namespace %>.IndexView extends Backbone.View
   template: JST["<%= jst 'index' %>"]
 
   initialize: () ->
-    
+    @options.<%= plural_model_name %>.bind('reset', @addAll)
 
   addAll: () =>
     @options.<%= plural_model_name %>.each(@addOne)

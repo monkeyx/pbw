@@ -1,14 +1,15 @@
-<p>
-  <b>Name:</b>
-  <%%= name %>
-</p>
-
-<% attributes.each do |attribute| -%>
-<p>
-  <b><%= attribute.human_name %>:</b>
-  <%%= <%= attribute.name %> %>
-</p>
-
-<% end -%>
-
+<table id="<%= singular_name %>-table">
+	<tbody>
+		<tr>
+			<th>Name:</th>
+			<td><%%= name %></td>
+		</tr>
+		<% attributes.each do |attribute| -%>
+		<tr>
+		  <th><%= attribute.human_name %>:</th>
+		  <td><%%= <%= attribute.name %> %></td>
+		</tr>
+		<% end -%>
+	</tbody>
+</table>
 <a href="#/<%=model_namespace.downcase%>">Back</a>

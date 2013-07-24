@@ -21,7 +21,7 @@ module Pbw
 			end
 
 			def create_home_view
-				template "views/home.coffee", File.join(backbone_path, "views/home", "home_view.js.coffee")
+				template "views/home.coffee", File.join(backbone_path, "views/home", "index_view.js.coffee")
 				template "templates/home.jst", File.join(backbone_path, "templates/home", "index.jst.ejs") 
 			end
 
