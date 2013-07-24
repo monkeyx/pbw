@@ -89,6 +89,7 @@ module Pbw
       error: (model, response) ->
         window.console && console.log response
 "
+			end
 		end
 	end
 end
