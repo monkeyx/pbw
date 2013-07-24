@@ -15,6 +15,20 @@ module Pbw
 		        end
 		    end
 
+		    def create_router_file 
+				template 'router.coffee', File.join(backbone_path, "routers", "app_router.js.coffee")
+			end
+
+			def create_home_view
+				template "views/home.coffee", File.join(backbone_path, "views/home", "home_view.js.coffee")
+				template "templates/home.jst", File.join(backbone_path, "templates/home", "home.jst.ejs") 
+			end
+
+			def create_home_controller
+				template "index.erb", "app/views/home/index.html.erb"
+				generate "controller", "home index --skip"
+			end
+
 		    def create_dir_layout
 		        %W{routers models views templates}.each do |dir|
 		          empty_directory "app/assets/javascripts/#{dir}" 

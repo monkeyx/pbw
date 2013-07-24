@@ -21,13 +21,13 @@ module Pbw
       def collection_namespace
         [js_app_name, "Collections", plural_name.camelize].join(".")
       end
+
+      def home_view_namespace
+        [js_app_name, "Views", 'Home'].join(".")
+      end
       
       def view_namespace
         [js_app_name, "Views", plural_name.camelize].join(".")
-      end
-      
-      def router_namespace
-        [js_app_name, "Routers", plural_name.camelize].join(".")
       end
       
       def jst(action)
