@@ -27,7 +27,6 @@ The install generator will create:
 * Configuration file for mongoid in config directory
 * Mount route for the pbw engine at "/pbw"
 * Devise view templates in app/views/devise
-* Application layout for the Pbw engine in app/views/pbw/layouts
 * User::Lifecycle class for hooking in behaviour around users
 
 ## Generators

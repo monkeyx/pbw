@@ -5,6 +5,8 @@ module Pbw
 		class ModelGenerator < Rails::Generators::NamedBase
 			include Pbw::Generators::ResourceHelpers
 
+			source_root File.expand_path("../templates", __FILE__)
+
 			argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
 
 			def create_backbone_model
