@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pbw (0.0.6)
+    pbw (0.0.7)
       cancan (~> 1.6.10)
       coffee-script (~> 2.2.0)
       devise (~> 2.2.4)
