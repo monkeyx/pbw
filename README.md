@@ -109,7 +109,6 @@ The capability generator will create:
 
 * A model inheriting from Pbw::Capability 
 * A controller with an index method for your capability plus index.html.erb template calling Backbone
-* Backbone scaffold for your capability class
 
 #### Command
 
@@ -117,7 +116,7 @@ Commands are classes of orders given to tokens by users that schedule a process 
 
     rails g pbw:rules:command [Class] [parameters]
 
-If the parameter "process" is set to true, this generator will call the Process generator to create the relevant process as well.
+If the parameter "-P" is passed, this generator will call the Process generator to create the relevant process as well.
 
 Example:
 
@@ -144,7 +143,6 @@ The constraint generator will create:
 
 * A model inheriting from Pbw::Constraint 
 * A controller with an index method for your constraint plus index.html.erb template calling Backbone
-* Backbone scaffold for your constraint class
 
 #### Process
 
@@ -164,7 +162,6 @@ The constraint generator will create:
 
 * A model inheriting from Pbw::Process 
 * A controller with an index method for your process plus index.html.erb template calling Backbone
-* Backbone scaffold for your process class
 
 #### Trigger
 
@@ -182,7 +179,6 @@ The constraint generator will create:
 
 * A model inheriting from Pbw::Trigger 
 * A controller with an index method for your trigger plus index.html.erb template calling Backbone
-* Backbone scaffold for your trigger class
 
 ## Authentication and Authorisation
 
