@@ -13,11 +13,11 @@ class Pbw::Rules::CommandGenerator < Pbw::Generators::ModelGenerator
 
 	def create_view_files
 		available_views.each do |view|
-			template "views/#{view}_view.coffee", File.join(backbone_path, "views", plural_name, "#{view}_view.js.coffee")
-			template "templates/#{view}.jst", File.join(backbone_path, "templates", plural_name, "#{view}.jst.ejs")  
+			template "views/#{view}_view.coffee", File.join(backbone_path, "views/commands", plural_name, "#{view}_view.js.coffee")
+			template "templates/#{view}.jst", File.join(backbone_path, "templates/commands", plural_name, "#{view}.jst.ejs")  
 		end
-		template "views/model_view.coffee", File.join(backbone_path, "views", plural_name, "#{singular_name}_view.js.coffee")
-		template "templates/model.jst", File.join(backbone_path, "templates", plural_name, "#{singular_name}.jst.ejs") 
+		template "views/model_view.coffee", File.join(backbone_path, "views/commands", plural_name, "#{singular_name}_view.js.coffee")
+		template "templates/model.jst", File.join(backbone_path, "templates/commands", plural_name, "#{singular_name}.jst.ejs") 
 	end
 
 	protected

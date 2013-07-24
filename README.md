@@ -40,7 +40,7 @@ They may contain Tokens and Items. They may also have Contraints and Triggers.
 
 The base Pbw::Area model contains the attribute "name" by default. Additional attributes can be defined for your specific models.
 
-    rails g pbw:areas [Class] [additional attributes]
+    rails g pbw:area [Class] [additional attributes]
 
 Example:
 
