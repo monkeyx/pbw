@@ -1,8 +1,12 @@
 module Pbw
   class Command < Rule
-    has_and_belongs_to_many :processes
     belongs_to :token
     belongs_to :user
+
+    before_validation :validate_token_and_user
+    
+    field :ticks_waiting, :type => Integer, :default => 0
+    field :updates_waiting, :type => Integer, :default => 0
 
     def self.viewable_by?(user, subject)
         user.admin? || subject.user == user
@@ -30,12 +34,58 @@ module Pbw
         false
     end
 
-    def preprocess
+    def runs_on_ticks?
         # stub method
+        false
     end
 
-    def postprocess
+    def runs_on_updates?
         # stub method
+        false
+    end
+
+    def processes
+        # stub method
+        []
+    end
+
+    def run_processes!
+        procs = processes
+        return if procs.nil?
+        if procs.responds_to?(:each)
+            procs.each do |process|
+                process.run!(self.token)
+            end
+        elsif procs.ancestors.include?(Process)
+            process.run!(self.token)
+        else
+            raise "Invalid return method from #{self.class.name}.processes"
+        end
+    end
+
+    def validate_token_and_user
+        errors.add(:token, 'Invalid token') unless valid_for_token?(self.token)
+        errors.add(:user, 'Invalid user') unless valid_for_user?(self.user)
+    end
+
+    def tick!
+        return unless runs_on_ticks?
+        unless self.ticks_waiting > 0
+            run_processes!
+        else
+            self.ticks_waiting = self.ticks_waiting - 1
+            save!
+        end
+    end
+
+    def update!
+        return unless runs_on_updates?
+        unless self.updates_waiting > 0
+            run_processes!
+        else
+            self.updates_waiting = self.updates_waiting - 1
+            save!
+        end
     end
   end
 end

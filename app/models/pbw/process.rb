@@ -2,15 +2,12 @@ module Pbw
   class Process < Rule
     has_many :triggers
     
-    field :run_tick, :type => Boolean
-    field :run_update, :type => Boolean
-
     def self.viewable_by?(user, subject)
         user.admin?
     end
 
     def self.creatable_by?(user, subject)
-        user.admin?
+        true
     end
 
     def self.editable_by?(user, subject)
@@ -32,7 +29,7 @@ module Pbw
 
     def changeset(token_or_area)
     	# stub method
-    	raise "Not implemented"
+    	Pbw::Changeset.new
     end
 
     def execute_changeset!(&changeset)
@@ -55,11 +52,6 @@ module Pbw
     	execute_changeset!(changes)
     	token_or_area.check_triggers!
     	after_triggers(token_or_area)
-    end
-
-    def schedule!(token_or_area)
-    	# TODO
-    	raise "Not implemented"
     end
   end
 end
