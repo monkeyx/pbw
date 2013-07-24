@@ -7,7 +7,6 @@ module Pbw
     validates_uniqueness_of :name
 
     has_many :item_containers
-    has_many :item_transfers
     has_many :item_conversions
     
     attr_accessible :name
