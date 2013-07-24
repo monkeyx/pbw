@@ -30,7 +30,7 @@ module Pbw
 					"\n#{routes.join('')}"
 				end 
 				inject_into_file router_file, :before => '  home: ->' do
-					"#{route_methods.join("\n\n")}\n"
+					"#{route_methods.join("\n\n")}\n\n"
 				end
 			end
 
