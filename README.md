@@ -26,6 +26,7 @@ The install generator will create:
 * Backbone assets and directory layout in your app/assets/javascript directory
 * Configuration file for mongoid in config directory
 * Mount route for the pbw engine at "/pbw"
+* Home controller and index.erb containing javascript to initialize the Backbone router
 * Devise view templates in app/views/devise
 * User::Lifecycle class for hooking in behaviour around users
 
@@ -48,7 +49,6 @@ Example:
 The areas generator will create:
 
 * A model inheriting from Pbw::Area 
-* A controller with an index method for your area plus index.html.erb template calling Backbone
 * Backbone scaffold for your area class
 
 ### Items
@@ -68,7 +68,6 @@ Example:
 The areas generator will create:
 
 * A model inheriting from Pbw::Item 
-* A controller with an index method for your area plus index.html.erb template calling Backbone
 * Backbone scaffold for your item class
 
 ### Tokens
@@ -88,7 +87,6 @@ Example:
 The tokens generator will create:
 
 * A model inheriting from Pbw::Token 
-* A controller with an index method for your token plus index.html.erb template calling Backbone
 * Backbone scaffold for your token class
 
 ### Rules
@@ -108,7 +106,6 @@ Example:
 The capability generator will create:
 
 * A model inheriting from Pbw::Capability 
-* A controller with an index method for your capability plus index.html.erb template calling Backbone
 
 #### Command
 
@@ -142,7 +139,6 @@ Example:
 The constraint generator will create:
 
 * A model inheriting from Pbw::Constraint 
-* A controller with an index method for your constraint plus index.html.erb template calling Backbone
 
 #### Process
 
@@ -161,7 +157,6 @@ Example:
 The constraint generator will create:
 
 * A model inheriting from Pbw::Process 
-* A controller with an index method for your process plus index.html.erb template calling Backbone
 
 #### Trigger
 
@@ -178,7 +173,6 @@ Example:
 The constraint generator will create:
 
 * A model inheriting from Pbw::Trigger 
-* A controller with an index method for your trigger plus index.html.erb template calling Backbone
 
 ## Authentication and Authorisation
 
