@@ -1,5 +1,5 @@
 module Pbw
-  class AttachedProcess < Rule
+  class AttachedProcess
   	belongs_to :token
   	belongs_to :area
   	belongs_to :process
