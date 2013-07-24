@@ -1,5 +1,7 @@
 <% attributes.each do |attribute| -%>
+<% unless attribute.name == 'process' %>
 <td><%%= <%= attribute.name %> %></td>
+<% end %>
 <% end -%>
 
 <td><a href="#/<%%= _id %>">Show</td>

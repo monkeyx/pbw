@@ -2,11 +2,12 @@
 
 <form id="new-<%= singular_table_name %>" name="<%= singular_table_name %>">
 <% attributes.each do |attribute| -%>
+<% unless attribute.name == 'process' %>
   <div class="field">
     <label for="<%= attribute.name %>"> <%= attribute.human_name %>:</label>
     <input type="text" name="<%= attribute.name %>" id="<%= attribute.name %>" value="<%%= <%= attribute.name %> %>" >
   </div>
-
+<% end %>
 <% end -%>
   <div class="actions">
     <input type="submit" value="Create <%= human_name %>" />

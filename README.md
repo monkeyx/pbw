@@ -118,9 +118,11 @@ Commands are classes of orders given to tokens by users that schedule a process 
 
     rails g pbw:rules:command [Class] [parameters]
 
+If the parameter "process" is set to true, this generator will call the Process generator to create the relevant process as well.
+
 Example:
 
-    rails g pbw:rules:command MoveCommand area:string
+    rails g pbw:rules:command MoveCommand process:true area:string
 
 The command generator will create:
 
