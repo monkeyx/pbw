@@ -83,7 +83,7 @@ module Pbw
     		container = find_or_create_for_area(to, self.item, quantity)
     	elsif to.class.ancestors.include?(Token)
     		container = find_or_create_for_token(to, self.item, quantity)
-    	elsif to.class.ancestors.include?(User)
+    	elsif to.class.ancestors.include?(Pbw::Engine.user_class)
     		container = find_or_create_for_user(to, self.item, quantity)
     	else
     		return false
