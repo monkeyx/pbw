@@ -10,6 +10,7 @@ module Pbw
     has_many :item_containers
     has_and_belongs_to_many :constraints
     has_and_belongs_to_many :triggers
+    has_and_belongs_to_many :attached_processes
 
     attr_accessible :name
 
@@ -63,6 +64,14 @@ module Pbw
 
     def after_remove_item(item, quantity)
         # stub method
+    end
+
+    def attach_tick_process(process, ticks_to_wait=0)
+        AttachedProcess.create(area: self, process: process, tickable: true, ticks_waiting: ticks_to_wait)
+    end
+
+    def attach_update_process(process, updates_to_wait=0)
+        AttachedProcess.create(area: self, process: process, updatable: true, updates_waiting: updates_to_wait)
     end
 
     def count_item(item)

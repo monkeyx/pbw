@@ -46,12 +46,27 @@ module Pbw
       self.role == "superadmin"
     end
 
+    def make_superadmin!
+        self.role = "superadmin"
+        save!
+    end
+
     def admin?
         self.role == "admin"
     end
 
+    def make_admin!
+        self.role = "admin"
+        save!
+    end
+
     def moderator?
         self.role == "moderator"
+    end
+
+    def make_moderator!
+        self.role = "moderator"
+        save!
     end
 
     def player?

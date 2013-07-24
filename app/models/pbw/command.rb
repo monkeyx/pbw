@@ -5,8 +5,15 @@ module Pbw
 
     before_validation :validate_token_and_user
     
+    field :tickable, :type => Boolean, :default => false
+    field :updatable, :type => Boolean, :default => false
     field :ticks_waiting, :type => Integer, :default => 0
     field :updates_waiting, :type => Integer, :default => 0
+
+    before_save :set_tickable_and_updatable    
+
+    scope :tickable, where(tickable: true)
+    scope :updatable, where(updatable: true)
 
     def self.viewable_by?(user, subject)
         user.admin? || subject.user == user
@@ -49,6 +56,11 @@ module Pbw
         []
     end
 
+    def set_tickable_and_updatable
+        self.tickable = runs_on_ticks?
+        self.updatable = runs_on_updates?
+    end
+
     def run_processes!
         procs = processes
         return if procs.nil?
@@ -69,9 +81,10 @@ module Pbw
     end
 
     def tick!
-        return unless runs_on_ticks?
+        return unless self.tickable
         unless self.ticks_waiting > 0
             run_processes!
+            destroy
         else
             self.ticks_waiting = self.ticks_waiting - 1
             save!
@@ -79,9 +92,10 @@ module Pbw
     end
 
     def update!
-        return unless runs_on_updates?
+        return unless self.updatable
         unless self.updates_waiting > 0
             run_processes!
+            destroy
         else
             self.updates_waiting = self.updates_waiting - 1
             save!
