@@ -1,4 +1,4 @@
-# Pbw
+# Pbw [![Gem Version](https://badge.fury.io/rb/pbw.png)](http://badge.fury.io/rb/pbw)
 
 Play By Web Engine for Rails. This project is in early development. See [Wiki](https://github.com/monkeyx/pbw/wiki) for more information.
 
