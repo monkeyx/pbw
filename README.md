@@ -186,5 +186,25 @@ The constraint generator will create:
 
 Pbw uses Devise for authentication mounted within the Pbw engine itself.
 
-It uses CanCan for authorisation with dynamic roles and permissions associated with models.
+It uses CanCan for authorisation with four types roles associated with the Pbw::User. Default permission checking at the class level is provided which can be overriden for bespoke behaviour.
+
+Example Token permission methods:
+
+    def self.viewable_by?(user, subject)
+        user.admin? || subject.user == user
+    end
+
+    def self.creatable_by?(user, subject)
+        true
+    end
+
+    def self.editable_by?(user, subject)
+        user.admin? || subject.user == user
+    end
+
+    def self.deletable_by?(user, subject)
+        user.admin? || subject.user == user
+    end 
+
+A subclass would provide their own class methods that will be used in preference to the base methods of the Pbw::Token class. This is true of all managed class types.
 
