@@ -4,6 +4,7 @@ module Pbw
 
 		def create
 			self.resource = User.new(params[:user])
+			logger.error "Password confirmed? #{params[:user][:password] == params[:user][:password_confirmation]}"
 			if resource.save
 				if resource.active_for_authentication?
 					Pbw::Engine.user_lifecycle_class.after_signup(current_user)
