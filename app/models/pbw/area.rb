@@ -6,11 +6,11 @@ module Pbw
     validates_presence_of :name
     validates_uniqueness_of :name
 
-    has_many :tokens
-    has_many :item_containers
-    has_many :attached_processes
-    has_and_belongs_to_many :constraints
-    has_and_belongs_to_many :triggers
+    has_many :tokens, :class_name => 'Pbw::Token'
+    has_many :item_containers, :class_name => 'Pbw::ItemContainer'
+    has_many :attached_processes, :class_name => 'Pbw::AttachedProcess'
+    has_and_belongs_to_many :constraints, :class_name => 'Pbw::Constraint'
+    has_and_belongs_to_many :triggers, :class_name => 'Pbw::Trigger'
     
     attr_accessible :name
 

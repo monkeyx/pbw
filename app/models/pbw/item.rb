@@ -6,8 +6,8 @@ module Pbw
     validates_presence_of :name
     validates_uniqueness_of :name
 
-    has_many :item_containers
-    has_many :item_conversions
+    has_many :item_containers, :class_name => 'Pbw::ItemContainer'
+    has_many :item_conversions, :class_name => 'Pbw::ItemConversion'
     
     attr_accessible :name
 

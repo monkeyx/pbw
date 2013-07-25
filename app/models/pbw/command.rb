@@ -1,7 +1,7 @@
 module Pbw
   class Command < Rule
-    belongs_to :token
-    belongs_to :user
+    belongs_to :token, :class_name => 'Pbw::Token'
+    belongs_to :user, :class_name => 'Pbw::User'
 
     before_validation :validate_token_and_user
     

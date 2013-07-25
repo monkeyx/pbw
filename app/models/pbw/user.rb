@@ -39,8 +39,8 @@ module Pbw
     field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
     field :locked_at,       :type => Time
 
-    has_many :item_containers
-    has_many :tokens
+    has_many :item_containers, :class_name => 'Pbw::ItemContainer'
+    has_many :tokens, :class_name => 'Pbw::Token'
 
     def superadmin?
       self.role == "superadmin"
