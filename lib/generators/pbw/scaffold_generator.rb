@@ -77,11 +77,12 @@ module Pbw
 				"
   #{method_name}: #{method_params}->
     @#{plural_model_name}.fetch
-      success: (collection) =>
+      reset: true
+      success: (collection, response, options) =>
         #{view_js}
         $(\"#app\").html(@view.render().el)
-      error: (model, response) ->
-        window.console && console.log response
+      error: (collection, response, options) ->
+        debug response
 "
 			end
 		end
