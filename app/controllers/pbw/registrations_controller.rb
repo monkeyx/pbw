@@ -4,7 +4,7 @@ module Pbw
 
 		def create
 			build_resource(params[:user])
-			logger.info resource.to_json 
+			logger.error resource.to_json 
 			if resource.save
 				if resource.active_for_authentication?
 					Pbw::Engine.user_lifecycle_class.after_signup(current_user)
@@ -15,7 +15,7 @@ module Pbw
 					head :no_content
 				end
 			else
-				logger.error "Unable to save resource"
+				logger.error "Unable to save resource:\n #{resource.errors.full_messages}"
 				clean_up_passwords resource
 				render json: resource.errors.full_messages, status: :unprocessable_entity
 			end
