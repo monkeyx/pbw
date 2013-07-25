@@ -47,7 +47,7 @@ module Pbw
       end
 
       def user_jst(action)
-        "templates/users/#{plural_name}/#{action}"
+        "templates/users/#{action}"
       end
 
       def router_name
