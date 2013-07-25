@@ -22,6 +22,7 @@ class <%= user_view_namespace %>.LoginView extends Backbone.View
 
     @model.save(@model.attributes,
       success: (user) =>
+        window.console && console.log user
         @model = user
         window.<%= js_app_name %>.User = @model
         window.location.hash = "/"
