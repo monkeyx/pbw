@@ -26,7 +26,7 @@ module Pbw
 	  		if @models && !@models.empty?
 				render json: @models
 			else
-				render status: :unprocessable_entity
+				render json: 'No results', status: :unprocessable_entity
 			end
 		end
 
