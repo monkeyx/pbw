@@ -29,7 +29,7 @@ module Pbw
 				template "index.erb", "app/views/home/index.html.erb"
 				generate "controller", "home index --skip"
 				inject_into_file "app/controllers/home_controller.rb", :before => "def index" do
-					"layout: '#{application_name.underscore}'\n  "
+					"layout '#{application_name.underscore}'\n  "
 				end
 				gsub_file "config/routes.rb", "get \"home/index\"", "root :to => \"home#index\""
 			end
