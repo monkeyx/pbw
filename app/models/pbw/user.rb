@@ -80,7 +80,7 @@ module Pbw
     end
 
     def reset_password!
-        token = Devise.friendly_token
+        token = User.friendly_token
         self.password = token
         self.password_confirmation = token
         save!
@@ -105,6 +105,10 @@ module Pbw
 
     def self.deletable_by?(user, subject)
         user.admin?
+    end
+
+    def self.friendly_token
+      SecureRandom.base64(15).tr('+/=lIO0', 'pqrsxyz')
     end
   end
 end
