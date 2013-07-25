@@ -54,7 +54,7 @@ module Pbw
 		    	template "user.coffee", "app/assets/javascripts/models/user.js.coffee"
 		    	template "user_recovery.coffee", "app/assets/javascripts/models/user_recovery.js.coffee"
 		    	template "user_session.coffee", "app/assets/javascripts/models/user_session.js.coffee"
-		    	template "views/login_view.coffee", "app/assets/javascripts/views/users/ogin_view.js.coffee"
+		    	template "views/login_view.coffee", "app/assets/javascripts/views/users/login_view.js.coffee"
 		    	template "views/recovery_view.coffee", "app/assets/javascripts/views/users/recovery_view.js.coffee"
 		    	template "views/signup_view.coffee", "app/assets/javascripts/views/users/signup_view.js.coffee"
 		    	template "templates/login.jst", "app/assets/javascripts/templates/users/login.jst.ejs"
