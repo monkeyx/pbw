@@ -7,7 +7,7 @@
 Backbone.Model.prototype.idAttribute = "_id";
 
 window.<%= js_app_name %> =
-  Models: {}
-  Collections: {}
+  Models: {Areas: {}, Items: {}, Commands: {}, Tokens: {}}
+  Collections: {Areas: {}, Items: {}, Commands: {}, Tokens: {}}
   Routers: {}
-  Views: {}
+  Views: {Areas: {}, Items: {}, Commands: {}, Tokens: {}}

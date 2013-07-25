@@ -46,18 +46,6 @@ module Pbw
 				template "templates/model.jst", File.join(backbone_path, "templates/#{model_namespace.downcase}", plural_name, "#{singular_name}.jst.ejs") 
 			end
 
-			def create_resources
-				generate "model", "#{model_namespace}::#{class_name} #{attributes.map{|attr| "#{attr.name}:#{attr.type}"}.join(' ')}"
-				gsub_file "app/models/#{model_namespace.downcase}/#{file_name}.rb", "class #{model_namespace}::#{class_name}", "class #{model_namespace}::#{class_name} < #{base_model_class}"
-				gsub_file "app/models/#{model_namespace.downcase}/#{file_name}.rb", "include Mongoid::Document", ""
-			end
-
-			def append_app_file
-				inject_into_file "app/assets/javascripts/#{application_name.underscore}.js.coffee", :after => "Views: {}" do
-					"\nwindow.#{js_app_name}.Models.#{model_namespace} = {}\nwindow.#{js_app_name}.Collections.#{model_namespace} = {}\nwindow.#{js_app_name}.Views.#{model_namespace} = {}\n"
-				end
-			end
-
 			protected
 			def available_views
 				%w(index show new edit)
