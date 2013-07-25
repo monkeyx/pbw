@@ -26,6 +26,7 @@ The install generator will create:
 * Backbone assets and directory layout in your app/assets/javascript directory
 * Configuration file for mongoid in config directory
 * Mount route for the pbw engine at "/pbw"
+* A layout file set up for use with Backbone
 * Home controller and index.erb containing javascript to initialize the Backbone router
 * Backbone model, view and templates for User signup, login / logout and password recovery
 * User::Lifecycle class for hooking in behaviour around users

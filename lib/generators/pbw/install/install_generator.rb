@@ -28,6 +28,9 @@ module Pbw
 			def create_home_controller
 				template "index.erb", "app/views/home/index.html.erb"
 				generate "controller", "home index --skip"
+				inject_into_file "app/controllers/home_controller.rb", :before => "def index" do
+					"layout: '#{application_name.underscore}'\n  "
+				end
 				gsub_file "config/routes.rb", "get \"home/index\"", "root :to => \"home#index\""
 			end
 
@@ -68,6 +71,10 @@ module Pbw
 
 		    def create_helper_javascript
 		    	template "pbw.coffee", "app/assets/javascripts/helpers/pbw.js.coffee"
+		    end
+
+		    def create_application_layout
+		    	template "application.erb", "app/views/layouts/#{application_name.underscore}.html.erb"
 		    end
 		end
 	end
