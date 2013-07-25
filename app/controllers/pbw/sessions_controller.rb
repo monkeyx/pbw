@@ -8,5 +8,9 @@ module Pbw
 			::User::Lifecycle.after_login(current_user)
 			respond json: current_user.to_json, status: :ok
 		end
+
+		def after_sign_out_path_for(resource_name)
+			"/"
+		end
 	end
 end
