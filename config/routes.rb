@@ -1,6 +1,7 @@
 Pbw::Engine.routes.draw do
 	devise_for :users, {
 	    class_name: 'Pbw::User',
+	    controllers: { registrations: 'pbw/registrations', :sessions => 'pbw/sessions', :passwords => 'pbw/passwords'},
 	    module: :devise
  	}
  	%W{areas commands items tokens}.each do |controller|

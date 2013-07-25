@@ -8,7 +8,7 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-    @model = new <%= js_user_model_namespace %>
+    @model = new <%= js_user_model_namespace %>Registration
 
     @model.bind("change:errors", () =>
       this.render()

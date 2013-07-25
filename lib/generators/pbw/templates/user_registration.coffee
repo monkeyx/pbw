@@ -1,4 +1,4 @@
-class <%= js_user_model_namespace %> extends Backbone.Model
+class <%= js_user_model_namespace %>Registration extends Backbone.Model
   paramRoot: 'user'
   url: '/pbw/users.json'
 

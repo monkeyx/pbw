@@ -1,0 +1,7 @@
+en:
+  pbw:
+     users:
+       registration: 
+         subject: "Account registered"
+       password_reset:
+         subject: "Password reset"

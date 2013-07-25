@@ -23,62 +23,42 @@ module Pbw
 
 		def index
 	  		session[:referrer] = request.url
-			respond_with(@models) do |format|
-				format.json { render json: @models }
-			end
+			render json: @models
 		end
 
 		def show
-			respond_with(@model) do |format|
-				format.json { render json: @model }
-			end
+			render json: @model
 		end
 
 		def edit
-			respond_with(@model) do |format|
-				format.json { render json: @model }
-			end
+			render json: @model
 		end
 
 		def new
-			respond_with(@model) do |format|
-				format.json { render json: @model }
-			end
+			render json: @model
 		end
 
 		def create
 			if @model.save
-				respond_with(@model) do |format|
-					format.json { render json: @model }
-				end
+				render json: @model
 			else
-				respond_with(@model) do |format|
-					format.json { render json: @model.errors.full_messages, status: :unprocessable_entity}
-				end
+				render json: @model.errors.full_messages, status: :unprocessable_entity
 			end
 		end
 
 		def update
 			if @model.update_attributes(params[model_param])
-				respond_with(@model) do |format|
-					format.json { render json: @model }
-				end
+				render json: @model
 			else
-				respond_with(@model) do |format|
-					format.json { render json: @model.errors.full_messages, status: :unprocessable_entity}
-				end
+				render json: @model.errors.full_messages, status: :unprocessable_entity
 			end
 		end
 
 		def destroy
 			if @model.destroy
-				respond_with(@model) do |format|
-					format.json { head :no_content }
-				end
+				head :no_content
 			else
-				respond_with(@model) do |format|
-					format.json { render json: @model.errors.full_messages, status: :unprocessable_entity}
-				end
+				render json: @model.errors.full_messages, status: :unprocessable_entity
 			end
 		end
 

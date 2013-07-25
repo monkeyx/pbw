@@ -54,7 +54,7 @@ module Pbw
 		    end
 
 		    def create_user_backbone
-		    	template "user.coffee", "app/assets/javascripts/models/user.js.coffee"
+		    	template "user_registration.coffee", "app/assets/javascripts/models/user_registration.js.coffee"
 		    	template "user_recovery.coffee", "app/assets/javascripts/models/user_recovery.js.coffee"
 		    	template "user_session.coffee", "app/assets/javascripts/models/user_session.js.coffee"
 		    	template "views/login_view.coffee", "app/assets/javascripts/views/users/login_view.js.coffee"

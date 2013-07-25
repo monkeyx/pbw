@@ -73,6 +73,22 @@ module Pbw
         self.role == "player"
     end
 
+    def send_registration_email
+        UserMailer.registration(self.id).deliver
+    end
+
+    def reset_password!
+        token = Devise.friendly_token
+        self.password = token
+        self.password_confirmation = token
+        save!
+        send_password_email(token)
+    end
+
+    def send_password_email(password)
+        UserMailer.password_reset(self.id,password).deliver
+    end
+
     def self.viewable_by?(user, subject)
         true
     end
