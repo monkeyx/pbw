@@ -1,6 +1,6 @@
 <nav>
 	<ul>
-		<%% if(current_user) { %>
+		<%% if(current_user()) { %>
 		<li><a href="/pbw/users/sign_out" data-method="delete">Sign out</a></li>
 		<%% } else { %>
 		<li><a href="#/signup">Sign up</a></li>
