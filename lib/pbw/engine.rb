@@ -22,6 +22,9 @@ module Pbw
       g.javascript_engine :coffee
     end
 
+    config.email_from_address = 'superadmin@localhost'
+    config.user_lifecycle_class = ::User::Lifecycle
+
     initializer "check config" do |app|
     	config.mount_at += '/'  unless config.mount_at.last == '/'
     end

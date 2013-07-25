@@ -6,7 +6,7 @@ module Pbw
 			self.resource = User.new(params[:user])
 			logger.error "Password confirmed? #{params[:user][:password] == params[:user][:password_confirmation]}"
 			if resource.save && resource.send_registration_email
-				::User::Lifecycle.after_signup(resource)
+				Pbw.user_lifecycle_class.after_signup(resource)
 				render json: resource
 			else
 				render json: resource.errors.full_messages.to_json, status: :unprocessable_entity
