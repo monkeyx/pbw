@@ -21,12 +21,12 @@ class <%= user_view_namespace %>.RecoveryView extends Backbone.View
     @model.unset("errors")
 
     @model.save(@model.attributes,
-      success: (user_recovery) =>
+      success: (user_recovery, response, options) =>
         @model = user_recovery
         window.location.hash = "/"
 
-      error: (model, jqXHR) =>
-        form_errors 'There was a problem recovering your password', jqXHR
+      error: (model, xhr, options) =>
+        form_errors 'There was a problem recovering your password', xhr
     )
 
   render: ->

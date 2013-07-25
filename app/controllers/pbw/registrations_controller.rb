@@ -16,7 +16,7 @@ module Pbw
 			else
 				logger.error "Unable to save resource:\n #{resource.errors.full_messages}"
 				clean_up_passwords resource
-				render json: {errors: resource.errors.full_messages}, status: :unprocessable_entity
+				render json: resource.errors.full_messages.to_json, status: :unprocessable_entity
 			end
 		end
 	end

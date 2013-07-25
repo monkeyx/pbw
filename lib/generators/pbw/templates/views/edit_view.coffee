@@ -11,11 +11,11 @@ class <%= view_namespace %>.EditView extends Backbone.View
     e.stopPropagation()
 
     @model.save(null,
-      success: (<%= singular_name %>) =>
+      success: (<%= singular_name %>, response, options) =>
         @model = <%= singular_name %>
         window.location.hash = "/<%=model_namespace.downcase%>/#{@model.id}"
-      error: (model, jqXHR) =>
-        form_errors 'There was a problem saving <%= singular_name %>', jqXHR
+      error: (model, xhr, options) =>
+        form_errors 'There was a problem saving <%= singular_name %>', xhr
     )
 
   render: ->

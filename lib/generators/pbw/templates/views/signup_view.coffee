@@ -21,14 +21,13 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
     @model.unset("errors")
 
     @model.save(@model.attributes,
-      success: (user) =>
-        window.console && console.log user
+      success: (user, response, options) =>
         @model = user
         window.<%= js_app_name %>.User = @model
         window.location.hash = "/"
 
-      error: (model, jqXHR) =>
-        form_errors 'There was a problem signing up', jqXHR
+      error: (model, xhr, options) =>
+        form_errors 'There was a problem signing up', xhr
     )
 
   render: ->
