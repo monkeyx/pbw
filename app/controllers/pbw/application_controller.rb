@@ -18,6 +18,7 @@ module Pbw
 
 	  # Devise override
 	  def after_sign_in_path_for(resource) 
+	  	Pbw::Engine.user_lifecycle_class.after_signup(current_user)
 	    render json: resource
 	  end
 
