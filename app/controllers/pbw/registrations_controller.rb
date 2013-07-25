@@ -19,5 +19,9 @@ module Pbw
 				render json: resource.errors.full_messages, status: :unprocessable_entity
 			end
 		end
+
+		def sign_up_params
+		    devise_parameter_sanitizer.for(:user)
+		end
 	end
 end
