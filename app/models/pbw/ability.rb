@@ -1,4 +1,5 @@
-class Ability
+module Pbw
+  class Ability
     include CanCan::Ability
 
     MANAGED_CLASSES = [Area, Capability, Command, Constraint, Item, ItemContainer, ItemConversion, Process, Rule, Token, Trigger, User]
@@ -32,4 +33,5 @@ class Ability
           return klass if subject_class.ancestors.include?(klass)
         end
     end
+  end
 end
