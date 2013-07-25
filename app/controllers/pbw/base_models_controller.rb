@@ -1,5 +1,5 @@
 module Pbw
-	class BaseModelsController < ApplicationController
+	class BaseModelsController < BaseController
 		attr_accessor :model_class
 
 		before_filter :authenticate_user!

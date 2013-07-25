@@ -1,5 +1,5 @@
 module Pbw
-  class ApplicationController < ActionController::Base
+  class BaseController < ActionController::Base
   	  respond_to :json
   	  
   	  rescue_from ::CanCan::AccessDenied do |exception|
@@ -9,8 +9,6 @@ module Pbw
 	  rescue_from Mongoid::Errors::DocumentNotFound do |exception|
 	  	render json: {:error => exception.message}, status: 404
 	  end
-
-	  protected
 
 	  def current_ability
 	    @current_ability ||= Ability.new(current_user)
