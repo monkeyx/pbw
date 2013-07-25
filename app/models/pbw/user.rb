@@ -39,7 +39,7 @@ module Pbw
     has_many :tokens, :class_name => 'Pbw::Token'
 
     validates :name, presence: true
-    validates :password, confirmation: true
+    validates :password, confirmation: true, length: {minimum: 8}
     validates :email, uniqueness: {case_sensitive: false}, format: {with: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/}
     
     attr_accessible :email, :name, :password, :password_confirmation
