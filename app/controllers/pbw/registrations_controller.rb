@@ -3,7 +3,7 @@ module Pbw
 		respond_to :json
 
 		def create
-			build_resource(sign_up_params)
+			build_resource(params[:user])
 
 			if resource.save
 				if resource.active_for_authentication?
@@ -18,10 +18,6 @@ module Pbw
 				clean_up_passwords resource
 				render json: resource.errors.full_messages, status: :unprocessable_entity
 			end
-		end
-
-		def sign_up_params
-		    devise_parameter_sanitizer.for(:user)
 		end
 	end
 end
