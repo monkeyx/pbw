@@ -28,12 +28,7 @@ class <%= user_view_namespace %>.LoginView extends Backbone.View
         window.location.hash = "/"
 
       error: (model, jqXHR) =>
-        $("#error").html('<h2>There was a problem registering</h2><ul>')
-        _.each($.parseJSON(jqXHR.responseText), (value,key) ->
-          $("#error").append('<li>' + value + '</li>')
-        )
-        $("#error").append('</ul>')
-        $("#error").show()
+        form_errors 'There was a problem logging in', jqXHR
     )
 
   render: ->
