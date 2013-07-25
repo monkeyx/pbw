@@ -3,7 +3,7 @@ Pbw::Engine.routes.draw do
 	    class_name: 'Pbw::User',
 	    module: :devise
  	}
- 	%W{areas capabilities constraints processes items tokens triggers commands}.each do |controller|
+ 	%W{areas commands items tokens}.each do |controller|
  		get "#{controller}/:_type" => "#{controller}\#index"
  		get "#{controller}/:_type/:id" => "#{controller}\#show"
  		post "#{controller}/:_type" => "#{controller}\#create"
@@ -15,6 +15,4 @@ Pbw::Engine.routes.draw do
  	
  	resources :item_containers
  	resources :item_conversions
- 	resources :item_transfers
- 	resources :user_tokens
 end
