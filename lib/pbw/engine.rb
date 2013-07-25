@@ -30,11 +30,6 @@ module Pbw
     	app.middleware.use ::ActionDispatch::Static, "#{root}/public"
     end
 
-    def self.config(&block)
-      yield Engine.config if block
-      Engine.config
-    end
-
     def self.version
       Pbw::VERSION
     end

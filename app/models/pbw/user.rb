@@ -76,7 +76,7 @@ module Pbw
     end
 
     def send_registration_email
-        UserMailer.registration(self.id).deliver
+        UserMailer.registration(self).deliver
     end
 
     def reset_password!
@@ -88,7 +88,7 @@ module Pbw
     end
 
     def send_password_email(password)
-        UserMailer.password_reset(self.id,password).deliver
+        UserMailer.password_reset(self,password).deliver
     end
 
     def self.viewable_by?(user, subject)
