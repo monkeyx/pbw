@@ -14,6 +14,10 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
       this.render()
     )
 
+    @model.bind("error", (model, xhr, options) =>
+      form_errors 'There was a problem signing up', xhr
+    )
+
   save: (e) ->
     e.preventDefault()
     e.stopPropagation()
@@ -25,9 +29,6 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
         @model = user
         window.<%= js_app_name %>.User = @model
         window.location.hash = "/"
-
-      error: (model, xhr, options) =>
-        form_errors 'There was a problem signing up', xhr
     )
 
   render: ->

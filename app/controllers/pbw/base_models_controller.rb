@@ -27,30 +27,30 @@ module Pbw
 		end
 
 		def show
-			render json: @model
+			render json: @model.to_json
 		end
 
 		def edit
-			render json: @model
+			render json: @model.to_json
 		end
 
 		def new
-			render json: @model
+			render json: @model.to_json
 		end
 
 		def create
 			if @model.save
-				render json: @model
+				render json: @model.to_json
 			else
-				render json: @model.errors.full_messages, status: :unprocessable_entity
+				render json: @model.errors.full_messages.to_json, status: :unprocessable_entity
 			end
 		end
 
 		def update
 			if @model.update_attributes(params[model_param])
-				render json: @model
+				render json: @model.to_json
 			else
-				render json: @model.errors.full_messages, status: :unprocessable_entity
+				render json: @model.errors.full_messages.to_json, status: :unprocessable_entity
 			end
 		end
 
@@ -58,7 +58,7 @@ module Pbw
 			if @model.destroy
 				head :no_content
 			else
-				render json: @model.errors.full_messages, status: :unprocessable_entity
+				render json: @model.errors.full_messages.to_json, status: :unprocessable_entity
 			end
 		end
 

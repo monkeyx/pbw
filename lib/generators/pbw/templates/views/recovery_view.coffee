@@ -14,6 +14,10 @@ class <%= user_view_namespace %>.RecoveryView extends Backbone.View
       this.render()
     )
 
+    @model.bind("error", (model, xhr, options) =>
+      form_errors 'There was a problem recovering your password', xhr
+    )
+
   save: (e) ->
     e.preventDefault()
     e.stopPropagation()
@@ -24,9 +28,6 @@ class <%= user_view_namespace %>.RecoveryView extends Backbone.View
       success: (user_recovery, response, options) =>
         @model = user_recovery
         window.location.hash = "/"
-
-      error: (model, xhr, options) =>
-        form_errors 'There was a problem recovering your password', xhr
     )
 
   render: ->

@@ -6,6 +6,18 @@ class <%= view_namespace %>.EditView extends Backbone.View
   events:
     "submit #edit-<%= singular_name %>": "update"
 
+  constructor: (options) ->
+    super(options)
+    @model = options.model
+
+    @model.bind("change:errors", () =>
+      this.render()
+    )
+
+    @model.bind("error", (model, xhr, options) =>
+      form_errors 'There was a problem saving <%= singular_name %>', xhr
+    )
+
   update: (e) ->
     e.preventDefault()
     e.stopPropagation()

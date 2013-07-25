@@ -6,7 +6,7 @@ module Pbw
 			self.resource = warden.authenticate!(auth_options)
 			sign_in(resource_name, resource)
 			Pbw::Engine.user_lifecycle_class.after_login(current_user)
-			respond json: current_user, status: :ok
+			respond json: current_user.to_json, status: :ok
 		end
 	end
 end

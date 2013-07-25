@@ -14,6 +14,10 @@ class <%= view_namespace %>.NewView extends Backbone.View
       this.render()
     )
 
+    @model.bind("error", (model, xhr, options) =>
+      form_errors 'There was a problem saving <%= singular_name %>', xhr
+    )
+
   save: (e) ->
     e.preventDefault()
     e.stopPropagation()
@@ -24,9 +28,6 @@ class <%= view_namespace %>.NewView extends Backbone.View
       success: (<%= singular_name %>, response, options) =>
         @model = <%= singular_name %>
         window.location.hash = "/<%=model_namespace.downcase%>/#{@model.id}"
-
-      error: (model, xhr, options) =>
-        form_errors 'There was a problem saving <%= singular_name %>', xhr
     )
 
   render: ->
