@@ -23,7 +23,7 @@ module Pbw
     end
 
     config.email_from_address = 'superadmin@localhost'
-    config.user_lifecycle_class = ::User::Lifecycle
+    config.user_lifecycle_class = nil
 
     initializer "check config" do |app|
     	config.mount_at += '/'  unless config.mount_at.last == '/'

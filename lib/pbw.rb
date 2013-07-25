@@ -10,7 +10,7 @@ module Pbw
 	end
 
 	def self.user_lifecycle_class
-		Engine.config.user_lifecycle_class
+		Engine.config.user_lifecycle_class || ::User::Lifecycle
 	end
 
 	def self.user_lifecycle_class=(klass)
