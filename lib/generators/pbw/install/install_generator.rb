@@ -32,7 +32,7 @@ module Pbw
 			end
 
 		    def create_dir_layout
-		        %W{routers models views templates}.each do |dir|
+		        %W{helpers routers models views templates}.each do |dir|
 		          empty_directory "app/assets/javascripts/#{dir}" 
 		          create_file "app/assets/javascripts/#{dir}/.gitkeep" unless options[:skip_git]
 		        end
@@ -50,12 +50,24 @@ module Pbw
 		    	route "mount Pbw::Engine, :at => '/pbw'"
 		    end
 
-		    def devise_views
-		    	generate "devise:views"
+		    def create_user_backbone
+		    	template "user.coffee", "app/assets/javascripts/models/user.js.coffee"
+		    	template "user_recovery.coffee", "app/assets/javascripts/models/user_recovery.js.coffee"
+		    	template "user_session.coffee", "app/assets/javascripts/models/user_session.js.coffee"
+		    	template "views/login_view.coffee", "app/assets/javascripts/views/login_view.js.coffee"
+		    	template "views/recovery_view.coffee", "app/assets/javascripts/views/recovery_view.js.coffee"
+		    	template "views/signup_view.coffee", "app/assets/javascripts/views/signup_view.js.coffee"
+		    	template "templates/login.jst", "app/assets/javascripts/templates/login.jst.ejs"
+		    	template "templates/recover_password.jst", "app/assets/javascripts/templates/recover_password.jst.ejs"
+		    	template "templates/signup.jst", "app/assets/javascripts/templates/signup.jst.ejs"
 		    end
 
 		    def user_lifecycle
 		    	template "lifecycle.rb", "app/models/user/lifecycle.rb"
+		    end
+
+		    def create_helper_javascript
+		    	template "pbw.coffee", "app/assets/javascripts/helpers/pbw.js.coffee"
 		    end
 		end
 	end

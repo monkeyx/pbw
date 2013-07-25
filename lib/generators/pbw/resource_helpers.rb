@@ -9,6 +9,10 @@ module Pbw
       def js_model_namespace
         [js_app_name, "Models", model_namespace, class_name].join(".")
       end
+
+      def js_user_model_namespace
+        [js_app_name, "Models", 'User'].join(".")
+      end
       
       def singular_model_name
         uncapitalize singular_name.camelize
@@ -22,6 +26,10 @@ module Pbw
         [js_app_name, "Collections", model_namespace, plural_name.camelize].join(".")
       end
 
+      def user_collection_namespace
+        [js_app_name, "Collections", 'Users'].join(".")
+      end
+
       def home_view_namespace
         [js_app_name, "Views", 'Home'].join(".")
       end
@@ -29,9 +37,17 @@ module Pbw
       def view_namespace
         [js_app_name, "Views", model_namespace, plural_name.camelize].join(".")
       end
+
+      def user_view_namespace
+        [js_app_name, "Views", 'Users'].join(".")
+      end
       
       def jst(action)
         "templates/#{model_namespace.downcase}/#{plural_name}/#{action}"
+      end
+
+      def user_jst(action)
+        "templates/users/#{plural_name}/#{action}"
       end
 
       def router_name

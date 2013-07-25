@@ -1,5 +1,6 @@
 module Pbw
   class ApplicationController < ActionController::Base
+  	  respond_to :json
   	  
   	  rescue_from ::CanCan::AccessDenied do |exception|
 	    respond_to do |format|
@@ -15,18 +16,15 @@ module Pbw
 		end
 	  end
 
-	  protected
-
-	  def self.permission
-	    return name = self.name.gsub('Controller','').singularize.split('::').last.constantize.name rescue nil
+	  # Devise override
+	  def after_sign_in_path_for(resource) 
+	    render json: resource
 	  end
+
+	  protected
 
 	  def current_ability
 	    @current_ability ||= Ability.new(current_user)
-	  end
-
-	  def load_permissions
-	    @current_permissions = current_user.role.permissions.collect{|i| [i.subject_class, i.action]}
 	  end
   end
 end

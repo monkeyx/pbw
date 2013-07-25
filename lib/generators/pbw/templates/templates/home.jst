@@ -1,1 +1,10 @@
-<!-- This is the home view of your app -->
+<nav>
+	<ul>
+		<%% if(current_user) { %>
+		<li><a href="/pbw/users/sign_out" data-method="delete">Sign out</a></li>
+		<%% } else { %>
+		<li><a href="#/signup">Sign up</a></li>
+		<li><a href="#/login">Login</a></li>
+		<%% } %>
+	</ul>
+</nav>

@@ -27,7 +27,7 @@ The install generator will create:
 * Configuration file for mongoid in config directory
 * Mount route for the pbw engine at "/pbw"
 * Home controller and index.erb containing javascript to initialize the Backbone router
-* Devise view templates in app/views/devise
+* Backbone model, view and templates for User signup, login / logout and password recovery
 * User::Lifecycle class for hooking in behaviour around users
 
 ## Generators

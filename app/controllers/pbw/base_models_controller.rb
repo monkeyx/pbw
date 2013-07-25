@@ -1,7 +1,5 @@
 module Pbw
 	class BaseModelsController < ApplicationController
-		respond_to :json
-
 		attr_accessor :model_class
 
 		before_filter :authenticate_user!
