@@ -5,7 +5,7 @@ module Pbw
 		def create
 			self.resource = User.new(params[:user])
 			logger.error "Password confirmed? #{params[:user][:password] == params[:user][:password_confirmation]}"
-			if resource.save
+			if resource.save && resource.send_registration_email
 				::User::Lifecycle.after_signup(resource)
 				render json: resource
 			else
