@@ -28,10 +28,9 @@ module Pbw
 
     field :name,   :type => String
     validates_presence_of :name
-    validates_uniqueness_of :name, :email, :case_sensitive => false
+    validates_uniqueness_of :email, :case_sensitive => false
     validates_format_of :email, :with => /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
-    validates_confirmation_of :password
-
+    
     field :role, :type => String, :default => 'player'
 
     ## Lockable

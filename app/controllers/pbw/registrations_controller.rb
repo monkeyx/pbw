@@ -4,11 +4,10 @@ module Pbw
 
 		def create
 			build_resource(params[:user])
-			logger.error resource.to_json 
 			if resource.save
 				if resource.active_for_authentication?
 					Pbw::Engine.user_lifecycle_class.after_signup(current_user)
-					render json: current_user
+					render json: current_user, status: :ok
 				else
 					logger.error "Not active_for_authentication"
 					expire_session_data_after_sign_in!
@@ -17,7 +16,7 @@ module Pbw
 			else
 				logger.error "Unable to save resource:\n #{resource.errors.full_messages}"
 				clean_up_passwords resource
-				render json: resource.errors.full_messages, status: :unprocessable_entity
+				render json: resource.errors, status: :unprocessable_entity
 			end
 		end
 	end
