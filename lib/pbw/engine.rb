@@ -1,6 +1,7 @@
 require 'pbw/version'
 require 'mongoid'
 require 'devise'
+require 'cancan'
 
 module Pbw
   class Engine < ::Rails::Engine
