@@ -38,9 +38,5 @@ module Pbw
     def self.version
       Pbw::VERSION
     end
-
-    def self.user_lifecycle_class
-      self.config.user_lifecycle_class || User::Lifecycle
-    end
   end
 end
