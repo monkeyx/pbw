@@ -6,7 +6,7 @@ module Pbw
     ROLES = %W{superadmin admin moderator player}
     
     devise :database_authenticatable, :registerable, :timeoutable, 
-           :recoverable, :rememberable, :trackable, :validatable, :lockable
+           :recoverable, :rememberable, :trackable, :lockable
 
     ## Database authenticatable
     field :email,              :type => String, :default => ""
@@ -27,9 +27,6 @@ module Pbw
     field :last_sign_in_ip,    :type => String
 
     field :name,   :type => String
-    validates_presence_of :name
-    validates_uniqueness_of :email, :case_sensitive => false
-    validates_format_of :email, :with => /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
     
     field :role, :type => String, :default => 'player'
 
@@ -40,6 +37,12 @@ module Pbw
 
     has_many :item_containers, :class_name => 'Pbw::ItemContainer'
     has_many :tokens, :class_name => 'Pbw::Token'
+
+    validates :name, presence: true
+    validates :password, confirmation: true, uniqueness: true
+    validates :email, uniqueness: {case_sensitive: false}, format: {with: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/}
+    
+    attr_accessible :email, :name, :password, :password_confirmation
 
     def superadmin?
       self.role == "superadmin"
