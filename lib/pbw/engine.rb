@@ -1,4 +1,6 @@
 require 'pbw/version'
+require 'mongoid'
+require 'devise'
 
 module Pbw
   class Engine < ::Rails::Engine
