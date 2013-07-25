@@ -42,7 +42,7 @@ module Pbw
 			if @model.save
 				render json: @model
 			else
-				render json: @model.errors, status: :unprocessable_entity
+				render json: @model.errors.full_messages, status: :unprocessable_entity
 			end
 		end
 
@@ -50,7 +50,7 @@ module Pbw
 			if @model.update_attributes(params[model_param])
 				render json: @model
 			else
-				render json: @model.errors, status: :unprocessable_entity
+				render json: @model.errors.full_messages, status: :unprocessable_entity
 			end
 		end
 
@@ -58,7 +58,7 @@ module Pbw
 			if @model.destroy
 				head :no_content
 			else
-				render json: @model.errors, status: :unprocessable_entity
+				render json: @model.errors.full_messages, status: :unprocessable_entity
 			end
 		end
 
