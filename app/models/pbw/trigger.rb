@@ -7,7 +7,7 @@ module Pbw
     def self.viewable_by?(user, subject)
         return true if user.admin?
         subject.tokens.each do |token|
-            return true token.user && token.user == user
+            return true if token.user && token.user == user
         end
         false
     end
