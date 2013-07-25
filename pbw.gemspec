@@ -30,8 +30,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('turn')
   s.add_development_dependency('minitest')
   s.add_development_dependency('compass')
-  s.add_development_dependency('zurb-foundation')
-
+  
   s.require_paths = ['lib']
 
 end
