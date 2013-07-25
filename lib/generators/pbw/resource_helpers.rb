@@ -13,6 +13,10 @@ module Pbw
       def js_user_model_namespace
         [js_app_name, "Models", 'User'].join(".")
       end
+
+      def class_namespace
+        ["",model_namespace, class_name].join("::")
+      end
       
       def singular_model_name
         uncapitalize singular_name.camelize
