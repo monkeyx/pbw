@@ -77,7 +77,6 @@ module Pbw
 				"
   #{method_name}: #{method_params}->
     @#{plural_model_name}.fetch
-      reset: true
       success: (collection, response, options) =>
         #{view_js}
         $(\"#app\").html(@view.render().el)
