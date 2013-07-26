@@ -23,11 +23,7 @@ module Pbw
 
 		def index
 	  		session[:referrer] = request.url
-	  		if @models && !@models.empty?
-				render json: @models
-			else
-				render json: '', status: :ok
-			end
+	  		render json: @models
 		end
 
 		def show
