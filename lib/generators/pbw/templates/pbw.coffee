@@ -15,7 +15,7 @@
 @display_errors = (message, jqXHR) ->
   debug message
   debug jqXHR
-  if jqXHR.status == 401
+  if jqXHR && jqXHR.status == 401
     window.location.hash = '/login'
   $("#error").html('<h3>' + message + '</h3><ul>')
   if jqXHR && jqXHR.responseText
