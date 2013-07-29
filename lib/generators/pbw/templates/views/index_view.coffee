@@ -6,7 +6,7 @@ class <%= view_namespace %>.IndexView extends Backbone.View
   initialize: () ->
     @options.<%= plural_model_name %>.bind('reset', @addAll)
     @options.<%= plural_model_name %>.bind("error", (model, xhr, options) =>
-      display_errors '', xhr, "/<%=model_namespace.downcase%>"
+      display_errors '', xhr, "/<%=plural_model_name%>"
       @$("#<%=plural_model_name%>-table").hide()
     )
 
@@ -22,7 +22,7 @@ class <%= view_namespace %>.IndexView extends Backbone.View
     @$("tbody").append(view.render().el)
 
   render: =>
-    @$el.html(@template(<%= plural_model_name %>: @options.<%= plural_model_name %>.toJSON() ))
+    @$el.html(@template())
     @addAll()
 
     return this

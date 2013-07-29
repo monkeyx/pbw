@@ -16,7 +16,7 @@
   debug message
   debug jqXHR
   if jqXHR && jqXHR.status == 401
-    if backblink
+    if backlink
       window.<%=js_app_name%>.backlink = backlink
     window.location.hash = '/login'
 

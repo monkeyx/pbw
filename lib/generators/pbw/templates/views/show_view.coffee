@@ -6,7 +6,7 @@ class <%= view_namespace %>.ShowView extends Backbone.View
   initialize: () ->
     @model = options.model
     @model.bind("error", (model, xhr, options) =>
-      display_errors 'There was a problem displaying <%= singular_name %>', xhr, "/<%=model_namespace.downcase%>/#{@model.id}"
+      display_errors 'There was a problem displaying <%= singular_name %>', xhr, "/<%=plural_model_name%>/#{@model.id}"
     )
 
   render: ->

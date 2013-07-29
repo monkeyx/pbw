@@ -15,7 +15,7 @@ class <%= view_namespace %>.EditView extends Backbone.View
     )
 
     @model.bind("error", (model, xhr, options) =>
-      display_errors 'There was a problem saving <%= singular_name %>', xhr, "/<%=model_namespace.downcase%>/#{@model.id}/edit"
+      display_errors 'There was a problem saving <%= singular_name %>', xhr, "/<%=plural_model_name%>/#{@model.id}/edit"
     )
 
   update: (e) ->
@@ -25,7 +25,7 @@ class <%= view_namespace %>.EditView extends Backbone.View
     @model.save(null,
       success: (<%= singular_name %>, response, options) =>
         @model = <%= singular_name %>
-        window.location.hash = "/<%=model_namespace.downcase%>/#{@model.id}"
+        window.location.hash = "/<%=plural_model_name%>/#{@model.id}"
       error: (model, xhr, options) =>
         display_errors 'There was a problem saving <%= singular_name %>', xhr
     )
