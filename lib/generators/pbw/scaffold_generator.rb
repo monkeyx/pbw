@@ -70,9 +70,9 @@ module Pbw
 				when 'Index'
 					"@view = new #{view_namespace}.#{view}View(#{plural_model_name}: @#{plural_model_name})"
 				when 'New'
-					"#{singular_model_name} = new #{js_model_namespace}\n        @view = new #{view_namespace}.#{view}View(model: #{singular_model_name})"
+					"#{singular_model_name} = new #{js_model_namespace}\n    @view = new #{view_namespace}.#{view}View(model: #{singular_model_name})"
 				when 'Edit', 'Show'
-					"#{singular_model_name} = new #{js_model_namespace}\n        #{singular_model_name}.get(id)\n        @view = new #{view_namespace}.#{view}View(model: #{singular_model_name})"
+					"#{singular_model_name} = new #{js_model_namespace}\n    #{singular_model_name}.get(id)\n    @view = new #{view_namespace}.#{view}View(model: #{singular_model_name})"
 				end
 				"
   #{method_name}: #{method_params}->
