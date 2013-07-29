@@ -8,7 +8,7 @@ class <%= view_namespace %>.NewView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-    @model = new @collection.model()
+    @model = options.model
 
     @model.bind("change:errors", () =>
       this.render()
@@ -24,7 +24,7 @@ class <%= view_namespace %>.NewView extends Backbone.View
 
     @model.unset("errors")
 
-    @collection.create(@model.toJSON(),
+    @model.save(null,
       success: (<%= singular_name %>, response, options) =>
         @model = <%= singular_name %>
         window.location.hash = "/<%=model_namespace.downcase%>/#{@model.id}"
