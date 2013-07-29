@@ -47,6 +47,10 @@ module Pbw
 			end
 
 			protected
+			def param_root
+				class_name.underscore
+			end
+
 			def default_attributes
 				@default_attributes = [{name: 'name', default_value: ''}, {name: '_type', default_value: "#{class_namespace}"}]
 			end

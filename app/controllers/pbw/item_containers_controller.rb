@@ -39,5 +39,9 @@ module Pbw
 			end
 			update_model_before_create(@model)
 		end
+
+		def model_param
+			'item_container'
+		end
 	end
 end

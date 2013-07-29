@@ -10,4 +10,8 @@ class Pbw::AreaGenerator < Pbw::Generators::ScaffoldGenerator
 	def model_namespace
 		"Areas"
 	end
+
+	def param_root
+		'area'
+	end
 end

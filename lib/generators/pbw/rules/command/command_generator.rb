@@ -30,4 +30,8 @@ class Pbw::Rules::CommandGenerator < Pbw::Generators::ScaffoldGenerator
 		@default_attributes << {name: 'token', default_value: ''}
 		@default_attributes
 	end
+
+	def param_root
+		'command'
+	end
 end

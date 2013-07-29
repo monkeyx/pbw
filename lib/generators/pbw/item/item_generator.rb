@@ -10,4 +10,8 @@ class Pbw::ItemGenerator < Pbw::Generators::ScaffoldGenerator
 	def model_namespace
 		"Items"
 	end
+
+	def param_root
+		'item'
+	end
 end

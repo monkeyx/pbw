@@ -3,5 +3,9 @@ module Pbw
 		def set_model_class
 			self.model_class = Item
 		end
+
+		def model_param
+			'item'
+		end
 	end
 end

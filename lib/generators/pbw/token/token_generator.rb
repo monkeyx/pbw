@@ -10,4 +10,8 @@ class Pbw::TokenGenerator < Pbw::Generators::ScaffoldGenerator
 	def model_namespace
 		"Tokens"
 	end
+
+	def param_root
+		'token'
+	end
 end
