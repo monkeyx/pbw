@@ -13,15 +13,15 @@ module Pbw
 				end
 				if available_views.include?('new')
 					routes << "#{route_entry("#{plural_model_name}/new","new#{model_namespace}#{class_name}")}" 
-					route_methods << "#{route_method("new#{model_namespace}#{plural_name.camelize}", "New")}"
+					route_methods << "#{route_method("new#{model_namespace}#{class_name.camelize}", "New")}"
 				end
 				if available_views.include?('edit')
 					routes << "#{route_entry("#{plural_model_name}/:id/edit","edit#{model_namespace}#{class_name}")}" 
-					route_methods << "#{route_method("edit#{model_namespace}#{plural_name.camelize}", "Edit")}"
+					route_methods << "#{route_method("edit#{model_namespace}#{class_name.camelize}", "Edit")}"
 				end
 				if available_views.include?('show')
 					routes << "#{route_entry("#{plural_model_name}/:id","show#{model_namespace}#{class_name}")}" 
-					route_methods << "#{route_method("show#{model_namespace}#{plural_name.camelize}", "Show")}"
+					route_methods << "#{route_method("show#{model_namespace}#{class_name.camelize}", "Show")}"
 				end
 				if available_views.include?('index') # needs to be at the end
 					routes << "#{route_entry("#{plural_model_name}/.*","index#{model_namespace}#{plural_name.camelize}")}" 
