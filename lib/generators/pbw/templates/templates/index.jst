@@ -1,18 +1,21 @@
 <div id="error"></div>
 <table id="<%= plural_name %>-table">
   <caption>Listing <%= plural_table_name %></caption>
-  <tr>
-  <% default_attributes.each do |attribute| -%>
-    <% unless attribute[:name].start_with?('_') %>
-    <th><%=attribute[:name]%></th>
-    <% end %>
+  <thead>
+    <tr>
+    <% default_attributes.each do |attribute| -%>
+      <% unless attribute[:name].start_with?('_') %>
+      <th><%=attribute[:name]%></th>
+      <% end %>
+    <% end -%>
+  <% attributes.each do |attribute| -%>
+      <th><%= attribute.human_name %></th>
   <% end -%>
-<% attributes.each do |attribute| -%>
-    <th><%= attribute.human_name %></th>
-<% end -%>
-    <th></th>
-    <th></th>
-  </tr>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody></tbody>
 </table>
 
 <br/>

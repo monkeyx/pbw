@@ -24,7 +24,7 @@ class <%= user_view_namespace %>.LoginView extends Backbone.View
 
     @model.unset("errors")
 
-    @model.save(@model.attributes,
+    @model.save(null,
       success: (user, response, options) =>
         @model = user
         window.<%= js_app_name %>.User = @model

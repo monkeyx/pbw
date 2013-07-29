@@ -9,8 +9,9 @@ module Pbw
 			render json: current_user.to_json, status: :ok
 		end
 
-		def after_sign_out_path_for(resource_name)
-			"/"
+		def destroy
+			signed_out = (Devise::Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+			render json: '', status: ok
 		end
 	end
 end

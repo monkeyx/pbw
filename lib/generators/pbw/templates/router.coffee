@@ -5,6 +5,7 @@ class <%= router_name %> extends Backbone.Router
   routes:
     ""    : "home"
     "login" : "login"
+    "logout" : "logout"
     "signup" : "signup"
     "password_recovery" : "passwordRecovery"
     
@@ -17,6 +18,13 @@ class <%= router_name %> extends Backbone.Router
     @view = new <%= "#{js_app_name}.Views.Users.LoginView" %>
     $("#app").html(@view.render().el)
 
+  logout: ->
+    $.ajax 
+      url: '/pbw/sign_out.json'}
+      type: 'DELETE'
+      success: ->
+        window.location.hash = "/"
+    
   signup: ->
     @view = new <%= "#{js_app_name}.Views.Users.SignupView" %>
     $("#app").html(@view.render().el)
