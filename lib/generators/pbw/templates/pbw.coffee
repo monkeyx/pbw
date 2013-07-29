@@ -12,10 +12,12 @@
   current_user() && (current_user().role == 'superadmin' || current_user().role == 'admin')
 
 # Error handling
-@display_errors = (message, jqXHR) ->
+@display_errors = (message, jqXHR, backlink) ->
   debug message
   debug jqXHR
   if jqXHR && jqXHR.status == 401
+    if backblink
+      window.<%=js_app_name%>.backlink = backlink
     window.location.hash = '/login'
 
   _.defer =>

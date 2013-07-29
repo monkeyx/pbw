@@ -1,4 +1,3 @@
-<tr>
 <td><a href="#/<%=plural_model_name%>/<%%= _id %>"><%%= name %></a></td>
 <% default_attributes.each do |attribute| -%>
 <% unless attribute[:name].start_with?('_') %>
@@ -11,4 +10,3 @@
 
 <td><a href="#/<%=plural_model_name%>/<%%= _id %>/edit">Edit</td>
 <td><a href="#/<%=plural_model_name%>/<%%= _id %>/destroy" class="destroy">Delete</a></td>
-</tr>

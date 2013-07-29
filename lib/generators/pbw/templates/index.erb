@@ -1,6 +1,7 @@
 <script type="text/javascript">
   $(function() {
   	window.router = new <%= router_name %>;
+  	window.<%=js_app_name%>.User = <%%=raw (current_user.to_json)%>;
     Backbone.history.start();
   });
 </script>

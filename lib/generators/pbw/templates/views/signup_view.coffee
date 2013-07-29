@@ -27,8 +27,10 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
     @model.save(@model.attributes,
       success: (user, response, options) =>
         @model = user
-        window.<%= js_app_name %>.User = @model
-        window.location.hash = "/"
+        if window.<%=js_app_name%>.backlink
+          window.location.hash = window.<%=js_app_name%>.backlink
+        else
+          window.location.hash = "/"
     )
 
   render: ->

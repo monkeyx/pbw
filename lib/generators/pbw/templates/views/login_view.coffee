@@ -18,6 +18,10 @@ class <%= user_view_namespace %>.LoginView extends Backbone.View
       display_errors 'There was a problem logging in', xhr
     )
 
+    @model.bind("sync", (model, xhr, options) =>
+      window.<%=js_app_name%>.User = xhr
+    )
+
   save: (e) ->
     e.preventDefault()
     e.stopPropagation()
@@ -25,10 +29,11 @@ class <%= user_view_namespace %>.LoginView extends Backbone.View
     @model.unset("errors")
 
     @model.save(null,
-      success: (user, response, options) =>
-        @model = user
-        window.<%= js_app_name %>.User = @model
-        window.location.hash = "/"
+      success: ->
+        if window.<%=js_app_name%>.backlink
+          window.location.hash = window.<%=js_app_name%>.backlink
+        else
+          window.location.hash = "/"
     )
 
   render: ->

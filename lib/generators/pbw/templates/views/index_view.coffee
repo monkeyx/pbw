@@ -6,7 +6,7 @@ class <%= view_namespace %>.IndexView extends Backbone.View
   initialize: () ->
     @options.<%= plural_model_name %>.bind('reset', @addAll)
     @options.<%= plural_model_name %>.bind("error", (model, xhr, options) =>
-      display_errors '', xhr
+      display_errors '', xhr, "/<%=model_namespace.downcase%>"
       @$("#<%=plural_model_name%>-table").hide()
     )
 
