@@ -15,7 +15,7 @@ class <%= view_namespace %>.NewView extends Backbone.View
     )
 
     @model.bind("error", (model, xhr, options) =>
-      form_errors 'There was a problem saving <%= singular_name %>', xhr
+      display_errors 'There was a problem saving <%= singular_name %>', xhr
     )
 
   save: (e) ->

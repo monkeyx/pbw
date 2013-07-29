@@ -15,7 +15,7 @@ class <%= view_namespace %>.EditView extends Backbone.View
     )
 
     @model.bind("error", (model, xhr, options) =>
-      form_errors 'There was a problem saving <%= singular_name %>', xhr
+      display_errors 'There was a problem saving <%= singular_name %>', xhr
     )
 
   update: (e) ->
@@ -27,7 +27,7 @@ class <%= view_namespace %>.EditView extends Backbone.View
         @model = <%= singular_name %>
         window.location.hash = "/<%=model_namespace.downcase%>/#{@model.id}"
       error: (model, xhr, options) =>
-        form_errors 'There was a problem saving <%= singular_name %>', xhr
+        display_errors 'There was a problem saving <%= singular_name %>', xhr
     )
 
   render: ->
@@ -35,6 +35,6 @@ class <%= view_namespace %>.EditView extends Backbone.View
       success: (model) =>
         @$el.html(@template(model.toJSON() ))
         this.$("form").backboneLink(@model)
-      error: (model, response)
+      error: (model, response) ->
         debug response
     return this

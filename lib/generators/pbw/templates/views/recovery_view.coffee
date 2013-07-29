@@ -15,7 +15,7 @@ class <%= user_view_namespace %>.RecoveryView extends Backbone.View
     )
 
     @model.bind("error", (model, xhr, options) =>
-      form_errors 'There was a problem recovering your password', xhr
+      display_errors 'There was a problem recovering your password', xhr
     )
 
   save: (e) ->

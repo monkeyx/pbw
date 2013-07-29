@@ -5,11 +5,14 @@ class <%= view_namespace %>.ShowView extends Backbone.View
 
   initialize: () ->
     @model = options.model
+    @model.bind("error", (model, xhr, options) =>
+      display_errors 'There was a problem displaying <%= singular_name %>', xhr
+    )
 
   render: ->
   	@model.fetch
   	  success: (model) =>
         @$el.html(@template(model.toJSON() ))
-      error: (model, response)
+      error: (model, response) ->
         debug response
     return this

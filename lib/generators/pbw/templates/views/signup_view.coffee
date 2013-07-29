@@ -15,7 +15,7 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
     )
 
     @model.bind("error", (model, xhr, options) =>
-      form_errors 'There was a problem signing up', xhr
+      display_errors 'There was a problem signing up', xhr
     )
 
   save: (e) ->

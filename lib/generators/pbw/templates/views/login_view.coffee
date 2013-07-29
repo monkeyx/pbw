@@ -15,7 +15,7 @@ class <%= user_view_namespace %>.LoginView extends Backbone.View
     )
 
     @model.bind("error", (model, xhr, options) =>
-      form_errors 'There was a problem logging in', xhr
+      display_errors 'There was a problem logging in', xhr
     )
 
   save: (e) ->

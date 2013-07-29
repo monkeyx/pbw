@@ -8,8 +8,8 @@
 @current_user = ->
   window.<%= js_app_name %>.User
 
-# Form error handling
-@form_errors = (message, jqXHR) ->
+# Error handling
+@display_errors = (message, jqXHR) ->
   debug message
   debug jqXHR
   $("#error").html('<h3>' + message + '</h3><ul>')
