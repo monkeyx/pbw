@@ -3,8 +3,8 @@
 	<tbody>
 		<% default_attributes.each do |attribute| -%>
 		<tr>
-		  <th><%= attribute.human_name %>:</th>
-		  <td><%%= <%= attribute.name %> %></td>
+		  <th><%= attribute[:name] %>:</th>
+		  <td><%%= <%= attribute[:name] %> %></td>
 		</tr>
 		<% end -%>
 		<% attributes.each do |attribute| -%>

@@ -1,6 +1,6 @@
 <td><a href="#/<%=plural_model_name%>/<%%= _id %>"><%%= name %></a></td>
 <% default_attributes.each do |attribute| -%>
-<td><%%= <%= attribute.name %> %></td>
+<td><%%= <%= attribute[:name] %> %></td>
 <% end -%>
 <% attributes.each do |attribute| -%>
 <td><%%= <%= attribute.name %> %></td>

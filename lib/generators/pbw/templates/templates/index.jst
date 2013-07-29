@@ -2,7 +2,9 @@
 <table id="<%= plural_name %>-table">
   <caption>Listing <%= plural_table_name %></caption>
   <tr>
-  	<th>Name</th>
+  <% default_attributes.each do |attribute| -%>
+    <th><%=attribute[:name]%></th>
+  <% end -%>
 <% attributes.each do |attribute| -%>
     <th><%= attribute.human_name %></th>
 <% end -%>

@@ -4,7 +4,7 @@ class <%= js_model_namespace %> extends Backbone.Model
 
   defaults:
 <% default_attributes.each do |attribute| -%>
-    <%= attribute.name %>: '<%=attribute.default_value%>'
+    <%= attribute[:name] %>: '<%=attribute[:default_value]%>'
 <% end -%>
 <% attributes.each do |attribute| -%>
     <%= attribute.name %>: null
