@@ -8,7 +8,7 @@
 @current_user = ->
   window.<%= js_app_name %>.User
 
-@admin? = ->
+@is_admin = ->
   current_user() && (current_user().role == 'superadmin' || current_user().role == 'admin')
 
 # Error handling
@@ -17,10 +17,12 @@
   debug jqXHR
   if jqXHR && jqXHR.status == 401
     window.location.hash = '/login'
-  $("#error").html('<h3>' + message + '</h3><ul>')
-  if jqXHR && jqXHR.responseText
-    _.each($.parseJSON(jqXHR.responseText), (value,key) ->
-      $("#error").append('<li>' + value + '</li>')
-    )
-  $("#error").append('</ul>')
-  $("#error").show()
+
+  _.defer =>
+    $("#error").html('<h3>' + message + '</h3><ul>')
+    if jqXHR && jqXHR.responseText
+      _.each($.parseJSON(jqXHR.responseText), (value,key) ->
+        $("#error").append('<li>' + value + '</li>')
+      )
+    $("#error").append('</ul>')
+    $("#error").show()
