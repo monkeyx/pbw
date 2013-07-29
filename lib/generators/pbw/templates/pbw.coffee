@@ -8,6 +8,9 @@
 @current_user = ->
   window.<%= js_app_name %>.User
 
+@admin? = ->
+  current_user() && (current_user().role == 'superadmin' || current_user().role == 'admin')
+
 # Error handling
 @display_errors = (message, jqXHR) ->
   debug message

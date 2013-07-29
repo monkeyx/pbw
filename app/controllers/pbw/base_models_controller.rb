@@ -89,12 +89,12 @@ module Pbw
 		end
 
 	  	def model_for_read
-			@model = model_class.find(model_id)
+			@model = real_model_class.find(model_id)
 			authorize! :read, @model
 		end
 
 		def model_for_update
-			@model = model_class.find(model_id)
+			@model = real_model_class.find(model_id)
 			authorize! :update, @model
 			update_model_before_update(@model)
 		end

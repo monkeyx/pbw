@@ -3,8 +3,9 @@ class <%= js_model_namespace %> extends Backbone.Model
   urlRoot: '/pbw/<%=model_namespace.downcase%>/<%= class_namespace %>'
 
   defaults:
-    name: null
-    _type: '<%= class_namespace %>'
+<% default_attributes.each do |attribute| -%>
+    <%= attribute.name %>: '<%=attribute.default_value%>'
+<% end -%>
 <% attributes.each do |attribute| -%>
     <%= attribute.name %>: null
 <% end -%>

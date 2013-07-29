@@ -24,4 +24,10 @@ class Pbw::Rules::CommandGenerator < Pbw::Generators::ScaffoldGenerator
 	def model_namespace
 		"Commands"
 	end
+
+	def default_attributes
+		super
+		@default_attributes << {name: 'token', default_value: ''}
+		@default_attributes
+	end
 end

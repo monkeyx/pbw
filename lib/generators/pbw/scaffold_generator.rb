@@ -47,6 +47,10 @@ module Pbw
 			end
 
 			protected
+			def default_attributes
+				@default_attributes = [{name: 'name', default_value: '', {name: '_type', default_value: "#{class_namespace}"}]
+			end
+
 			def available_views
 				%w(index show new edit)
 			end

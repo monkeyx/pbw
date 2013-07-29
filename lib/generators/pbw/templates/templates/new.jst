@@ -3,10 +3,13 @@
    <input type="hidden" name="authenticity_token" value="<%%= $("meta[name='csrf-token']").attr("content") %>">
    <fieldset>
     <legend>New <%= singular_table_name %></legend>
+  <% default_attributes.each do |attribute| -%>
     <div class="field">
-      <label for="name">Name:</label>
-      <input type="text" name="name" id="name" value="<%%= name %>" >
+      <label for="<%= attribute.name %>"> <%= attribute.human_name %>:</label>
+      <input type="text" name="<%= attribute.name %>" id="<%= attribute.name %>" value="<%%= <%= attribute.name %> %>" >
     </div>
+
+  <% end -%>
   <% attributes.each do |attribute| -%>
     <div class="field">
       <label for="<%= attribute.name %>"> <%= attribute.human_name %>:</label>
