@@ -22,7 +22,7 @@ class <%= router_name %> extends Backbone.Router
     $.ajax 
       url: '/pbw/users/sign_out.json'
       type: 'DELETE'
-      success: ->
+      complete: ->
         window.location.hash = "/"
     
   signup: ->
