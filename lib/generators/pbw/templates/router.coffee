@@ -23,6 +23,7 @@ class <%= router_name %> extends Backbone.Router
       url: '/pbw/users/sign_out.json'
       type: 'DELETE'
       complete: ->
+        window.<%= js_app_name %>.User = null
         window.location.hash = "/"
     
   signup: ->
