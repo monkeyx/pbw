@@ -2,10 +2,12 @@
 <table id="<%= singular_name %>-table">
 	<tbody>
 		<% default_attributes.each do |attribute| -%>
+		<% unless attribute[:name].start_with?('_') %>
 		<tr>
 		  <th><%= attribute[:name] %>:</th>
 		  <td><%%= <%= attribute[:name] %> %></td>
 		</tr>
+		<% end %>
 		<% end -%>
 		<% attributes.each do |attribute| -%>
 		<tr>

@@ -3,7 +3,9 @@
   <caption>Listing <%= plural_table_name %></caption>
   <tr>
   <% default_attributes.each do |attribute| -%>
+    <% unless attribute[:name].start_with?('_') %>
     <th><%=attribute[:name]%></th>
+    <% end %>
   <% end -%>
 <% attributes.each do |attribute| -%>
     <th><%= attribute.human_name %></th>
