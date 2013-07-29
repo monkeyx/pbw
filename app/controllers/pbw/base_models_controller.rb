@@ -34,14 +34,6 @@ module Pbw
 			render json: @model.to_json
 		end
 
-		def edit
-			render json: @model.to_json
-		end
-
-		def new
-			render json: @model.to_json
-		end
-
 		def create
 			if @model.save
 				render json: @model.to_json

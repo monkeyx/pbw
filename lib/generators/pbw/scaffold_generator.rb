@@ -76,7 +76,8 @@ module Pbw
 				end
 				"
   #{method_name}: #{method_params}->
-    #{view_js}"
+    #{view_js}
+    $(\"#app\").html(@view.render().el)"
 			end
 		end
 	end

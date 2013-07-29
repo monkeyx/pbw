@@ -8,8 +8,6 @@ Pbw::Engine.routes.draw do
  		get "#{controller}/:_type" => "#{controller}\#index"
  		get "#{controller}/:_type/:id" => "#{controller}\#show"
  		post "#{controller}/:_type" => "#{controller}\#create"
- 		get "#{controller}/:_type/new" => "#{controller}\#new"
- 		get "#{controller}/:_type/:id/edit" => "#{controller}\#edit"
  		delete "#{controller}/:_type/:id" => "#{controller}\#delete"
  		put "#{controller}/:_type/:id" => "#{controller}\#update"
  	end
