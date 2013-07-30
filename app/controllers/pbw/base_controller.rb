@@ -1,8 +1,7 @@
 module Pbw
   class BaseController < ActionController::Base
   	  respond_to :json
-	  wrap_parameters format: [:json]
-
+  	  
   	  rescue_from ::CanCan::AccessDenied do |exception|
   	  	render json: {:error => exception.message}, status: 401
 	  end

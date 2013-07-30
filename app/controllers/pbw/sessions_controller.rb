@@ -1,8 +1,7 @@
 module Pbw
 	class SessionsController < Devise::SessionsController
 		respond_to :json
-		wrap_parameters format: [:json]
-
+		
 		def create
 			unwrapped = params
 			params[:user] = unwrapped

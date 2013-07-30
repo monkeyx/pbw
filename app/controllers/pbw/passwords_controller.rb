@@ -1,8 +1,7 @@
 module Pbw
 	class PasswordsController < Devise::PasswordsController
 		respond_to :json
-		wrap_parameters format: [:json]
-
+		
 		def create
 			self.resource = resource_class.where(params).first
 			if resource && resource.reset_password!

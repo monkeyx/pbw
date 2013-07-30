@@ -1,6 +1,6 @@
 <td><a href="#/<%=plural_model_name%>/<%%= _id %>"><%%= name %></a></td>
 <% default_attributes.each do |attribute| -%>
-<% unless attribute[:name].start_with?('_') %>
+<% unless attribute[:name].start_with?('_') || attribute[:name] == 'name' %>
 <td><%%= <%= attribute[:name] %> %></td>
 <% end %>
 <% end -%>
