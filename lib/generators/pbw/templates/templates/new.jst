@@ -16,9 +16,9 @@
     <div class="field">
       <label for="<%= attribute.name %>"> <%= attribute.human_name %>:</label>
       <% case attribute.type 
-      when 'boolean' %>
+      when 'Boolean' %>
       <input type="checkbox" name="<%= attribute.name %>" id="<%= attribute.name %>">
-      <% when 'integer' %>
+      <% when 'Integer' %>
       <input type="number" name="<%= attribute.name %>" id="<%= attribute.name %>" value="<%%= <%= attribute.name %> %>" >
       <% else %>
       <input type="text" name="<%= attribute.name %>" id="<%= attribute.name %>" value="<%%= <%= attribute.name %> %>" >
