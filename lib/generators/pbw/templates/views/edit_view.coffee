@@ -21,7 +21,10 @@ class <%= view_namespace %>.EditView extends Backbone.View
   initialize: ->
     @_modelBinder = new Backbone.ModelBinder
     @bindings = <% default_attributes.each do |attribute| -%><% unless attribute[:name].start_with?('_') %>
-      '<%=attribute[:name]%>' : '[name=<%= attribute[:name]] %>'<% end %><% end %>
+      '<%= attribute[:name] %>' : '[name=<%= attribute[:name] %>]'
+<% end %><% end %><% attributes.each do |attribute| -%>
+      '<%= attribute.name %>' : '[name=<%= attribute.name %>]'
+<% end %><% end %>
       
 
   update: (e) ->
