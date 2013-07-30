@@ -14,10 +14,10 @@
   <% attributes.each do |attribute| -%>
     <div class="field">
       <label for="<%= attribute.name %>"> <%= attribute.human_name %>:</label>
-      <% case attribute.type 
-      when 'Boolean' %>
+      <% case "#{attribute.type}".underscore.to_sym 
+      when :boolean %>
       <input type="checkbox" name="<%= attribute.name %>" id="<%= attribute.name %>" data-type="<%=attribute.type%>">
-      <% when 'Integer' %>
+      <% when :integer %>
       <input type="number" name="<%= attribute.name %>" id="<%= attribute.name %>" value="<%%= <%= attribute.name %> %>"  data-type="<%=attribute.type%>">
       <% else %>
       <input type="text" name="<%= attribute.name %>" id="<%= attribute.name %>" value="<%%= <%= attribute.name %> %>"  data-type="<%=attribute.type%>">
