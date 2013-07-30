@@ -1,6 +1,7 @@
 <nav>
 	<ul>
 		<%% if(current_user()) { %>
+		<li>Hi <%%= current_user().name %></li>
 		<li><a href="#/logout">Sign out</a></li>
 		<%% } else { %>
 		<li><a href="#/signup">Sign up</a></li>

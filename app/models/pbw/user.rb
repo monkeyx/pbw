@@ -54,7 +54,7 @@ module Pbw
     end
 
     def admin?
-        self.role == "admin"
+        self.role == "admin" || superadmin?
     end
 
     def make_admin!
@@ -63,7 +63,7 @@ module Pbw
     end
 
     def moderator?
-        self.role == "moderator"
+        self.role == "moderator" || admin?
     end
 
     def make_moderator!
@@ -72,7 +72,7 @@ module Pbw
     end
 
     def player?
-        self.role == "player"
+        self.role == "player" || moderator?
     end
 
     def send_registration_email

@@ -25,4 +25,8 @@
   </fieldset>
 </form>
 
-<a href="#/<%=plural_model_name%>">Back</a>
+<% if(is_admin()){ %>
+  <a href="#/<%=plural_model_name%>">Back</a>
+<% }else { %>
+  <a href="#/">Back</a>
+<% } %>
