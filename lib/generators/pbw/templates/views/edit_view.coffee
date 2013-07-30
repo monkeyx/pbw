@@ -9,6 +9,7 @@ class <%= view_namespace %>.EditView extends Backbone.View
   constructor: (options) ->
     super(options)
     @model = options.model
+    @modelBinder = new Backbone.ModelBinder()
 
     @model.bind("change:errors", () =>
       this.render()
@@ -33,8 +34,8 @@ class <%= view_namespace %>.EditView extends Backbone.View
   render: ->
     @model.fetch
       success: (model) =>
-        @model = model
-        @modelBinder.bind(@model,@$el)
+        @$el.html(@template(model.toJSON() ))
+        @modelBinder.bind(@model, @$el)
       error: (model, response) ->
         debug response
     return this

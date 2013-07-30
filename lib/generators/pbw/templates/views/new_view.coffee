@@ -9,6 +9,7 @@ class <%= view_namespace %>.NewView extends Backbone.View
   constructor: (options) ->
     super(options)
     @model = options.model
+    @modelBinder = new Backbone.ModelBinder()
 
     @model.bind("change:errors", () =>
       this.render()
@@ -31,6 +32,8 @@ class <%= view_namespace %>.NewView extends Backbone.View
     )
 
   render: ->
-    @modelBinder.bind(@model,@$el)
+    @$el.html(@template(@model.toJSON() ))
+
+    @modelBinder.bind(@model, @$el)
 
     return this
