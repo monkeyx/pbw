@@ -4,7 +4,7 @@ class <%= view_namespace %>.ShowView extends Backbone.View
   template: JST["<%= jst 'show' %>"]
 
   initialize: () ->
-    @model = options.model
+    @model = @options.model
     @model.bind("error", (model, xhr, options) =>
       display_errors 'There was a problem displaying <%= singular_name %>', xhr, "/<%=plural_model_name%>/#{@model.id}"
     )

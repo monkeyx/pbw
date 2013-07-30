@@ -35,7 +35,7 @@ class <%= view_namespace %>.EditView extends Backbone.View
     @model.fetch
       success: (model) =>
         @$el.html(@template(model.toJSON() ))
-        @modelBinder.bind(@model, @$el)
+        @modelBinder.bind(@model, $("form"))
       error: (model, response) ->
         debug response
     return this

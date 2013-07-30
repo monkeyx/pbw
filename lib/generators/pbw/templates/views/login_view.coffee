@@ -40,6 +40,6 @@ class <%= user_view_namespace %>.LoginView extends Backbone.View
   render: ->
     @$el.html(@template(@model.toJSON() ))
 
-    @modelBinder.bind(@model, @$el)
+    @modelBinder.bind(@model, $("form"))
 
     return this
