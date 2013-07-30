@@ -43,7 +43,7 @@ module Pbw
 		end
 
 		def update
-			if @model.update_attributes(params[model_param])
+			if @model.update_attributes(params)
 				render json: @model.to_json
 			else
 				render json: @model.errors.full_messages.to_json, status: :unprocessable_entity
@@ -69,10 +69,6 @@ module Pbw
 			self.model_class
 		end
 
-		def model_param
-			model_class.name.underscore.downcase.to_sym
-		end
-
 		def model_id
 			params[:id]
 		end
@@ -84,7 +80,7 @@ module Pbw
 
 		def model_for_create
 			authorize! :create, real_model_class
-			@model = real_model_class.new(params[model_param])
+			@model = real_model_class.new(params)
 			update_model_before_create(@model)
 		end
 

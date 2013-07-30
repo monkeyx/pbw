@@ -29,7 +29,7 @@ module Pbw
 
 		def model_for_create
 			authorize! :update, token_or_area_or_user
-			@model = model_class.new(params[model_param])
+			@model = model_class.new(params)
 			if token_or_area_or_user.ancestors.include?(Area)
 				@model.area = token_or_area_or_user
 			elsif token_or_area_or_user.ancestors.include?(Token)
@@ -38,10 +38,6 @@ module Pbw
 				@model.user = token_or_area_or_user
 			end
 			update_model_before_create(@model)
-		end
-
-		def model_param
-			'item_container'
 		end
 	end
 end
