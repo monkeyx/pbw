@@ -4,6 +4,8 @@ module Pbw
 		wrap_parameters format: [:json]
 
 		def create
+			unwrapped = params
+			params[:user] = unwrapped
 			self.resource = warden.authenticate!(auth_options)
 			sign_in(resource_name, resource)
 			Pbw.user_lifecycle_class.after_login(current_user)
