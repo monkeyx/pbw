@@ -19,8 +19,8 @@
 </table>
 
 <br/>
-<% if(is_admin()){ %>
+<%% if(is_admin()){ %>
   <a href="#/<%=plural_model_name%>/new">New <%= human_name %></a>
-<% }else { %>
+<%% }else { %>
   <a href="#/">Back</a>
-<% } %>
+<%% } %>

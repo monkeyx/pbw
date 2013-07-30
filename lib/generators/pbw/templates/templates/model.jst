@@ -9,12 +9,12 @@
 <% end -%>
 
 <td>
-<% if(is_admin()){ %>
+<%% if(is_admin()){ %>
   <a href="#/<%=plural_model_name%>/<%%= _id %>/edit">Edit</a>
-<% } %>
+<%% } %>
 </td>
 <td>
-<% if(is_admin()){ %>
+<%% if(is_admin()){ %>
   <a href="#/<%=plural_model_name%>/<%%= _id %>/destroy" class="destroy">Delete</a>
-<% } %>
+<%% } %>
 </td>
