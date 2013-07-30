@@ -8,7 +8,7 @@ Pbw::Engine.routes.draw do
  		get "#{controller}/:_type" => "#{controller}\#index"
  		get "#{controller}/:_type/:id" => "#{controller}\#show"
  		post "#{controller}/:_type" => "#{controller}\#create"
- 		delete "#{controller}/:_type/:id" => "#{controller}\#delete"
+ 		delete "#{controller}/:_type/:id" => "#{controller}\#destroy"
  		put "#{controller}/:_type/:id" => "#{controller}\#update"
  	end
 
@@ -16,7 +16,7 @@ Pbw::Engine.routes.draw do
  		get "#{controller}/:_type/:container_id/items" => "item_containers\#index"
  		get "#{controller}/:_type/:container_id/items/:id" => "item_containers\#show"
  		post "#{controller}/:_type/:container_id/items" => "item_containers\#create"
- 		delete "#{controller}/:_type/:container_id/items/:id" => "item_containers\#delete"
+ 		delete "#{controller}/:_type/:container_id/items/:id" => "item_containers\#destroy"
  		put "#{controller}/:_type/:container_id/items/:id" => "item_containers\#update"
  	end
 
@@ -24,5 +24,5 @@ Pbw::Engine.routes.draw do
  	get "users/items/:id" => "item_containers\#show"
  	post "users/items" => "item_containers\#create"
  	put "users/items/:id" => "item_containers\#update"
- 	delete "users/items/:id" => "item_containers\#delete"
+ 	delete "users/items/:id" => "item_containers\#destroy"
 end
