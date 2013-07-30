@@ -31,8 +31,6 @@ class <%= user_view_namespace %>.RecoveryView extends Backbone.View
     )
 
   render: ->
-    @$el.html(@template(@model.toJSON() ))
-
-    this.$("form").backboneLink(@model)
+    @modelBinder.bind(@model,@$el)
 
     return this

@@ -33,8 +33,8 @@ class <%= view_namespace %>.EditView extends Backbone.View
   render: ->
     @model.fetch
       success: (model) =>
-        @$el.html(@template(model.toJSON() ))
-        this.$("form").backboneLink(@model)
+        @model = model
+        @modelBinder.bind(@model,@$el)
       error: (model, response) ->
         debug response
     return this

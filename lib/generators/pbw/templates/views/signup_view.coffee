@@ -34,8 +34,6 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
     )
 
   render: ->
-    @$el.html(@template(@model.toJSON() ))
-
-    this.$("form").backboneLink(@model)
+    @modelBinder.bind(@model,@$el)
 
     return this
