@@ -18,6 +18,10 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
       display_errors 'There was a problem signing up', xhr
     )
 
+    @model.bind("sync", (model, xhr, options) =>
+      window.<%=js_app_name%>.User = xhr
+    )
+
   initialize: ->
     @_modelBinder = new Backbone.ModelBinder
     @bindings = 
