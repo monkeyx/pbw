@@ -24,7 +24,7 @@ class <%= view_namespace %>.EditView extends Backbone.View
       '<%= attribute[:name] %>' : '[name=<%= attribute[:name] %>]'
 <% end %><% end %><% attributes.each do |attribute| -%>
       '<%= attribute.name %>' : '[name=<%= attribute.name %>]'
-<% end %><% end %>
+<% end %>
       
 
   update: (e) ->
