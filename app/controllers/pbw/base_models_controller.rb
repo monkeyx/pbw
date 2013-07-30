@@ -81,6 +81,7 @@ module Pbw
 		def model_for_create
 			authorize! :create, real_model_class
 			@model = real_model_class.new(params)
+			@model.accessible = :all
 			update_model_before_create(@model)
 		end
 
@@ -92,6 +93,7 @@ module Pbw
 		def model_for_update
 			@model = real_model_class.find(model_id)
 			authorize! :update, @model
+			@model.accessible = :all
 			update_model_before_update(@model)
 		end
 	end
