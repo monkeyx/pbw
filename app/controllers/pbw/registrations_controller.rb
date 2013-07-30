@@ -1,6 +1,7 @@
 module Pbw
 	class RegistrationsController < Devise::RegistrationsController
 		respond_to :json
+		wrap_parameters format: [:json]
 
 		def create
 			self.resource = User.new(params[:user])

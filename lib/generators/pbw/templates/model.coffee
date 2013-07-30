@@ -1,5 +1,4 @@
 class <%= js_model_namespace %> extends Backbone.Model
-  paramRoot: '<%= param_root %>'
   urlRoot: '/pbw/<%=model_namespace.downcase%>/<%= class_namespace %>'
 
   defaults:
