@@ -5,7 +5,7 @@
     <tr>
     <% default_attributes.each do |attribute| -%>
       <% unless attribute[:name].start_with?('_') %>
-      <th><%=attribute[:name]%></th>
+      <th><%=attribute[:name].capitalize%></th>
       <% end %>
     <% end -%>
   <% attributes.each do |attribute| -%>

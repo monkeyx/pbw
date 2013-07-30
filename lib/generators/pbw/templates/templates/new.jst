@@ -6,7 +6,7 @@
   <% default_attributes.each do |attribute| -%>
     <% unless attribute[:name].start_with?('_') %>
     <div class="field">
-      <label for="<%= attribute[:name] %>"> <%= attribute[:name] %>:</label>
+      <label for="<%= attribute[:name] %>"> <%= attribute[:name].capitalize %>:</label>
       <input type="text" name="<%= attribute[:name] %>" id="<%= attribute[:name] %>" value="<%%= <%= attribute[:name] %> %>" >
     </div>
     <% end %>
