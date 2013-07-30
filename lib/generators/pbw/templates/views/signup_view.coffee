@@ -22,7 +22,7 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
     @_modelBinder = new Backbone.ModelBinder
     @bindings = 
       'name': '[name=name]'
-      'email': '[name=name]'
+      'email': '[name=email]'
       'password': '[name=password]'
       'password_confirmation': '[name=password_confirmation]'
 

@@ -21,7 +21,7 @@ class <%= user_view_namespace %>.RecoveryView extends Backbone.View
   initialize: ->
     @_modelBinder = new Backbone.ModelBinder
     @bindings = 
-      'email': '[name=name]'
+      'email': '[name=email]'
 
   save: (e) ->
     e.preventDefault()
