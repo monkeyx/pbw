@@ -9,8 +9,7 @@ class <%= view_namespace %>.EditView extends Backbone.View
   constructor: (options) ->
     super(options)
     @model = options.model
-    @modelBinder = new Backbone.ModelBinder()
-
+    
     @model.bind("change:errors", () =>
       this.render()
     )
@@ -18,6 +17,12 @@ class <%= view_namespace %>.EditView extends Backbone.View
     @model.bind("error", (model, xhr, options) =>
       display_errors 'There was a problem saving <%= singular_name %>', xhr, "/<%=plural_model_name%>/#{@model.id}/edit"
     )
+
+  initialize: ->
+    @_modelBinder = new Backbone.ModelBinder
+    @bindings = <% default_attributes.each do |attribute| -%><% unless attribute[:name].start_with?('_') %>
+      '<%=attribute[:name]%>' : '[name=<%= attribute[:name]] %>'<% end %><% end %>
+      
 
   update: (e) ->
     e.preventDefault()
@@ -35,7 +40,7 @@ class <%= view_namespace %>.EditView extends Backbone.View
     @model.fetch
       success: (model) =>
         @$el.html(@template(model.toJSON() ))
-        @modelBinder.bind(@model, $("form"))
+        @_modelBinder.bind(@model, @el, @bindings)
       error: (model, response) ->
         debug response
     return this

@@ -9,8 +9,7 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
   constructor: (options) ->
     super(options)
     @model = new <%= js_user_model_namespace %>Registration
-    @modelBinder = new Backbone.ModelBinder()
-
+    
     @model.bind("change:errors", () =>
       this.render()
     )
@@ -18,6 +17,14 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
     @model.bind("error", (model, xhr, options) =>
       display_errors 'There was a problem signing up', xhr
     )
+
+  initialize: ->
+    @_modelBinder = new Backbone.ModelBinder
+    @bindings = 
+      'name': '[name=name]'
+      'email': '[name=name]'
+      'password': '[name=password]'
+      'password_confirmation': '[name=password_confirmation]'
 
   save: (e) ->
     e.preventDefault()
@@ -37,6 +44,6 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
   render: ->
     @$el.html(@template(@model.toJSON() ))
 
-    @modelBinder.bind(@model, $("form"))
+    @_modelBinder.bind(@model, @el, @bindings)
 
     return this

@@ -9,7 +9,6 @@ class <%= view_namespace %>.NewView extends Backbone.View
   constructor: (options) ->
     super(options)
     @model = options.model
-    @modelBinder = new Backbone.ModelBinder()
 
     @model.bind("change:errors", () =>
       this.render()
@@ -18,6 +17,11 @@ class <%= view_namespace %>.NewView extends Backbone.View
     @model.bind("error", (model, xhr, options) =>
       display_errors 'There was a problem saving <%= singular_name %>', xhr, "/<%=plural_model_name%>/new"
     )
+
+  initialize: ->
+    @_modelBinder = new Backbone.ModelBinder
+    @bindings = <% default_attributes.each do |attribute| -%><% unless attribute[:name].start_with?('_') %>
+      '<%=attribute[:name]%>' : '[name=<%= attribute[:name]] %>'<% end %><% end %>
 
   save: (e) ->
     e.preventDefault()
@@ -34,6 +38,6 @@ class <%= view_namespace %>.NewView extends Backbone.View
   render: ->
     @$el.html(@template(@model.toJSON() ))
 
-    @modelBinder.bind(@model, $("form"))
+    @_modelBinder.bind(@model, @el, @bindings)
 
     return this

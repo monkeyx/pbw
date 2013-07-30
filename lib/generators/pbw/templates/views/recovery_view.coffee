@@ -9,8 +9,7 @@ class <%= user_view_namespace %>.RecoveryView extends Backbone.View
   constructor: (options) ->
     super(options)
     @model = new <%= js_user_model_namespace %>Recovery
-    @modelBinder = new Backbone.ModelBinder()
-
+    
     @model.bind("change:errors", () =>
       this.render()
     )
@@ -18,6 +17,11 @@ class <%= user_view_namespace %>.RecoveryView extends Backbone.View
     @model.bind("error", (model, xhr, options) =>
       display_errors 'There was a problem recovering your password', xhr
     )
+
+  initialize: ->
+    @_modelBinder = new Backbone.ModelBinder
+    @bindings = 
+      'email': '[name=name]'
 
   save: (e) ->
     e.preventDefault()
@@ -34,6 +38,6 @@ class <%= user_view_namespace %>.RecoveryView extends Backbone.View
   render: ->
     @$el.html(@template(@model.toJSON() ))
 
-    @modelBinder.bind(@model, $("form"))
+    @_modelBinder.bind(@model, @el, @bindings)
 
     return this
