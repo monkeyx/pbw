@@ -25,10 +25,10 @@ class <%= user_view_namespace %>.SignupView extends Backbone.View
   initialize: ->
     @_modelBinder = new Backbone.ModelBinder
     @bindings = 
-      'name': '[name=name]'
-      'email': '[name=email]'
-      'password': '[name=password]'
-      'password_confirmation': '[name=password_confirmation]'
+      name: '[name=name]'
+      email: '[name=email]'
+      password: '[name=password]'
+      password_confirmation: '[name=password_confirmation]'
 
   save: (e) ->
     e.preventDefault()

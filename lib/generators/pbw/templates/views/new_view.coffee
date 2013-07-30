@@ -21,9 +21,9 @@ class <%= view_namespace %>.NewView extends Backbone.View
   initialize: ->
     @_modelBinder = new Backbone.ModelBinder
     @bindings = <% default_attributes.each do |attribute| -%><% unless attribute[:name].start_with?('_') %>
-      '<%= attribute[:name] %>' : '[name=<%= attribute[:name] %>]'
+      <%= attribute[:name] %> : '[name=<%= attribute[:name] %>]'
 <% end %><% end %><% attributes.each do |attribute| -%>
-      '<%= attribute.name %>' : '[name=<%= attribute.name %>]'
+      <%= attribute.name %> : '[name=<%= attribute.name %>]'
 <% end %>
 
   save: (e) ->

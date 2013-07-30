@@ -25,9 +25,9 @@ class <%= user_view_namespace %>.LoginView extends Backbone.View
   initialize: ->
     @_modelBinder = new Backbone.ModelBinder
     @bindings = 
-      'email': '[name=email]'
-      'password': '[name=password]'
-      'remember_me': '[name=remember_me]'
+      email: '[name=email]'
+      password: '[name=password]'
+      remember_me: '[name=remember_me]'
 
   save: (e) ->
     e.preventDefault()
