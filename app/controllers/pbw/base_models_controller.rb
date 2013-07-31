@@ -75,7 +75,7 @@ module Pbw
 
 		def index_models
 			authorize! :manage, real_model_class
-			@models = model_class.desc(:created_at)
+			@models = real_model_class.desc(:created_at)
 		end
 
 		def model_for_create
