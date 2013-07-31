@@ -5,6 +5,8 @@ module Pbw
     belongs_to :item, :class_name => 'Pbw::Item'
     field :from, :type => Hash
 
+    attr_accessible :item, :from
+
     def self.viewable_by?(user, subject)
         true
     end

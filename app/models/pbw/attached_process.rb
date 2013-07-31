@@ -14,6 +14,8 @@ module Pbw
     scope :tickable, where(tickable: true)
     scope :updatable, where(updatable: true)
 
+    attr_accessible :token, :area, :process, :tickable, :updatable, :ticks_waiting, :updates_waiting
+
     def tick!
         return unless self.tickable && self.process && (self.token || self.area)
         unless self.ticks_waiting > 0

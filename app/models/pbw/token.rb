@@ -13,7 +13,7 @@ module Pbw
     has_many :attached_processes, :class_name => 'Pbw::AttachedProcess'
     has_many :item_containers, :class_name => 'Pbw::ItemContainer'
 
-    attr_accessible :name
+    attr_accessible :name, :area, :user
 
     def self.viewable_by?(user, subject)
         user.admin? || subject.user == user

@@ -4,6 +4,8 @@ module Pbw
     has_and_belongs_to_many :areas, :class_name => 'Pbw::Area'
     belongs_to :process, :class_name => 'Pbw::Process'
 
+    attr_accessible :process
+
     def self.viewable_by?(user, subject)
         return true if user.admin?
         subject.tokens.each do |token|

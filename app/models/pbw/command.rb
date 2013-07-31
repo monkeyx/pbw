@@ -15,6 +15,8 @@ module Pbw
     scope :tickable, where(tickable: true)
     scope :updatable, where(updatable: true)
 
+    attr_accessible :token, :user, :tickable, :updatable, :ticks_waiting, :updates_waiting
+
     def self.viewable_by?(user, subject)
         user.admin? || subject.user == user
     end
