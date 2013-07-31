@@ -61,10 +61,12 @@ module Pbw
 		def real_model_class
 			begin
 				unless params[:_type].blank?
-					klass = Kernel.get_const(params[:_type])
+					klass = class_from_string(params[:_type])
 					return klass if klass.ancestors.include?(self.model_class)
 				end
-			rescue
+			rescue Exception => e
+				logger.error "Unable to determine real model class from _type: #{params[:_type]}"
+				logger.error e
 			end
 			self.model_class
 		end
@@ -73,9 +75,43 @@ module Pbw
 			params[:id]
 		end
 
+		def index_scope
+			scope = real_model_class.scoped.desc(:created_at)
+			unless params[:scope].blank?
+				scope = scope.send(params[:scope].to_sym)
+			end
+			if params[:scopes]
+				params[:scopes].each do |sc|
+					scope = scope.send(sc.to_sym)
+				end
+			end
+			if params[:where]
+				size = params[:where].size
+				(0..(size-1)).each do |n|
+					scope = scope.where(params[:where][n][:name] => params[:where][n][:value])
+				end
+			end
+			unless params[:asc].blank?
+				scope = scope.asc(params[:asc].to_sym)
+			end
+			unless params[:desc].blank?
+				scope = scope.desc(params[:desc].to_sym)
+			end
+			unless params[:page].blank?
+				limit = params[:limit].blank? ? 10 : params[:limit].to_i
+				skip = (params[:page].to_i - 1) * limit
+				scope = scope.skip(skip).limit(limit)
+			else
+				if params[:limit]
+					scope = scope.limit(params[:limit])
+				end
+			end
+			scope
+		end
+
 		def index_models
 			authorize! :manage, real_model_class
-			@models = real_model_class.desc(:created_at)
+			@models = index_scope
 		end
 
 		def model_for_create
@@ -95,6 +131,14 @@ module Pbw
 			authorize! :update, @model
 			@model.accessible = :all
 			update_model_before_update(@model)
+		end
+
+		private
+		def class_from_string(str)
+		  str = str.gsub('::','  ').strip.gsub('  ', '::')	
+		  str.split('::').inject(Object) do |mod, class_name|
+		    mod.const_get(class_name)
+		  end
 		end
 	end
 
