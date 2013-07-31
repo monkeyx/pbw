@@ -3,7 +3,7 @@ module Pbw
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
     field :name, type: String
-    validates_presence_of :name
+    validates :name, presence: true
 
     belongs_to :area, :class_name => 'Pbw::Area'
     belongs_to :user, :class_name => 'Pbw::User'

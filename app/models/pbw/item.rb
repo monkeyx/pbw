@@ -3,8 +3,8 @@ module Pbw
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
     field :name, type: String
-    validates_presence_of :name
-    validates_uniqueness_of :name
+
+    validates :name, presence: true
 
     has_many :item_containers, :class_name => 'Pbw::ItemContainer'
     has_many :item_conversions, :class_name => 'Pbw::ItemConversion'
