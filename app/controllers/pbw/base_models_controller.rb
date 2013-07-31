@@ -110,7 +110,7 @@ module Pbw
 		end
 
 		def index_models
-			authorize! :manage, real_model_class
+			authorize! :index, real_model_class
 			@models = index_scope
 		end
 
