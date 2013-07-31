@@ -1,5 +1,3 @@
-require 'pbw/utils'
-
 module Pbw
   module Utils
     class Chance
