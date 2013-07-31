@@ -110,5 +110,22 @@ module Pbw
     def self.friendly_token
       SecureRandom.base64(15).tr('+/=lIO0', 'pqrsxyz')
     end
+
+    def count_item(item)
+        container = ItemContainer.find_for_user(self)
+        container ? container.quantity : 0
+    end
+
+    def add_item!(item, quantity)
+        return false unless quantity && quantity.responds_to?(:abs)
+        return remove_item!(item, quantity.abs) if quantity < 0
+        ItemContainer.find_or_create_for_user(self, item, quantity)
+    end
+
+    def remove_item!(item, quantity)
+        return false unless quantity && quantity.responds_to?(:abs)
+        return add_item!(item, quantity.abs) if quantity < 0
+        ItemContainer.find_or_create_for_user(self, item, (0 - quantity))
+    end
   end
 end
