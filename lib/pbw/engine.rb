@@ -2,7 +2,7 @@ require 'pbw/version'
 require 'mongoid'
 require 'devise'
 require 'cancan'
-require 'pbw/utils'
+require 'pbw/utils/utils'
 
 module Pbw
   class Engine < ::Rails::Engine

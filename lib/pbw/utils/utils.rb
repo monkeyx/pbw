@@ -1,8 +1,8 @@
 module Pbw
 	module Utils
-		require 'polynomial'
-		require 'dice'
-		require 'chance'
-		require 'names'
+		require 'pbw/utils/polynomial'
+		require 'pbw/utils/dice'
+		require 'pbw/utils/chance'
+		require 'pbw/utils/names'
 	end
 end
