@@ -11,7 +11,7 @@ module Pbw
     config.mount_at = '/pbw'
 
     rake_tasks do
-      load File.join(File.dirname(__FILE__), 'tasks/pbw_tasks.rake')
+      load File.join(File.dirname(__FILE__), '../tasks/pbw_tasks.rake')
     end
 
     config.generators do |g|
