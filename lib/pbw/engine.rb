@@ -2,6 +2,10 @@ require 'pbw/version'
 require 'mongoid'
 require 'devise'
 require 'cancan'
+require 'pbw/utils/polynomial'
+require 'pbw/utils/dice'
+require 'pbw/utils/chance'
+require 'pbw/utils/names'
 
 module Pbw
   class Engine < ::Rails::Engine
