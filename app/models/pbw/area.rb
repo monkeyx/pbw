@@ -9,8 +9,8 @@ module Pbw
     has_many :tokens, class_name:'Pbw::Token'
     has_many :item_containers, class_name: 'Pbw::ItemContainer'
     has_many :attached_processes, class_name: 'Pbw::AttachedProcess'
-    embeds_many :area_constraints, class_name: 'Pbw::AreaConstraint'
-    embeds_many :area_triggers, class_name: 'Pbw::AreaTrigger'
+    has_many :area_constraints, class_name: 'Pbw::AreaConstraint'
+    has_many :area_triggers, class_name: 'Pbw::AreaTrigger'
     
     attr_accessible :name
 

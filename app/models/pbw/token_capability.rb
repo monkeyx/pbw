@@ -3,7 +3,7 @@ module Pbw
 		include ::Mongoid::Document
     	include ::Mongoid::Timestamps
 
-    	embedded_in :token, class_name: 'Pbw::Token'
+    	belongs_to :token, class_name: 'Pbw::Token'
     	belongs_to :capability, class_name: 'Pbw::Capability'
 	end
 end

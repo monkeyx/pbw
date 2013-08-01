@@ -7,9 +7,9 @@ module Pbw
 
     belongs_to :area, class_name: 'Pbw::Area'
     belongs_to :user, class_name: 'Pbw::User'
-    embeds_many :token_capabilities, class_name: 'Pbw::TokenCapability'
-    embeds_many :token_constraints, class_name: 'Pbw::TokenConstraint'
-    embeds_many :token_triggers, class_name:'Pbw::TokenTrigger'
+    has_many :token_capabilities, class_name: 'Pbw::TokenCapability'
+    has_many :token_constraints, class_name: 'Pbw::TokenConstraint'
+    has_many :token_triggers, class_name:'Pbw::TokenTrigger'
     has_many :attached_processes, class_name: 'Pbw::AttachedProcess'
     has_many :item_containers, class_name: 'Pbw::ItemContainer'
 
