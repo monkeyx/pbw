@@ -6,8 +6,12 @@ module Pbw
   	  	render json: {:error => exception.message}, status: 401
 	  end
 
-	  rescue_from Mongoid::Errors::DocumentNotFound do |exception|
+	  rescue_from ::Mongoid::Errors::DocumentNotFound do |exception|
 	  	render json: {:error => exception.message}, status: 404
+	  end
+
+	  rescue_from ::Pbw::PbwError do |exception|
+	  	render json: {:error => exception.message}, status: 422
 	  end
 
 	  def current_ability

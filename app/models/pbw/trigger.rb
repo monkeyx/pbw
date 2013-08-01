@@ -31,6 +31,7 @@ module Pbw
     end
 
     def check!(token_or_area)
+        raise PbwArgumentErrror('Invalid token or area') unless token_or_area
     	return false unless self.process && trigger?(token_or_area)
     	self.process.schedule!(token_or_area)
     end

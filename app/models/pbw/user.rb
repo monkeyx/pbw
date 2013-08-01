@@ -117,13 +117,13 @@ module Pbw
     end
 
     def add_item!(item, quantity)
-        return false unless quantity && quantity.responds_to?(:abs)
+        raise PbwArgumentError('Invalid quantity') unless quantity && quantity.responds_to?(:abs)
         return remove_item!(item, quantity.abs) if quantity < 0
         ItemContainer.find_or_create_for_user(self, item, quantity)
     end
 
     def remove_item!(item, quantity)
-        return false unless quantity && quantity.responds_to?(:abs)
+        raise PbwArgumentError('Invalid quantity') unless quantity && quantity.responds_to?(:abs)
         return add_item!(item, quantity.abs) if quantity < 0
         ItemContainer.find_or_create_for_user(self, item, (0 - quantity))
     end

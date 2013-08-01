@@ -65,7 +65,7 @@ module Pbw
 
     def run_processes!
         procs = processes
-        return if procs.nil?
+        raise PbwOperationError('Invalid processes') if procs.nil?
         if procs.responds_to?(:each)
             procs.each do |process|
                 process.run!(self.token)
@@ -73,7 +73,7 @@ module Pbw
         elsif procs.ancestors.include?(Process)
             process.run!(self.token)
         else
-            raise "Invalid return method from #{self.class.name}.processes"
+            raise PbwOperationError("Invalid return method from #{self.class.name}.processes")
         end
     end
 

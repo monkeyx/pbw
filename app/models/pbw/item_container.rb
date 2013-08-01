@@ -30,8 +30,10 @@ module Pbw
 
     def self.find_or_create_for_token(token, item, quantity_to_add)
     	container = where(token: token, item: item).first
-    	container = new(token: token, item: item) unless container
-    	container.add_item(quantity_to_add) && container.save ? container : false
+    	container = create(token: token, item: item) unless container
+    	container.add_item(quantity_to_add)
+        container.save!
+        container
     end
 
     def self.find_for_token(token, item)
@@ -40,8 +42,10 @@ module Pbw
 
     def self.find_or_create_for_area(area, item, quantity_to_add)
     	container = where(area: area, item: item).first
-    	container = new(area: area, item: item) unless container
-    	container.add_item(quantity_to_add) && container.save ? container : false
+    	container = create(area: area, item: item) unless container
+    	container.add_item(quantity_to_add)
+        container.save!
+        container
     end
 
     def self.find_for_area(area, item)
@@ -50,8 +54,10 @@ module Pbw
 
     def self.find_or_create_for_user(user, item, quantity_to_add)
     	container = where(user: user, item: item).first
-    	container = new(user: user, item: item) unless container
-    	container.add_item(quantity_to_add) && container.save ? container : false
+    	container = create(user: user, item: item) unless container
+    	container.add_item(quantity_to_add)
+        container.save!
+        container
     end
 
     def self.find_for_user(user, item)
@@ -75,10 +81,8 @@ module Pbw
     end
 
     def transfer_item!(to, quantity)
-    	return false unless to && quantity
-    	return false unless self.item.before_transfer(belongs_to, to, quantity)
-    	remove_item(quantity)
-    	return false unless save
+    	raise PbwArgumentError('Invalid item transfer') unless to && quantity 
+        return false unless self.item.before_transfer(belongs_to, to, quantity)
     	if to.class.ancestors.include?(Area)
     		container = find_or_create_for_area(to, self.item, quantity)
     	elsif to.class.ancestors.include?(Token)
@@ -86,11 +90,14 @@ module Pbw
     	elsif to.class.ancestors.include?(Pbw::Engine.user_class)
     		container = find_or_create_for_user(to, self.item, quantity)
     	else
-    		return false
+    		raise PbwArgumentError('Invalid destination for item transfer')
     	end
-    	unless container
-    		add_item(quantity) && save
-    		false 
+        remove_item(quantity)
+    	save!
+        unless container
+    		add_item(quantity)
+            save!
+    		raise PbwOperationError('Unable to add item') 
     	else
     		self.item.after_transfer(belongs_to, to, quantity)
     		container

@@ -24,7 +24,7 @@ module Pbw
     end
 
     def set_from_item(item, quantity)
-    	return false unless item && quantity
+    	raise PbwArgumentError('Invalid from item') unless item && quantity
     	self.from ||= {}
     	self.from[item._id] = quantity
     	self
@@ -53,7 +53,9 @@ module Pbw
     end
 
     def self.max_convert(token, item)
-    	return 0 unless token && item && token.can_convert?(item)
+        raise PbwArgumentError('Invalid token') unless token
+        raise PbwArgumentError('Invalid item') unless item
+    	return 0 unless token.can_convert?(item)
     	conversion = where(item: item).first
     	return 0 unless conversion
     	containers = conversion.token_from_items_containers(token)
@@ -69,7 +71,10 @@ module Pbw
     end
 
     def self.convert!(token, item, quantity=1)
-    	return false unless token && item && quantity && token.can_convert?(item)
+        raise PbwArgumentError('Invalid token') unless token
+        raise PbwArgumentError('Invalid item') unless item
+        raise PbwArgumentError('Invalid quantity') unless quantity
+    	return false unless token.can_convert?(item)
     	conversion = where(item: item).first
     	return false unless conversion
     	containers = conversion.token_from_items_containers(token)
@@ -78,12 +83,12 @@ module Pbw
     	end
     	containers.keys.each do |from_item|
     		containers[from_item].remove_item(conversion.from_items[from_item] * quantity)
-    		containers[from_item].save
+    		containers[from_item].save!
     	end
     	unless token.add_item!(item,quantity)
     		containers.keys.each do |from_item|
 	    		containers[from_item].add_item(conversion.from_items[from_item] * quantity)
-	    		containers[from_item].save
+	    		containers[from_item].save!
 	    	end
     	end
     end

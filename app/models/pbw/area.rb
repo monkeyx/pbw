@@ -80,16 +80,18 @@ module Pbw
     end
 
     def add_item!(item, quantity)
-        return false unless quantity && quantity.responds_to?(:abs)
+        raise PbwArgumentError('Invalid quantity') unless quantity && quantity.responds_to?(:abs)
         return remove_item!(item, quantity.abs) if quantity < 0
-        return false unless item && before_add_item(item,quantity)
+        raise PbwArgumentError('Invalid item') unless item
+        return false unless before_add_item(item,quantity)
         ItemContainer.find_or_create_for_area(self, item, quantity)
     end
 
     def remove_item!(item, quantity)
-        return false unless quantity && quantity.responds_to?(:abs)
+        raise PbwArgumentError('Invalid quantity') unless quantity && quantity.responds_to?(:abs)
         return add_item!(item, quantity.abs) if quantity < 0
-        return false unless item && before_remove_item(item,quantity)
+        raise PbwArgumentError('Invalid item') unless item
+        return false unless before_remove_item(item,quantity)
         ItemContainer.find_or_create_for_area(self, item, (0 - quantity))
     end
 
@@ -99,17 +101,19 @@ module Pbw
     end
 
     def add_constraint!(constraint)
-        return false unless constraint && constraint.before_add(self)
+        raise PbwArgumentError('Invalid constraint') unless constraint
+        return false unless constraint.before_add(self)
         self.constraints << constraint
-        save
+        save!
         constraint.after_add(self)
         self
     end
 
     def remove_constraint!(constraint)
-        return false unless constraint && constraint.before_remove(self)
+        raise PbwArgumentError('Invalid constraint') unless constraint
+        return false unless constraint.before_remove(self)
         self.constraints.delete_if{|c| c.name == constraint.name}
-        save
+        save!
         constraint.after_remove(self)
         self
     end

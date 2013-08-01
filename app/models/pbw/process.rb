@@ -37,19 +37,24 @@ module Pbw
     	changeset.models_changed.each do |model|
     		changes = changeset.changes_for_model(model)
     		changes.keys.each do |field|
-    			model.send("#{field}=".to_sym,changes[field])
+                begin
+    			 model.send("#{field}=".to_sym,changes[field])
+                rescue Exception => e
+                    raise PbwOperationError(e)
+                end
     		end
-    		return false unless model.save
+    		model.save!
     	end
     	true
     end
 
     def run!(token_or_area)
-    	return false unless before_run(token_or_area)
+    	raise PbwArgumentError('Invalid token or area') unless token_or_area
+        return false unless before_run(token_or_area)
     	changes = changeset(token_or_area)
-    	return false unless changes
-    	raise "Invalid object returned from changeset method in #{self.class.name}" unless changes.is_a?(Changeset)
-    	return false unless token_or_area.check_constraints_and_capabilities(changes)
+    	raise PbwOperationError('No changes given') unless changes
+    	raise PbwOperationError("Invalid object returned from changeset method in #{self.class.name}") unless changes.is_a?(Changeset)
+    	return false token_or_area.check_constraints_and_capabilities(changes)
     	execute_changeset!(changes)
     	token_or_area.check_triggers!
     	after_triggers(token_or_area)
