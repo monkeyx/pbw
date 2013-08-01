@@ -1,6 +1,6 @@
 module Pbw
   class Capability < Rule
-    has_and_belongs_to_many :tokens, :class_name => 'Pbw::Token'
+    has_and_belongs_to_many :tokens, class_name: 'Pbw::Token', foreign_key: 'Pbw/token_ids'
 
     def self.viewable_by?(user, subject)
         return true if user.admin?

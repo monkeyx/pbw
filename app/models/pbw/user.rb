@@ -9,34 +9,34 @@ module Pbw
            :recoverable, :rememberable, :trackable, :lockable
 
     ## Database authenticatable
-    field :email,              :type => String, :default => ""
-    field :encrypted_password, :type => String, :default => ""
+    field :email,              type: String, default: ""
+    field :encrypted_password, type: String, default: ""
     
     ## Recoverable
-    field :reset_password_token,   :type => String
-    field :reset_password_sent_at, :type => Time
+    field :reset_password_token,   type: String
+    field :reset_password_sent_at, type: Time
 
     ## Rememberable
-    field :remember_created_at, :type => Time
+    field :remember_created_at, type: Time
 
     ## Trackable
-    field :sign_in_count,      :type => Integer, :default => 0
-    field :current_sign_in_at, :type => Time
-    field :last_sign_in_at,    :type => Time
-    field :current_sign_in_ip, :type => String
-    field :last_sign_in_ip,    :type => String
+    field :sign_in_count,      type: Integer, default: 0
+    field :current_sign_in_at, type: Time
+    field :last_sign_in_at,    type: Time
+    field :current_sign_in_ip, type: String
+    field :last_sign_in_ip,    type: String
 
-    field :name,   :type => String
+    field :name,   type: String
     
-    field :role, :type => String, :default => 'player'
+    field :role, type: String, default: 'player'
 
     ## Lockable
-    field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
-    field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
-    field :locked_at,       :type => Time
+    field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
+    field :unlock_token,    type: String # Only if unlock strategy is :email or :both
+    field :locked_at,       type: Time
 
-    has_many :item_containers, :class_name => 'Pbw::ItemContainer'
-    has_many :tokens, :class_name => 'Pbw::Token'
+    has_many :item_containers, class_name: 'Pbw::ItemContainer', foreign_key: 'Pbw/item_container_ids'
+    has_many :tokens, class_name: 'Pbw::Token', foreign_key: 'Pbw/token_ids'
 
     validates :name, presence: true
     validates :password, confirmation: true, length: {minimum: 8}

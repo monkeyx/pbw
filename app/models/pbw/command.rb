@@ -1,14 +1,14 @@
 module Pbw
   class Command < Rule
-    belongs_to :token, :class_name => 'Pbw::Token'
-    belongs_to :user, :class_name => 'Pbw::User'
+    belongs_to :token, class_name: 'Pbw::Token'
+    belongs_to :user, class_name: 'Pbw::User'
 
     before_validation :validate_token_and_user
     
-    field :tickable, :type => Boolean, :default => false
-    field :updatable, :type => Boolean, :default => false
-    field :ticks_waiting, :type => Integer, :default => 0
-    field :updates_waiting, :type => Integer, :default => 0
+    field :tickable, type: Boolean, default: false
+    field :updatable, type: Boolean, default: false
+    field :ticks_waiting, type: Integer, default: 0
+    field :updates_waiting, type: Integer, default: 0
 
     before_save :set_tickable_and_updatable    
 

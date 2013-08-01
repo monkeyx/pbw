@@ -1,7 +1,7 @@
 module Pbw
   class Constraint < Rule
-    has_and_belongs_to_many :tokens, :class_name => 'Pbw::Token'
-    has_and_belongs_to_many :areas, :class_name => 'Pbw::Area'
+    has_and_belongs_to_many :tokens, class_name: 'Pbw::Token', foreign_key: 'Pbw/token_ids'
+    has_and_belongs_to_many :areas, class_name: 'Pbw::Area', foreign_key: 'Pbw/area_ids'
 
     def self.viewable_by?(user, subject)
         return true if user.admin?

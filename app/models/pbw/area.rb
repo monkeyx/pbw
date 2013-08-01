@@ -6,11 +6,11 @@ module Pbw
     
     validates :name, presence: true
 
-    has_many :tokens, :class_name => 'Pbw::Token'
-    has_many :item_containers, :class_name => 'Pbw::ItemContainer'
-    has_many :attached_processes, :class_name => 'Pbw::AttachedProcess'
-    has_and_belongs_to_many :constraints, :class_name => 'Pbw::Constraint'
-    has_and_belongs_to_many :triggers, :class_name => 'Pbw::Trigger'
+    has_many :tokens, class_name:'Pbw::Token', foreign_key: 'Pbw/token_ids'
+    has_many :item_containers, class_name: 'Pbw::ItemContainer', foreign_key: 'Pbw/item_container_ids'
+    has_many :attached_processes, class_name: 'Pbw::AttachedProcess', foreign_key: 'Pbw/attached_process_ids'
+    has_and_belongs_to_many :constraints, class_name: 'Pbw::Constraint', inverse_of: :areas, foreign_key: 'Pbw/constraint_ids'
+    has_and_belongs_to_many :triggers, class_name: 'Pbw::Trigger', inverse_of: :areas, foreign_key: 'Pbw/trigger_ids'
     
     attr_accessible :name
 
