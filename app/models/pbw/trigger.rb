@@ -6,40 +6,6 @@ module Pbw
 
     attr_accessible :process
 
-    def tokens
-        self.token_triggers.map{|tt| tt.token }
-    end
-
-    def tokens=(list)
-        self.token_triggers = list.map{|t| Pbw::TokenTrigger.create(token: t, trigger: self) }
-    end
-
-    def tokens<<(t)
-        return if self.token_triggers.any?{|tt| tt.token == t}
-        self.token_triggers << Pbw::TokenTrigger.create(token: t, trigger: self)
-    end
-
-    def delete_tokens!
-        self.token_triggers.each{|tt| tt.destroy }
-    end
-
-    def areas
-        self.area_triggers.map{|at| at.area }
-    end
-
-    def areas=(list)
-        self.area_triggers = list.map{|a| Pbw::AreaTrigger.create(area: t, trigger: self) }
-    end
-
-    def areas<<(a)
-        return if self.area_triggers.any?{|at| at.area == a}
-        self.area_triggers << Pbw::AreaTrigger.create(area: a, trigger: self)
-    end
-
-    def delete_areas!
-        self.area_triggers.each{|at| at.destroy }
-    end
-
     def self.viewable_by?(user, subject)
         return true if user.admin?
         subject.tokens.each do |token|

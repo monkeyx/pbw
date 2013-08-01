@@ -15,57 +15,6 @@ module Pbw
 
     attr_accessible :name, :area, :user
 
-    def constraints
-        self.token_constraints.map{|tc| tc.constraint }
-    end
-
-    def constraints=(list)
-        self.token_constraints = list.map{|c| Pbw::TokenConstraint.create(token: self, constraint: c) }
-    end
-
-    def constraints<<(c)
-        return if self.token_constraints.any?{|tc| tc.constraint == c}
-        self.token_constraints << Pbw::TokenConstraint.create(token: self, constraint: c)
-    end
-
-    def delete_constraints!
-        self.token_constraints.each{|tc| tc.destroy }
-    end
-
-    def capabilities
-        self.token_capabilities.map{|tc| tc.capability }
-    end
-
-    def capabilities=(list)
-        self.token_capabilities = list.map{|c| Pbw::TokenCapability.create(token: self, capability: c) }
-    end
-
-    def capabilities<<(c)
-        return if self.token_capabilities.any?{|tc| tc.capability == c}
-        self.token_capabilities << Pbw::TokenCapability.create(token: self, capability: c)
-    end
-
-    def delete_capabilities!
-        self.token_capabilities.each{|tc| tc.destroy }
-    end
-
-    def triggers
-        self.token_triggers.map{|tt| tt.trigger }
-    end
-
-    def triggers=(list)
-        self.token_triggers = list.map{|t| Pbw::TokenTrigger.create(token: self, trigger: t) }
-    end
-
-    def triggers<<(t)
-        return if self.token_triggers.any?{|tt| tt.trigger == t}
-        self.token_triggers << Pbw::TokenTrigger.create(token: self, trigger: t)
-    end
-
-    def delete_triggers!
-        self.token_triggers.each{|tt| tt.destroy }
-    end
-
     def self.viewable_by?(user, subject)
         user.admin? || subject.user == user
     end
@@ -172,6 +121,18 @@ module Pbw
         self.area
     end
 
+    def constraints
+        self.token_constraints.map{|tc| tc.constraint }
+    end
+
+    def constraints=(list)
+        self.token_constraints = list.map{|c| Pbw::TokenConstraint.create(token: self, constraint: c) }
+    end
+
+    def delete_constraints!
+        self.token_constraints.each{|tc| tc.destroy }
+    end
+
     def has_constraint?(constraint)
         constraint = Constraint.find(constraint) if constraint.is_a?(String)
         self.constraints.include?(constraint)
@@ -179,9 +140,9 @@ module Pbw
 
     def add_constraint!(constraint)
         raise PbwArgumentError('Invalid constraint') unless constraint 
+        return if self.token_constraints.any?{|tc| tc.constraint == constraint}
         return false unless constraint.before_add(self)
-        self.constraints << constraint
-        save!
+        Pbw::TokenConstraint.create(token: self, constraint: constraint)
         constraint.after_add(self)
         self
     end
@@ -197,15 +158,28 @@ module Pbw
         self
     end
 
+    def capabilities
+        self.token_capabilities.map{|tc| tc.capability }
+    end
+
+    def capabilities=(list)
+        self.token_capabilities = list.map{|c| Pbw::TokenCapability.create(token: self, capability: c) }
+    end
+
+    def delete_capabilities!
+        self.token_capabilities.each{|tc| tc.destroy }
+    end
+
     def has_capability?(capability)
         capability = Capability.find(capability) if capability.is_a?(String)
         self.capabilities.include?(capability)
     end
 
     def add_capability!(capability)
+        raise PbwArgumentError('Invalid capability') unless capability
         return false unless capability && capability.before_add(self)
-        self.capabilities << capability
-        save!
+        return if self.token_capabilities.any?{|tc| tc.capability == capability}
+        Pbw::TokenCapability.create(token: self, capability: capability)
         capability.after_add(self)
         self
     end
@@ -226,6 +200,18 @@ module Pbw
         self.constraints.any?{|c| !c.before_process(self, changeset)}
     end
 
+    def triggers
+        self.token_triggers.map{|tt| tt.trigger }
+    end
+
+    def triggers=(list)
+        self.token_triggers = list.map{|t| Pbw::TokenTrigger.create(token: self, trigger: t) }
+    end
+
+    def delete_triggers!
+        self.token_triggers.each{|tt| tt.destroy }
+    end
+
     def has_trigger?(trigger)
         trigger = Trigger.find(trigger) if trigger.is_a?(String)
         self.triggers.include?(trigger)
@@ -233,8 +219,8 @@ module Pbw
 
     def add_trigger!(trigger)
         raise PbwArgumentError('Invalid trigger') unless trigger
-        self.triggers << trigger
-        save!
+        return if self.token_triggers.any?{|tt| tt.trigger == trigger}
+        Pbw::TokenTrigger.create(token: self, trigger: trigger)
         self
     end
 

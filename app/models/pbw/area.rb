@@ -14,40 +14,6 @@ module Pbw
     
     attr_accessible :name
 
-    def constraints
-        self.area_constraints.map{|ac| ac.constraint }
-    end
-
-    def constraints=(list)
-        self.area_constraints = list.map{|c| Pbw::AreaConstraint.create(area: self, constraint: c) }
-    end
-
-    def constraints<<(c)
-        return if self.area_constraints.any?{|ac| ac.constraint == c}
-        self.area_constraints << Pbw::AreaConstraint.create(area: self, constraint: c)
-    end
-
-    def delete_constraints!
-        self.area_constraints.each{|ac| ac.destroy }
-    end
-
-    def triggers
-        self.area_triggers.map{|at| at.trigger }
-    end
-
-    def triggers=(list)
-        self.area_triggers = list.map{|t| Pbw::AreaTrigger.create(area: self, trigger: t) }
-    end
-
-    def triggers<<(t)
-        return if self.area_triggers.any?{|at| at.trigger == t}
-        self.area_triggers << Pbw::AreaTrigger.create(area: self, trigger: t)
-    end
-
-    def delete_triggers!
-        self.area_triggers.each{|at| at.destroy }
-    end
-
     def self.viewable_by?(user, subject)
         true
     end
@@ -129,18 +95,30 @@ module Pbw
         ItemContainer.find_or_create_for_area(self, item, (0 - quantity))
     end
 
+    def constraints
+        self.area_constraints.map{|ac| ac.constraint }
+    end
+
+    def constraints=(list)
+        self.area_constraints = list.map{|c| Pbw::AreaConstraint.create(area: self, constraint: c) }
+    end
+
+    def add_constraints!(constraint)
+        raise PbwArgumentError('Invalid constraint') unless constraint
+        return if self.area_constraints.any?{|ac| ac.constraint == constraint}
+        return false unless constraint.before_add(self)
+        Pbw::AreaConstraint.create(area: self, constraint: constraint)
+        constraint.after_add(self)
+        self
+    end
+
+    def delete_constraints!
+        self.area_constraints.each{|ac| ac.destroy }
+    end
+
     def has_constraint?(constraint)
         constraint = Constraint.find(constraint) if constraint.is_a?(String)
         self.constraints.include?(constraint)
-    end
-
-    def add_constraint!(constraint)
-        raise PbwArgumentError('Invalid constraint') unless constraint
-        return false unless constraint.before_add(self)
-        self.constraints << constraint
-        save!
-        constraint.after_add(self)
-        self
     end
 
     def remove_constraint!(constraint)
@@ -158,16 +136,28 @@ module Pbw
         self.constraints.any?{|c| !c.before_process(self, changeset)}
     end
 
+    def triggers
+        self.area_triggers.map{|at| at.trigger }
+    end
+
+    def triggers=(list)
+        self.area_triggers = list.map{|t| Pbw::AreaTrigger.create(area: self, trigger: t) }
+    end
+
+    def add_triggers!(trigger)
+        raise PbwArgumentError('Invalid trigger') unless trigger
+        return if self.area_triggers.any?{|at| at.trigger == trigger}
+        Pbw::AreaTrigger.create(area: self, trigger: trigger)
+        sef
+    end
+
+    def delete_triggers!
+        self.area_triggers.each{|at| at.destroy }
+    end
+
     def has_trigger?(trigger)
         trigger = Trigger.find(trigger) if trigger.is_a?(String)
         self.triggers.include?(trigger)
-    end
-
-    def add_trigger!(trigger)
-        raise PbwArgumentError('Invalid trigger') unless trigger
-        self.triggers << trigger
-        save!
-        self
     end
 
     def remove_trigger!(trigger)
