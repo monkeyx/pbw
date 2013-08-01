@@ -28,6 +28,10 @@ module Pbw
         self.token_constraints << Pbw::TokenConstraint.create(token: self, constraint: c)
     end
 
+    def delete_constraints!
+        self.token_constraints.each{|tc| tc.destroy }
+    end
+
     def capabilities
         self.token_capabilities.map{|tc| tc.capability }
     end
@@ -41,6 +45,10 @@ module Pbw
         self.token_capabilities << Pbw::TokenCapability.create(token: self, capability: c)
     end
 
+    def delete_capabilities!
+        self.token_capabilities.each{|tc| tc.destroy }
+    end
+
     def triggers
         self.token_triggers.map{|tt| tt.trigger }
     end
@@ -52,6 +60,10 @@ module Pbw
     def triggers<<(t)
         return if self.token_triggers.any?{|tt| tt.trigger == t}
         self.token_triggers << Pbw::TokenTrigger.create(token: self, trigger: t)
+    end
+
+    def delete_triggers!
+        self.token_triggers.each{|tt| tt.destroy }
     end
 
     def self.viewable_by?(user, subject)
@@ -177,9 +189,11 @@ module Pbw
     def remove_constraint!(constraint)
         raise PbwArgumentError('Invalid constraint') unless constraint 
         return false unless constraint.before_remove(self)
-        self.token_constraints.delete_if{|tc| tc.constraint == constraint}
-        save!
-        constraint.after_remove(self)
+        tc = TokenConstraint.where(token: token, constraint: constraint).first
+        if tc
+            tc.destroy
+            constraint.after_remove(self)
+        end
         self
     end
 
@@ -199,9 +213,11 @@ module Pbw
     def remove_capability!(capability)
         raise PbwArgumentError('Invalid constraint') unless capability 
         return false unless capability.before_remove(self)
-        self.token_capabilities.delete_if{|tc| tc.capability == capability}
-        save!
-        capability.after_remove(self)
+        tc = TokenCapability.where(token: token, capability: capability).first
+        if tc
+            tc.destroy
+            capability.after_remove(self)
+        end
         self
     end
 
@@ -224,8 +240,8 @@ module Pbw
 
     def remove_trigger!(trigger)
         raise PbwArgumentError('Invalid trigger') unless trigger
-        self.token_triggers.delete_if{|tt| tt.trigger == trigger}
-        save!
+        tt = TokenTrigger.where(token: token, trigger: trigger).first
+        tt.destroy if tt
         self
     end
 

@@ -15,6 +15,10 @@ module Pbw
         self.token_capabilities << Pbw::TokenCapability.create(token: t, capability: self)
     end
 
+    def delete_tokens!
+        self.token_capabilities.each{|tc| tc.destroy }
+    end
+
     def self.viewable_by?(user, subject)
         return true if user.admin?
         subject.tokens.each do |token|

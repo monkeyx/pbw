@@ -27,6 +27,10 @@ module Pbw
         self.area_constraints << Pbw::AreaConstraint.create(area: self, constraint: c)
     end
 
+    def delete_constraints!
+        self.area_constraints.each{|ac| ac.destroy }
+    end
+
     def triggers
         self.area_triggers.map{|at| at.trigger }
     end
@@ -38,6 +42,10 @@ module Pbw
     def triggers<<(t)
         return if self.area_triggers.any?{|at| at.trigger == t}
         self.area_triggers << Pbw::AreaTrigger.create(area: self, trigger: t)
+    end
+
+    def delete_triggers!
+        self.area_triggers.each{|at| at.destroy }
     end
 
     def self.viewable_by?(user, subject)
@@ -138,9 +146,11 @@ module Pbw
     def remove_constraint!(constraint)
         raise PbwArgumentError('Invalid constraint') unless constraint
         return false unless constraint.before_remove(self)
-        self.area_constraints.delete_if{|ac| ac.constraint == constraint}
-        save!
-        constraint.after_remove(self)
+        ac = AreaConstraint.where(area: self, constraint: constraint).first
+        if ac
+            ac.destroy
+            constraint.after_remove(self)
+        end
         self
     end
 
@@ -162,8 +172,8 @@ module Pbw
 
     def remove_trigger!(trigger)
         raise PbwArgumentError('Invalid trigger') unless trigger
-        self.area_triggers.delete_if{|at| at.trigger == trigger}
-        save!
+        at = AreaTrigger.where(area: self, trigger: trigger).first
+        at.destroy if at
         self
     end
 

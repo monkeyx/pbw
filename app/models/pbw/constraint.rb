@@ -16,6 +16,10 @@ module Pbw
         self.token_constraints << Pbw::TokenConstraint.create(token: t, constraint: self)
     end
 
+    def delete_tokens!
+        self.token_constraints.each{|tc| tc.destroy }
+    end
+
     def areas
         self.area_constraints.map{|tc| tc.area }
     end
@@ -27,6 +31,10 @@ module Pbw
     def areas<<(a)
         return if self.area_constraints.any?{|ac| ac.area == a}
         self.area_constraints << Pbw::AreaConstraint.create(area: a, constraint: self)
+    end
+
+    def delete_areas!
+        self.area_constraints.each{|ac| ac.destroy }
     end
 
     def self.viewable_by?(user, subject)

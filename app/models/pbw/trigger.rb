@@ -19,6 +19,10 @@ module Pbw
         self.token_triggers << Pbw::TokenTrigger.create(token: t, trigger: self)
     end
 
+    def delete_tokens!
+        self.token_triggers.each{|tt| tt.destroy }
+    end
+
     def areas
         self.area_triggers.map{|at| at.area }
     end
@@ -30,6 +34,10 @@ module Pbw
     def areas<<(a)
         return if self.area_triggers.any?{|at| at.area == a}
         self.area_triggers << Pbw::AreaTrigger.create(area: a, trigger: self)
+    end
+
+    def delete_areas!
+        self.area_triggers.each{|at| at.destroy }
     end
 
     def self.viewable_by?(user, subject)
