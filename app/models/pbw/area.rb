@@ -103,7 +103,7 @@ module Pbw
         self.area_constraints = list.map{|c| Pbw::AreaConstraint.create(area: self, constraint: c) }
     end
 
-    def add_constraints!(constraint)
+    def add_constraint!(constraint)
         raise PbwArgumentError('Invalid constraint') unless constraint
         return if self.area_constraints.any?{|ac| ac.constraint == constraint}
         return false unless constraint.before_add(self)
