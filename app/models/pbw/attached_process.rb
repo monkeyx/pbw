@@ -2,9 +2,9 @@ module Pbw
   class AttachedProcess
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
-  	belongs_to :token, class_name: 'Pbw::Token'
-  	belongs_to :area, class_name: 'Pbw::Area'
-  	belongs_to :process, class_name: 'Pbw::Process'
+  	belongs_to :token, class_name: '::Pbw::Token'
+  	belongs_to :area, class_name: '::Pbw::Area'
+  	belongs_to :process, class_name: '::Pbw::Process'
 
   	field :tickable, type: Boolean, default: false
     field :updatable, type: Boolean, default: false

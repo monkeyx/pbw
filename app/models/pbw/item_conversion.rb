@@ -2,7 +2,7 @@ module Pbw
   class ItemConversion
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
-    belongs_to :item, class_name: 'Pbw::Item'
+    belongs_to :item, class_name: '::Pbw::Item'
     field :from, type: Hash
 
     attr_accessible :item, :from

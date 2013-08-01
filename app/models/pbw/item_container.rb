@@ -2,13 +2,13 @@ module Pbw
   class ItemContainer
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
-    belongs_to :item, class_name: 'Pbw::Item'
+    belongs_to :item, class_name: '::Pbw::Item'
     field :quantity, type: Float, default: 0
     validates_numericality_of :quantity, :greater_than_or_equal_to => 0
 
-    belongs_to :token, class_name: 'Pbw::Token'
-    belongs_to :area, class_name: 'Pbw::Area'
-    belongs_to :user, class_name: 'Pbw::User'
+    belongs_to :token, class_name: '::Pbw::Token'
+    belongs_to :area, class_name: '::Pbw::Area'
+    belongs_to :user, class_name: '::Pbw::User'
 
     attr_accessible :item, :token, :area, :user, :quantity
 

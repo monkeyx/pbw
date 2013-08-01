@@ -1,7 +1,7 @@
 module Pbw
   class Constraint < Rule
-    has_many :token_constraints, class_name: 'Pbw::TokenConstraint'
-    has_many :area_constraints, class_name: 'Pbw::AreaConstraint'
+    has_many :token_constraints, class_name: '::Pbw::TokenConstraint'
+    has_many :area_constraints, class_name: '::Pbw::AreaConstraint'
 
     def self.viewable_by?(user, subject)
         return true if user.admin?

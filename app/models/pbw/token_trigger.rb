@@ -3,7 +3,7 @@ module Pbw
 		include ::Mongoid::Document
     	include ::Mongoid::Timestamps
 
-    	belongs_to :token, class_name: 'Pbw::Token'
-    	belongs_to :trigger, class_name: 'Pbw::Trigger'
+    	belongs_to :token, class_name: '::Pbw::Token'
+    	belongs_to :trigger, class_name: '::Pbw::Trigger'
 	end
 end
