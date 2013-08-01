@@ -1,7 +1,7 @@
 module Pbw
   class Trigger < Rule
-    has_many :token_triggers, class_name: 'Pbw::TokenTrigger', foreign_key: 'Pbw/token_trigger_ids'
-    has_many :area_triggers, class_name: 'Pbw::AreaTrigger', foreign_key: 'Pbw/area_trigger_ids'
+    has_many :token_triggers, class_name: 'Pbw::TokenTrigger'
+    has_many :area_triggers, class_name: 'Pbw::AreaTrigger'
     belongs_to :process, class_name: 'Pbw::Process'
 
     attr_accessible :process

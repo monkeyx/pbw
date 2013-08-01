@@ -6,8 +6,8 @@ module Pbw
 
     validates :name, presence: true
 
-    has_many :item_containers, class_name: 'Pbw::ItemContainer', foreign_key: 'Pbw/item_container_ids'
-    has_many :item_conversions, class_name: 'Pbw::ItemConversion', foreign_key: 'Pbw/item_conversion_ids'
+    has_many :item_containers, class_name: 'Pbw::ItemContainer'
+    has_many :item_conversions, class_name: 'Pbw::ItemConversion'
     
     attr_accessible :name
 

@@ -7,11 +7,11 @@ module Pbw
 
     belongs_to :area, class_name: 'Pbw::Area'
     belongs_to :user, class_name: 'Pbw::User'
-    has_many :token_capabilities, class_name: 'Pbw::TokenCapability', foreign_key: 'Pbw/token_capability_ids'
-    has_many :token_constraints, class_name: 'Pbw::TokenConstraint', foreign_key: 'Pbw/token_constraint_ids'
-    has_many :token_triggers, class_name:'Pbw::TokenTrigger', foreign_key: 'Pbw/token_trigger_ids'
-    has_many :attached_processes, class_name: 'Pbw::AttachedProcess', foreign_key: 'Pbw/attached_process_ids'
-    has_many :item_containers, class_name: 'Pbw::ItemContainer', foreign_key: 'Pbw/item_container_ids'
+    embeds_many :token_capabilities, class_name: 'Pbw::TokenCapability'
+    embeds_many :token_constraints, class_name: 'Pbw::TokenConstraint'
+    embeds_many :token_triggers, class_name:'Pbw::TokenTrigger'
+    has_many :attached_processes, class_name: 'Pbw::AttachedProcess'
+    has_many :item_containers, class_name: 'Pbw::ItemContainer'
 
     attr_accessible :name, :area, :user
 
