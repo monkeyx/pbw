@@ -68,11 +68,11 @@ module Pbw
     end
 
     def attach_tick_process(process, ticks_to_wait=0)
-        AttachedProcess.create(token: self, process: process, tickable: true, ticks_waiting: ticks_to_wait)
+        AttachedProcess.create!(token: self, process: process, tickable: true, ticks_waiting: ticks_to_wait)
     end
 
     def attach_update_process(process, updates_to_wait=0)
-        AttachedProcess.create(token: self, process: process, updatable: true, updates_waiting: updates_to_wait)
+        AttachedProcess.create!(token: self, process: process, updatable: true, updates_waiting: updates_to_wait)
     end
 
     def can_convert?(item)
@@ -126,7 +126,8 @@ module Pbw
     end
 
     def constraints=(list)
-        self.token_constraints = list.map{|c| Pbw::TokenConstraint.create(token: self, constraint: c) }
+        list.each{|c| Pbw::TokenConstraint.create!(token: self, constraint: c) }
+        save!
     end
 
     def delete_constraints!
@@ -134,16 +135,17 @@ module Pbw
     end
 
     def has_constraint?(constraint)
-        constraint = Constraint.find(constraint) if constraint.is_a?(String)
-        self.constraints.include?(constraint)
+        constraint = Constraint.find(constraint) if constraint && constraint.is_a?(String)
+        constraint && self.constraints.include?(constraint)
     end
 
     def add_constraint!(constraint)
         raise PbwArgumentError('Invalid constraint') unless constraint 
         return if self.token_constraints.any?{|tc| tc.constraint == constraint}
         return false unless constraint.before_add(self)
-        Pbw::TokenConstraint.create(token: self, constraint: constraint)
+        Pbw::TokenConstraint.create!(token: self, constraint: constraint)
         constraint.after_add(self)
+        save!
         self
     end
 
@@ -153,6 +155,7 @@ module Pbw
         tc = TokenConstraint.where(token: token, constraint: constraint).first
         if tc
             tc.destroy
+            save!
             constraint.after_remove(self)
         end
         self
@@ -163,7 +166,8 @@ module Pbw
     end
 
     def capabilities=(list)
-        self.token_capabilities = list.map{|c| Pbw::TokenCapability.create(token: self, capability: c) }
+        list.each{|c| Pbw::TokenCapability.create!(token: self, capability: c) }
+        save!
     end
 
     def delete_capabilities!
@@ -171,15 +175,16 @@ module Pbw
     end
 
     def has_capability?(capability)
-        capability = Capability.find(capability) if capability.is_a?(String)
-        self.capabilities.include?(capability)
+        capability = Capability.find(capability) if capability && capability.is_a?(String)
+        capability && self.capabilities.include?(capability)
     end
 
     def add_capability!(capability)
         raise PbwArgumentError('Invalid capability') unless capability
         return false unless capability && capability.before_add(self)
         return if self.token_capabilities.any?{|tc| tc.capability == capability}
-        Pbw::TokenCapability.create(token: self, capability: capability)
+        Pbw::TokenCapability.create!(token: self, capability: capability)
+        save!
         capability.after_add(self)
         self
     end
@@ -190,6 +195,7 @@ module Pbw
         tc = TokenCapability.where(token: token, capability: capability).first
         if tc
             tc.destroy
+            save!
             capability.after_remove(self)
         end
         self
@@ -205,7 +211,8 @@ module Pbw
     end
 
     def triggers=(list)
-        self.token_triggers = list.map{|t| Pbw::TokenTrigger.create(token: self, trigger: t) }
+        list.each{|t| Pbw::TokenTrigger.create!(token: self, trigger: t) }
+        save!
     end
 
     def delete_triggers!
@@ -213,21 +220,24 @@ module Pbw
     end
 
     def has_trigger?(trigger)
-        trigger = Trigger.find(trigger) if trigger.is_a?(String)
-        self.triggers.include?(trigger)
+        trigger = Trigger.find(trigger) if trigger && trigger.is_a?(String)
+        trigger && self.triggers.include?(trigger)
     end
 
     def add_trigger!(trigger)
         raise PbwArgumentError('Invalid trigger') unless trigger
         return if self.token_triggers.any?{|tt| tt.trigger == trigger}
-        Pbw::TokenTrigger.create(token: self, trigger: trigger)
+        Pbw::TokenTrigger.create!(token: self, trigger: trigger)
         self
     end
 
     def remove_trigger!(trigger)
         raise PbwArgumentError('Invalid trigger') unless trigger
         tt = TokenTrigger.where(token: token, trigger: trigger).first
-        tt.destroy if tt
+        if tt
+            tt.destroy 
+            save!
+        end
         self
     end
 

@@ -30,7 +30,7 @@ module Pbw
 
     def self.find_or_create_for_token(token, item, quantity_to_add)
     	container = where(token: token, item: item).first
-    	container = create(token: token, item: item) unless container
+    	container = create!(token: token, item: item) unless container
     	container.add_item(quantity_to_add)
         container.save!
         container
@@ -42,7 +42,7 @@ module Pbw
 
     def self.find_or_create_for_area(area, item, quantity_to_add)
     	container = where(area: area, item: item).first
-    	container = create(area: area, item: item) unless container
+    	container = create!(area: area, item: item) unless container
     	container.add_item(quantity_to_add)
         container.save!
         container
@@ -54,7 +54,7 @@ module Pbw
 
     def self.find_or_create_for_user(user, item, quantity_to_add)
     	container = where(user: user, item: item).first
-    	container = create(user: user, item: item) unless container
+    	container = create!(user: user, item: item) unless container
     	container.add_item(quantity_to_add)
         container.save!
         container

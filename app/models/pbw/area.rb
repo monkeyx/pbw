@@ -67,11 +67,11 @@ module Pbw
     end
 
     def attach_tick_process(process, ticks_to_wait=0)
-        AttachedProcess.create(area: self, process: process, tickable: true, ticks_waiting: ticks_to_wait)
+        AttachedProcess.create!(area: self, process: process, tickable: true, ticks_waiting: ticks_to_wait)
     end
 
     def attach_update_process(process, updates_to_wait=0)
-        AttachedProcess.create(area: self, process: process, updatable: true, updates_waiting: updates_to_wait)
+        AttachedProcess.create!(area: self, process: process, updatable: true, updates_waiting: updates_to_wait)
     end
 
     def count_item(item)
@@ -100,15 +100,17 @@ module Pbw
     end
 
     def constraints=(list)
-        self.area_constraints = list.map{|c| Pbw::AreaConstraint.create(area: self, constraint: c) }
+        list.each{|c| Pbw::AreaConstraint.create!(area: self, constraint: c) }
+        save!
     end
 
     def add_constraint!(constraint)
         raise PbwArgumentError('Invalid constraint') unless constraint
         return if self.area_constraints.any?{|ac| ac.constraint == constraint}
         return false unless constraint.before_add(self)
-        Pbw::AreaConstraint.create(area: self, constraint: constraint)
+        Pbw::AreaConstraint.create!(area: self, constraint: constraint)
         constraint.after_add(self)
+        save!
         self
     end
 
@@ -117,8 +119,8 @@ module Pbw
     end
 
     def has_constraint?(constraint)
-        constraint = Constraint.find(constraint) if constraint.is_a?(String)
-        self.constraints.include?(constraint)
+        constraint = Constraint.find(constraint) if constraint && constraint.is_a?(String)
+        constraint && self.constraints.include?(constraint)
     end
 
     def remove_constraint!(constraint)
@@ -128,6 +130,7 @@ module Pbw
         if ac
             ac.destroy
             constraint.after_remove(self)
+            save!
         end
         self
     end
@@ -141,14 +144,16 @@ module Pbw
     end
 
     def triggers=(list)
-        self.area_triggers = list.map{|t| Pbw::AreaTrigger.create(area: self, trigger: t) }
+        list.each{|t| Pbw::AreaTrigger.create!(area: self, trigger: t) }
+        save!
     end
 
     def add_triggers!(trigger)
         raise PbwArgumentError('Invalid trigger') unless trigger
         return if self.area_triggers.any?{|at| at.trigger == trigger}
-        Pbw::AreaTrigger.create(area: self, trigger: trigger)
-        sef
+        Pbw::AreaTrigger.create!(area: self, trigger: trigger)
+        save!
+        self
     end
 
     def delete_triggers!
@@ -156,14 +161,17 @@ module Pbw
     end
 
     def has_trigger?(trigger)
-        trigger = Trigger.find(trigger) if trigger.is_a?(String)
-        self.triggers.include?(trigger)
+        trigger = Trigger.find(trigger) if trigger && trigger.is_a?(String)
+        trigger && self.triggers.include?(trigger)
     end
 
     def remove_trigger!(trigger)
         raise PbwArgumentError('Invalid trigger') unless trigger
         at = AreaTrigger.where(area: self, trigger: trigger).first
-        at.destroy if at
+        if at
+            at.destroy 
+            save!
+        end
         self
     end
 
