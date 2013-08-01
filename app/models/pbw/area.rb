@@ -9,10 +9,36 @@ module Pbw
     has_many :tokens, class_name:'Pbw::Token', foreign_key: 'Pbw/token_ids'
     has_many :item_containers, class_name: 'Pbw::ItemContainer', foreign_key: 'Pbw/item_container_ids'
     has_many :attached_processes, class_name: 'Pbw::AttachedProcess', foreign_key: 'Pbw/attached_process_ids'
-    has_and_belongs_to_many :constraints, class_name: 'Pbw::Constraint', inverse_of: :areas, foreign_key: 'Pbw/constraint_ids'
-    has_and_belongs_to_many :triggers, class_name: 'Pbw::Trigger', inverse_of: :areas, foreign_key: 'Pbw/trigger_ids'
+    has_many :area_constraints, class_name: 'Pbw::AreaConstraint', foreign_key: 'Pbw/area_constraint_ids'
+    has_many :area_triggers, class_name: 'Pbw::AreaTrigger', foreign_key: 'Pbw/area_trigger_ids'
     
     attr_accessible :name
+
+    def constraints
+        self.area_constraints.map{|ac| ac.constraint }
+    end
+
+    def constraints=(list)
+        self.area_constraints = list.map{|c| Pbw::AreaConstraint.create(area: self, constraint: c) }
+    end
+
+    def constraints<<(c)
+        return if self.area_constraints.any?{|ac| ac.constraint == c}
+        self.area_constraints << Pbw::AreaConstraint.create(area: self, constraint: c)
+    end
+
+    def triggers
+        self.area_triggers.map{|at| at.trigger }
+    end
+
+    def triggers=(list)
+        self.area_triggers = list.map{|t| Pbw::AreaTrigger.create(area: self, trigger: t) }
+    end
+
+    def triggers<<(t)
+        return if self.area_triggers.any?{|at| at.trigger == t}
+        self.area_triggers << Pbw::AreaTrigger.create(area: self, trigger: t)
+    end
 
     def self.viewable_by?(user, subject)
         true
@@ -112,7 +138,7 @@ module Pbw
     def remove_constraint!(constraint)
         raise PbwArgumentError('Invalid constraint') unless constraint
         return false unless constraint.before_remove(self)
-        self.constraints.delete_if{|c| c.name == constraint.name}
+        self.area_constraints.delete_if{|ac| ac.constraint == constraint}
         save!
         constraint.after_remove(self)
         self
@@ -120,6 +146,25 @@ module Pbw
 
     def check_constraints_and_capabilities(&changeset)
         self.constraints.any?{|c| !c.before_process(self, changeset)}
+    end
+
+    def has_trigger?(trigger)
+        trigger = Trigger.find(trigger) if trigger.is_a?(String)
+        self.triggers.include?(trigger)
+    end
+
+    def add_trigger!(trigger)
+        raise PbwArgumentError('Invalid trigger') unless trigger
+        self.triggers << trigger
+        save!
+        self
+    end
+
+    def remove_trigger!(trigger)
+        raise PbwArgumentError('Invalid trigger') unless trigger
+        self.area_triggers.delete_if{|at| at.trigger == trigger}
+        save!
+        self
     end
 
     def check_triggers!

@@ -1,6 +1,19 @@
 module Pbw
   class Capability < Rule
-    has_and_belongs_to_many :tokens, class_name: 'Pbw::Token', foreign_key: 'Pbw/token_ids'
+    has_many :token_capabilities, class_name: 'Pbw::TokenCapability', foreign_key: 'Pbw/token_capability_ids'
+
+    def tokens
+        self.token_capabilities.map{|tc| tc.token }
+    end
+
+    def tokens=(list)
+        self.token_capabilities = list.map{|t| Pbw::TokenCapability.create(token: t, capability: self) }
+    end
+
+    def tokens<<(t)
+        return if self.token_capabilities.any?{|tc| tc.token == t}
+        self.token_capabilities << Pbw::TokenCapability.create(token: t, capability: self)
+    end
 
     def self.viewable_by?(user, subject)
         return true if user.admin?

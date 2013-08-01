@@ -7,13 +7,52 @@ module Pbw
 
     belongs_to :area, class_name: 'Pbw::Area'
     belongs_to :user, class_name: 'Pbw::User'
-    has_and_belongs_to_many :capabilities, class_name: 'Pbw::Capability', foreign_key: 'Pbw/capability_ids'
-    has_and_belongs_to_many :constraints, class_name: 'Pbw::Constraint', foreign_key: 'Pbw/constraint_ids'
-    has_and_belongs_to_many :triggers, class_name:'Pbw::Trigger', foreign_key: 'Pbw/trigger_ids'
+    has_many :token_capabilities, class_name: 'Pbw::TokenCapability', foreign_key: 'Pbw/token_capability_ids'
+    has_many :token_constraints, class_name: 'Pbw::TokenConstraint', foreign_key: 'Pbw/token_constraint_ids'
+    has_many :token_triggers, class_name:'Pbw::TokenTrigger', foreign_key: 'Pbw/token_trigger_ids'
     has_many :attached_processes, class_name: 'Pbw::AttachedProcess', foreign_key: 'Pbw/attached_process_ids'
     has_many :item_containers, class_name: 'Pbw::ItemContainer', foreign_key: 'Pbw/item_container_ids'
 
     attr_accessible :name, :area, :user
+
+    def constraints
+        self.token_constraints.map{|tc| tc.constraint }
+    end
+
+    def constraints=(list)
+        self.token_constraints = list.map{|c| Pbw::TokenConstraint.create(token: self, constraint: c) }
+    end
+
+    def constraints<<(c)
+        return if self.token_constraints.any?{|tc| tc.constraint == c}
+        self.token_constraints << Pbw::TokenConstraint.create(token: self, constraint: c)
+    end
+
+    def capabilities
+        self.token_capabilities.map{|tc| tc.capability }
+    end
+
+    def capabilities=(list)
+        self.token_capabilities = list.map{|c| Pbw::TokenCapability.create(token: self, capability: c) }
+    end
+
+    def capabilities<<(c)
+        return if self.token_capabilities.any?{|tc| tc.capability == c}
+        self.token_capabilities << Pbw::TokenCapability.create(token: self, capability: c)
+    end
+
+    def triggers
+        self.token_triggers.map{|tt| tt.trigger }
+    end
+
+    def triggers=(list)
+        self.token_triggers = list.map{|t| Pbw::TokenTrigger.create(token: self, trigger: t) }
+    end
+
+    def triggers<<(t)
+        return if self.token_triggers.any?{|tt| tt.trigger == t}
+        self.token_triggers << Pbw::TokenTrigger.create(token: self, trigger: t)
+    end
 
     def self.viewable_by?(user, subject)
         user.admin? || subject.user == user
@@ -138,7 +177,7 @@ module Pbw
     def remove_constraint!(constraint)
         raise PbwArgumentError('Invalid constraint') unless constraint 
         return false unless constraint.before_remove(self)
-        self.constraints.delete_if{|c| c.name == constraint.name}
+        self.token_constraints.delete_if{|tc| tc.constraint == constraint}
         save!
         constraint.after_remove(self)
         self
@@ -160,7 +199,7 @@ module Pbw
     def remove_capability!(capability)
         raise PbwArgumentError('Invalid constraint') unless capability 
         return false unless capability.before_remove(self)
-        self.capabilities.delete_if{|c| c.name == capability.name}
+        self.token_capabilities.delete_if{|tc| tc.capability == capability}
         save!
         capability.after_remove(self)
         self
@@ -169,6 +208,25 @@ module Pbw
     def check_constraints_and_capabilities(&changeset)
         self.capabilities.any?{|c| !c.before_process(self, changeset)}
         self.constraints.any?{|c| !c.before_process(self, changeset)}
+    end
+
+    def has_trigger?(trigger)
+        trigger = Trigger.find(trigger) if trigger.is_a?(String)
+        self.triggers.include?(trigger)
+    end
+
+    def add_trigger!(trigger)
+        raise PbwArgumentError('Invalid trigger') unless trigger
+        self.triggers << trigger
+        save!
+        self
+    end
+
+    def remove_trigger!(trigger)
+        raise PbwArgumentError('Invalid trigger') unless trigger
+        self.token_triggers.delete_if{|tt| tt.trigger == trigger}
+        save!
+        self
     end
 
     def check_triggers!
