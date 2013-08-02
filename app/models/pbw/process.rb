@@ -1,7 +1,7 @@
 module Pbw
   class Process < Rule
-    has_many :triggers, foreign_key: 'trigger_ids', autosave: true
-    has_many :attached_processes, foreign_key: 'attached_process_ids', autosave: true
+    has_many :triggers, foreign_key: 'trigger_ids', autosave: true, class_name: "::Pbw::Trigger"
+    has_many :attached_processes, foreign_key: 'attached_process_ids', autosave: true, class_name: "::Pbw::AttachedProcess"
     
     def self.viewable_by?(user, subject)
         user.admin?

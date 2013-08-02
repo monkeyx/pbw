@@ -1,7 +1,7 @@
 module Pbw
   class Constraint < Rule
-    has_many :token_constraints, foreign_key: 'token_constraint_ids', autosave: true
-    has_many :area_constraints, foreign_key: 'area_constraint_ids', autosave: true
+    has_many :token_constraints, foreign_key: 'token_constraint_ids', autosave: true, class_name: "::Pbw::TokenConstraint"
+    has_many :area_constraints, foreign_key: 'area_constraint_ids', autosave: true, class_name: "::Pbw::AreaConstraint"
 
     def self.viewable_by?(user, subject)
         return true if user.admin?
