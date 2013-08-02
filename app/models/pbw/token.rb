@@ -5,13 +5,13 @@ module Pbw
     field :name, type: String
     validates :name, presence: true
 
-    belongs_to :area, class_name: '::Pbw::Area'
-    belongs_to :user, class_name: '::Pbw::User'
-    has_many :token_capabilities, class_name: '::Pbw::TokenCapability'
-    has_many :token_constraints, class_name: '::Pbw::TokenConstraint'
-    has_many :token_triggers, class_name: '::Pbw::TokenTrigger'
-    has_many :attached_processes, class_name: '::Pbw::AttachedProcess'
-    has_many :item_containers, class_name: '::Pbw::ItemContainer'
+    belongs_to :area, foreign_key: 'area_id', auto_save: true
+    belongs_to :user, foreign_key: 'user_id', auto_save: true
+    has_many :token_capabilities, foreign_key: 'token_capability_ids', auto_save: true
+    has_many :token_constraints, foreign_key: 'token_constraint_ids', auto_save: true
+    has_many :token_triggers, foreign_key: 'token_trigger_ids', auto_save: true
+    has_many :attached_processes, foreign_key: 'attached_process_ids', auto_save: true
+    has_many :item_containers, foreign_key: 'item_container_ids', auto_save: true
 
     attr_accessible :name, :area, :user
 

@@ -1,7 +1,7 @@
 module Pbw
   class Command < Rule
-    belongs_to :token, class_name: '::Pbw::Token'
-    belongs_to :user, class_name: '::Pbw::User'
+    belongs_to :token, foreign_key: 'token_id', auto_save: true
+    belongs_to :user, foreign_key: 'user_id', auto_save: true
 
     before_validation :validate_token_and_user
     

@@ -6,11 +6,11 @@ module Pbw
     
     validates :name, presence: true
 
-    has_many :tokens
-    has_many :item_containers
-    has_many :attached_processes
-    has_many :area_constraints
-    has_many :area_triggers
+    has_many :tokens, foreign_key: 'token_ids', auto_save: true
+    has_many :item_containers, foreign_key: 'item_container_ids', auto_save: true
+    has_many :attached_processes, foreign_key: 'attached_process_ids', auto_save: true
+    has_many :area_constraints, foreign_key: 'area_constraint_ids', auto_save: true
+    has_many :area_triggers, foreign_key: 'area_trigger_ids', auto_save: true
     
     attr_accessible :name
 
