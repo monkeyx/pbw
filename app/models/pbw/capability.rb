@@ -1,6 +1,6 @@
 module Pbw
   class Capability < Rule
-    has_many :token_capabilities, foreign_key: 'token_capability_ids', auto_save: true
+    has_many :token_capabilities, foreign_key: 'token_capability_ids', autosave: true
 
     def self.viewable_by?(user, subject)
         return true if user.admin?

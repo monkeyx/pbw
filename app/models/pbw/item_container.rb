@@ -2,13 +2,13 @@ module Pbw
   class ItemContainer
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
-    belongs_to :item, foreign_key: 'item_id', auto_save: true
+    belongs_to :item, foreign_key: 'item_id', autosave: true
     field :quantity, type: Float, default: 0
     validates_numericality_of :quantity, :greater_than_or_equal_to => 0
 
-    belongs_to :token, foreign_key: 'token_id', auto_save: true
-    belongs_to :area, foreign_key: 'area_id', auto_save: true
-    belongs_to :user, foreign_key: 'user_id', auto_save: true
+    belongs_to :token, foreign_key: 'token_id', autosave: true
+    belongs_to :area, foreign_key: 'area_id', autosave: true
+    belongs_to :user, foreign_key: 'user_id', autosave: true
 
     attr_accessible :item, :token, :area, :user, :quantity
 

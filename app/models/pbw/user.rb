@@ -35,8 +35,8 @@ module Pbw
     field :unlock_token,    type: String # Only if unlock strategy is :email or :both
     field :locked_at,       type: Time
 
-    has_many :item_containers, foreign_key: 'item_container_ids', auto_save: true
-    has_many :tokens, foreign_key: 'token_ids', auto_save: true
+    has_many :item_containers, foreign_key: 'item_container_ids', autosave: true
+    has_many :tokens, foreign_key: 'token_ids', autosave: true
 
     validates :name, presence: true
     validates :password, confirmation: true, length: {minimum: 8}

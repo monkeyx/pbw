@@ -2,9 +2,9 @@ module Pbw
   class AttachedProcess
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
-  	belongs_to :token, foreign_key: 'token_id', auto_save: true
-  	belongs_to :area, foreign_key: 'area_id', auto_save: true
-  	belongs_to :process, foreign_key: 'process_id', auto_save: true
+  	belongs_to :token, foreign_key: 'token_id', autosave: true
+  	belongs_to :area, foreign_key: 'area_id', autosave: true
+  	belongs_to :process, foreign_key: 'process_id', autosave: true
 
   	field :tickable, type: Boolean, default: false
     field :updatable, type: Boolean, default: false
