@@ -1,6 +1,7 @@
 module Pbw
   class Trigger < Rule
-    embeds_one :process, class_name: "::Pbw::Process"
+    embedded_in :container, class_name: '::Pbw::Container'
+    belongs_to :process, foreign_key: 'process_id', class_name: '::Pbw::Process'
 
     attr_accessible :process
 

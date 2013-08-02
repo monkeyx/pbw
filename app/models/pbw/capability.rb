@@ -1,5 +1,7 @@
 module Pbw
   class Capability < Rule
+    embedded_in :container, class_name: '::Pbw::Container'
+    
     def before_process(token, &changeset)
     	# stub method
     	true

@@ -6,12 +6,12 @@ module Pbw
     	field :name, type: String
     	validates :name, presence: true
 
-    	embeds_many :item_containers, class_name: "::Pbw::ItemContainer"
-    	embeds_many :attached_processes, class_name: "::Pbw::AttachedProcess"
-    	embeds_many :tokens, class_name: "::Pbw::Token"
-    	embeds_many :constraints, class_name: "::Pbw::Constraint"
-    	embeds_many :capabilities, class_name: "::Pbw::Capability"
-    	embeds_many :triggers, class_name: "::Pbw::Trigger"
+    	embeds_many :item_containers, class_name: '::Pbw::ItemContainer'
+    	embeds_many :attached_processes, class_name: '::Pbw::AttachedProcess'
+    	embeds_many :tokens, class_name: '::Pbw::Token'
+    	embeds_many :constraints, class_name: '::Pbw::Constraint'
+    	embeds_many :capabilities, class_name: '::Pbw::Capability'
+    	embeds_many :triggers, class_name: '::Pbw::Trigger'
 
     	attr_accessible :name
 
@@ -98,7 +98,7 @@ module Pbw
 	    end
 
 	    def add_token!(token)
-	    	raise PbwArgumentError("Invalid token") unless token
+	    	raise PbwArgumentError('Invalid token') unless token
 	    	return false if has_token?(token)
 	    	self.tokens << token
 	    	save!

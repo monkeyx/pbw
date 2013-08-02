@@ -1,7 +1,7 @@
 module Pbw
   class Token < Container
-    include ::Mongoid::Document
-    include ::Mongoid::Timestamps
+    embedded_in :container, class_name: '::Pbw::Container'
+    has_many :commands, foreign_key: 'command_ids', class_name: '::Pbw::Command'
     
     def self.viewable_by?(user, subject)
         user.admin? || subject.user == user

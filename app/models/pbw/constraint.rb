@@ -1,5 +1,7 @@
 module Pbw
   class Constraint < Rule
+    embedded_in :container, class_name: '::Pbw::Container'
+    
     def before_process(token_or_area, &changeset)
     	# stub method
     	true

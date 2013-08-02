@@ -3,7 +3,7 @@ module Pbw
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
 
-    embedded_in :item, class_name: "::Pbw::Item"
+    embedded_in :item, class_name: '::Pbw::Item'
     field :from, type: Hash
 
     attr_accessible :item, :from

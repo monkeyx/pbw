@@ -3,8 +3,8 @@ module Pbw
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
 
-  	embedded_in :container, class_name: "::Pbw::Container"
-  	embeds_one :process, class_name: "::Pbw::Process"
+  	embedded_in :container, class_name: '::Pbw::Container'
+  	belongs_to :process, autosave: true, foreign_key: 'process_id', class_name: '::Pbw::Process'
 
   	field :tickable, type: Boolean, default: false
     field :updatable, type: Boolean, default: false

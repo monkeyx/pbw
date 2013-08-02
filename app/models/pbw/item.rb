@@ -6,7 +6,7 @@ module Pbw
 
     validates :name, presence: true
 
-    embeds_many :item_conversions, class_name: "::Pbw::ItemConversion"
+    embeds_many :item_conversions, class_name: '::Pbw::ItemConversion'
     
     attr_accessible :name
 
