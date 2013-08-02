@@ -47,11 +47,13 @@ module Pbw
 	    # ATTACHED PROCESSES
 
 	    def attach_tick_process(process, ticks_to_wait=0)
-	        self.attached_processes.create!(process: process, tickable: true, ticks_waiting: ticks_to_wait)
+	        self.attached_processes << AttachedProcess.build(process: process, tickable: true, ticks_waiting: ticks_to_wait)
+	        save!
 	    end
 
 	    def attach_update_process(process, updates_to_wait=0)
-	        self.attached_processes.create!(process: process, updatable: true, updates_waiting: updates_to_wait)
+	        self.attached_processes << AttachedProces.build(process: process, updatable: true, updates_waiting: updates_to_wait)
+	        save!
 	    end
 
 	    # ITEM CONTAINERS
@@ -71,7 +73,11 @@ module Pbw
 	        return remove_item!(item, quantity.abs) if quantity < 0
 	        return false unless before_add_item(item,quantity)
 	        container = item_container(item)
-	    	container = self.item_containers.create!(item: item) unless container
+	        unless container
+	        	container = ItemContainer.build(item: item, quantity: 0)
+	        	self.item_containers << container
+	        	save!
+	    	end
 	    	container.add_item(quantity_to_add)
 	    end
 
@@ -94,7 +100,8 @@ module Pbw
 	    def add_token!(token)
 	    	raise PbwArgumentError("Invalid token") unless token
 	    	return false if has_token?(token)
-	    	self.tokens.create!(token)
+	    	self.tokens << token
+	    	save!
 	    	self
 	    end
 
@@ -111,7 +118,8 @@ module Pbw
 	        raise PbwArgumentError('Invalid constraint') unless constraint
 	        return false if has_constraint?(constraint)
 	        return false unless constraint.before_add(self)
-	        self.constraints.create!(constraint)
+	        self.constraints << constraint
+	        save!
 	        constraint.after_add(self)
 	        self
 	    end
@@ -136,7 +144,8 @@ module Pbw
 	        raise PbwArgumentError('Invalid capability') unless capability
 	        return false if has_capability?(capability)
 	        return false unless capability.before_add(self)
-	        self.capabilities.create!(capability)
+	        self.capabilities << capability
+	        save!
 	        capability.after_add(self)
 	        self
 	    end
@@ -160,7 +169,8 @@ module Pbw
 	    def add_trigger!(trigger)
 	        raise PbwArgumentError('Invalid trigger') unless trigger
 	        return false if has_trigger?(trigger)
-	        self.triggers.create!(trigger)
+	        self.triggers << trigger
+	        save!
 	        trigger.after_add(self)
 	        self
 	    end
