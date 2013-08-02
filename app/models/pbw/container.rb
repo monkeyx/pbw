@@ -8,12 +8,14 @@ module Pbw
 
     	embeds_many :item_containers, class_name: "::Pbw::ItemContainer"
     	embeds_many :attached_processes, class_name: "::Pbw::AttachedProcess"
-    	embeds_many :container_tokens, class_name: "::Pbw::ContainerToken"
-    	embeds_many :container_constraints, class_name: "::Pbw::ContainerConstraint"
-    	embeds_many :container_capabilities, class_name: "::Pbw::ContainerCapability"
-    	embeds_many :container_triggers, class_name: "::Pbw::ContainerTrigger"
+    	embeds_many :tokens, class_name: "::Pbw::Token"
+    	embeds_many :constraints, class_name: "::Pbw::Constraint"
+    	embeds_many :capabilities, class_name: "::Pbw::Capability"
+    	embeds_many :triggers, class_name: "::Pbw::Trigger"
 
     	attr_accessible :name
+
+    	# STUB METHODS
 
     	def before_token_enters(token)
 	        # stub method
@@ -24,16 +26,7 @@ module Pbw
 	        # stub method
 	    end
 
-	    def before_token_leaves(token)
-	        # stub method
-	        true
-	    end
-
-	    def after_token_leaves(token)
-	        # stub method
-	    end
-
-    	def before_add_item(item, quantity)
+	    def before_add_item(item, quantity)
 	        # stub method
 	        true
 	    end
@@ -51,25 +44,7 @@ module Pbw
 	        # stub method
 	    end
 
-	    def has_token?(token)
-	    	raise PbwArgumentError("Invalid token") unless token
-	    	self.container_tokens.where(token: token).first
-	    end
-
-	    def add_token!(token)
-	    	raise PbwArgumentError("Invalid token") unless token
-	    	return false if has_token?(token)
-	    	self.container_tokens.create!(token: token)
-	    	self
-	    end
-
-	    def remove_token!(token)
-	    	raise PbwArgumentError("Invalid token") unless token
-	    	ct = has_token?(token)
-	    	return false unless ct
-	    	ct.destroy
-	    	self
-	    end
+	    # ATTACHED PROCESSES
 
 	    def attach_tick_process(process, ticks_to_wait=0)
 	        self.attached_processes.create!(process: process, tickable: true, ticks_waiting: ticks_to_wait)
@@ -78,6 +53,8 @@ module Pbw
 	    def attach_update_process(process, updates_to_wait=0)
 	        self.attached_processes.create!(process: process, updatable: true, updates_waiting: updates_to_wait)
 	    end
+
+	    # ITEM CONTAINERS
 
 	    def item_container(item)
 	    	self.item_containers.where(item: item).first
@@ -90,8 +67,8 @@ module Pbw
 
 	    def add_item!(item, quantity)
 	        raise PbwArgumentError('Invalid quantity') unless quantity && quantity.responds_to?(:abs)
-	        return remove_item!(item, quantity.abs) if quantity < 0
 	        raise PbwArgumentError('Invalid item') unless item
+	        return remove_item!(item, quantity.abs) if quantity < 0
 	        return false unless before_add_item(item,quantity)
 	        container = item_container(item)
 	    	container = self.item_containers.create!(item: item) unless container
@@ -100,39 +77,52 @@ module Pbw
 
 	    def remove_item!(item, quantity)
 	        raise PbwArgumentError('Invalid quantity') unless quantity && quantity.responds_to?(:abs)
-	        return add_item!(item, quantity.abs) if quantity < 0
 	        raise PbwArgumentError('Invalid item') unless item
+	        return add_item!(item, quantity.abs) if quantity < 0
 	        container = item_container(item)
 	        return false unless container
 	        return false unless before_remove_item(item,quantity)
 	        container.remove_item(quantity)
 	    end
 
-	    def constraints
-	        self.container_constraints.map{|cc| cc.constraint }
+	    # TOKENS
+
+	    def has_token?(token)
+	    	token && token._id && self.tokens.where(_id: token._id).first
 	    end
+
+	    def add_token!(token)
+	    	raise PbwArgumentError("Invalid token") unless token
+	    	return false if has_token?(token)
+	    	self.tokens.create!(token)
+	    	self
+	    end
+
+	    def remove_token!(token)
+	    	ct = has_token?(token)
+	    	return false unless ct
+	    	ct.destroy
+	    	self
+	    end
+
+	    # CONSTRAINTS
 
 	    def add_constraint!(constraint)
 	        raise PbwArgumentError('Invalid constraint') unless constraint
-	        return if self.container_constraints.any?{|cc| cc.constraint == constraint}
+	        return false if has_constraint?(constraint)
 	        return false unless constraint.before_add(self)
-	        self.container_constraints.create!(constraint: constraint)
+	        self.constraints.create!(constraint)
 	        constraint.after_add(self)
 	        self
 	    end
 
-	    def delete_constraints!
-	        self.container_constraints.destroy_all
-	    end
-
 	    def has_constraint?(constraint)
-	        self.container_constraints.where(constraint: constraint).first
+	        constraint && constraint._id && self.constraints.where(_id: constraint._id).first
 	    end
 
 	    def remove_constraint!(constraint)
-	        raise PbwArgumentError('Invalid constraint') unless constraint
-	        return false unless constraint.before_remove(self)
 	        cc = has_constraint?(constraint)
+	        return false unless cc && cc.before_remove(self)
 	        if cc
 	            cc.destroy
 	            constraint.after_remove(self)
@@ -140,31 +130,24 @@ module Pbw
 	        self
 	    end
 
-	    def capabilities
-	        self.container_capabilities.map{|cc| cc.capability }
-	    end
+	    # CAPABILITIES
 
 	    def add_capability!(capability)
 	        raise PbwArgumentError('Invalid capability') unless capability
-	        return if self.container_capabilities.any?{|cc| cc.capability == capability}
+	        return false if has_capability?(capability)
 	        return false unless capability.before_add(self)
-	        self.container_capabilities.create!(capability: capability)
+	        self.capabilities.create!(capability)
 	        capability.after_add(self)
 	        self
 	    end
 
-	    def delete_capabilities!
-	        self.container_capabilities.destroy_all
-	    end
-
 	    def has_capability?(capability)
-	        self.container_capabilities.where(capability: capability).first
+	        capability && capability._id && self.container_capabilities.where(_id: capability._id).first
 	    end
 
 	    def remove_capability!(capability)
-	        raise PbwArgumentError('Invalid capability') unless capability
-	        return false unless capability.before_remove(self)
 	        cc = has_capability?(capability)
+	        return false unless cc && cc.before_remove(self)
 	        if cc
 	            cc.destroy
 	            capability.after_remove(self)
@@ -172,28 +155,21 @@ module Pbw
 	        self
 	    end
 
-	    def triggers
-	        self.container_triggers.map{|ct| cc.trigger }
-	    end
+	    # TRIGGERS
 
 	    def add_trigger!(trigger)
 	        raise PbwArgumentError('Invalid trigger') unless trigger
-	        return if self.container_triggers.any?{|ct| ct.trigger == trigger}
-	        self.container_triggers.create!(trigger: trigger)
+	        return false if has_trigger?(trigger)
+	        self.triggers.create!(trigger)
 	        trigger.after_add(self)
 	        self
 	    end
 
-	    def delete_trigger!
-	        self.container_triggers.destroy_all
-	    end
-
 	    def has_trigger?(trigger)
-	        self.container_triggers.where(trigger: trigger).first
+	        trigger && trigger._id && self.triggers.where(_id: trigger._id).first
 	    end
 
 	    def remove_trigger!(trigger)
-	        raise PbwArgumentError('Invalid trigger') unless trigger
 	        ct = has_trigger?(trigger)
 	        if ct
 	            ct.destroy
@@ -202,12 +178,12 @@ module Pbw
 	    end
 
 	    def check_triggers!
-	        self.container_triggers.each{|ct| ct.trigger.check! }
+	        self.triggers.each{|ct| ct.trigger.check! }
 	    end
 
 	    def check_constraints_and_capabilities(&changeset)
-	        self.container_constraints.any?{|cc| !cc.constraint.before_process(self, changeset)}
-	        self.container_capabilities.any?{|cc| !cc.capability.before_process(self, changeset)}
+	        self.constraints.any?{|cc| !cc.before_process(self, changeset)}
+	        self.constraints.any?{|cc| !cc.before_process(self, changeset)}
 	    end
 	end
 end

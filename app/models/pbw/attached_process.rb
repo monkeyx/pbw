@@ -4,7 +4,7 @@ module Pbw
     include ::Mongoid::Timestamps
 
   	embedded_in :container, class_name: "::Pbw::Container"
-  	belongs_to :process, foreign_key: 'process_id', autosave: true, class_name: "::Pbw::Process"
+  	embeds_one :process, class_name: "::Pbw::Process"
 
   	field :tickable, type: Boolean, default: false
     field :updatable, type: Boolean, default: false

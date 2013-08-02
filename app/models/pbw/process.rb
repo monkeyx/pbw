@@ -1,6 +1,5 @@
 module Pbw
   class Process < Rule
-    has_many :triggers, foreign_key: 'trigger_ids', autosave: true, class_name: '::Pbw::Trigger'
     
     def before_run(container)
     	# stub method

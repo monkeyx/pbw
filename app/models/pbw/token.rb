@@ -3,11 +3,6 @@ module Pbw
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
     
-    belongs_to :area, foreign_key: 'area_id', autosave: true, class_name: "::Pbw::Area"
-    belongs_to :user, foreign_key: 'user_id', autosave: true, class_name: "::Pbw::User"
-    
-    attr_accessible :area, :user
-
     def self.viewable_by?(user, subject)
         user.admin? || subject.user == user
     end
@@ -49,22 +44,18 @@ module Pbw
     def set_ownership!(user)
         raise PbwArgumentError('Invalid user') unless user 
         return false unless before_ownership(user)
-        self.user = user
-        save!
+        user.add_token!(self)
         after_ownership(user)
-        self.user
+        self
     end
 
     def move_to_area!(area)
         raise PbwArgumentError('Invalid area') unless area
-        return false unless before_move(area) && (self.area.nil? || self.area.before_token_leaves(self)) && area.before_token_enters(self)
-        old_area = self.area
-        self.area = area
-        save!
+        return false unless before_move(area)
+        area.add_token!(self)
         after_move(area)
-        old_area.after_token_leaves(self) if old_area
         area.after_token_enters(self)
-        self.area
+        self
     end
   end
 end
