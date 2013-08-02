@@ -1,9 +1,9 @@
 module Pbw
-	class TokenTrigger
+	class ContainerToken
 		include ::Mongoid::Document
     	include ::Mongoid::Timestamps
 
+    	embedded_in :container, class_name: "::Pbw::Container"
     	belongs_to :token, foreign_key: 'token_id', autosave: true, class_name: "::Pbw::Token"
-    	belongs_to :trigger, foreign_key: 'trigger_id', autosave: true, class_name: "::Pbw::Trigger"
 	end
 end

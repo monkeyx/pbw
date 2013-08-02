@@ -1,9 +1,9 @@
 module Pbw
-	class TokenCapability
+	class ContainerCapability
 		include ::Mongoid::Document
     	include ::Mongoid::Timestamps
 
-    	belongs_to :token, foreign_key: 'token_id', autosave: true, class_name: "::Pbw::Token"
+    	embedded_in :container, class_name: "::Pbw::Container"
     	belongs_to :capability, foreign_key: 'capability_id', autosave: true, class_name: "::Pbw::Capability"
 	end
 end

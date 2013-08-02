@@ -1,8 +1,10 @@
 module Pbw
 	class Update
 		def self.run
-			Command.updatable.each{|command| command.update! }
-			AttachedProcess.updatable.each{|ap| ap.update! }
+			::Pbw::Command.updatable.each{|command| command.update! }
+			::Pbw::Container.each do |container|
+				attached_processes.where(updatable: true).each{|ap| ap.update! }
+			end
 		end
 	end
 end

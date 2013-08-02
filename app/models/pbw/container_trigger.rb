@@ -1,9 +1,9 @@
 module Pbw
-	class AreaTrigger
+	class ContainerTrigger
 		include ::Mongoid::Document
     	include ::Mongoid::Timestamps
 
-    	belongs_to :area, foreign_key: 'area_id', autosave: true, class_name: "::Pbw::Area"
+    	embedded_in :container, class_name: "::Pbw::Container"
     	belongs_to :trigger, foreign_key: 'trigger_id', autosave: true, class_name: "::Pbw::Trigger"
 	end
 end

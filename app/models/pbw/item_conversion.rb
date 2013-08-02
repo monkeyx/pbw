@@ -2,26 +2,11 @@ module Pbw
   class ItemConversion
     include ::Mongoid::Document
     include ::Mongoid::Timestamps
-    belongs_to :item, foreign_key: 'item_id', autosave: true, class_name: "::Pbw::Item"
+
+    embedded_in :item, class_name: "::Pbw::Item"
     field :from, type: Hash
 
     attr_accessible :item, :from
-
-    def self.viewable_by?(user, subject)
-        true
-    end
-
-    def self.creatable_by?(user, subject)
-        user.admin?
-    end
-
-    def self.editable_by?(user, subject)
-        user.admin?
-    end
-
-    def self.deletable_by?(user, subject)
-        user.admin?
-    end
 
     def set_from_item(item, quantity)
     	raise PbwArgumentError('Invalid from item') unless item && quantity
@@ -47,7 +32,8 @@ module Pbw
     def token_from_items_containers(token)
     	containers = {}
     	from_items.keys.each do |from_item|
-    		containers[from_item] = ItemContainer.find_for_token(token,from_item)
+            c = token.item_container(from_item)
+    		containers[from_item] = c if c
     	end
     	containers
     end
@@ -56,7 +42,7 @@ module Pbw
         raise PbwArgumentError('Invalid token') unless token
         raise PbwArgumentError('Invalid item') unless item
     	return 0 unless token.can_convert?(item)
-    	conversion = where(item: item).first
+    	conversion = item.item_conversions.first
     	return 0 unless conversion
     	containers = conversion.token_from_items_containers(token)
     	quantity = 0
@@ -75,19 +61,19 @@ module Pbw
         raise PbwArgumentError('Invalid item') unless item
         raise PbwArgumentError('Invalid quantity') unless quantity
     	return false unless token.can_convert?(item)
-    	conversion = where(item: item).first
+    	conversion = item.item_conversions.first
     	return false unless conversion
     	containers = conversion.token_from_items_containers(token)
     	containers.keys.each do |from_item|
     		return false unless containers[from_item] && containers[from_item].quantity >= (conversion.from_items[from_item] * quantity)
     	end
     	containers.keys.each do |from_item|
-    		containers[from_item].remove_item(conversion.from_items[from_item] * quantity)
+    		containers[from_item].remove_item!(conversion.from_items[from_item] * quantity)
     		containers[from_item].save!
     	end
     	unless token.add_item!(item,quantity)
     		containers.keys.each do |from_item|
-	    		containers[from_item].add_item(conversion.from_items[from_item] * quantity)
+	    		containers[from_item].add_item!(conversion.from_items[from_item] * quantity)
 	    		containers[from_item].save!
 	    	end
     	end

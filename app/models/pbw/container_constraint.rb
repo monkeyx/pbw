@@ -1,9 +1,9 @@
 module Pbw
-	class AreaConstraint
+	class ContainerConstraint
 		include ::Mongoid::Document
     	include ::Mongoid::Timestamps
 
-    	belongs_to :area, foreign_key: 'area_id', class_name: "::Pbw::Area"
+    	embedded_in :container, class_name: "::Pbw::Container"
     	belongs_to :constraint, foreign_key: 'constraint_id', class_name: "::Pbw::Constraint"
 	end
 end

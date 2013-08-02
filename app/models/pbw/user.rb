@@ -1,8 +1,5 @@
 module Pbw
-  class User
-    include ::Mongoid::Document
-    include ::Mongoid::Timestamps
-
+  class User < Container
     ROLES = %W{superadmin admin moderator player}
     
     devise :database_authenticatable, :registerable, :timeoutable, 
@@ -34,9 +31,6 @@ module Pbw
     field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
     field :unlock_token,    type: String # Only if unlock strategy is :email or :both
     field :locked_at,       type: Time
-
-    has_many :item_containers, foreign_key: 'item_container_ids', autosave: true, class_name: "::Pbw::ItemContainer"
-    has_many :tokens, foreign_key: 'token_ids', autosave: true, class_name: "::Pbw::Token"
 
     validates :name, presence: true
     validates :password, confirmation: true, length: {minimum: 8}
@@ -109,23 +103,6 @@ module Pbw
 
     def self.friendly_token
       SecureRandom.base64(15).tr('+/=lIO0', 'pqrsxyz')
-    end
-
-    def count_item(item)
-        container = ItemContainer.find_for_user(self)
-        container ? container.quantity : 0
-    end
-
-    def add_item!(item, quantity)
-        raise PbwArgumentError('Invalid quantity') unless quantity && quantity.responds_to?(:abs)
-        return remove_item!(item, quantity.abs) if quantity < 0
-        ItemContainer.find_or_create_for_user(self, item, quantity)
-    end
-
-    def remove_item!(item, quantity)
-        raise PbwArgumentError('Invalid quantity') unless quantity && quantity.responds_to?(:abs)
-        return add_item!(item, quantity.abs) if quantity < 0
-        ItemContainer.find_or_create_for_user(self, item, (0 - quantity))
     end
   end
 end

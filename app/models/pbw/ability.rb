@@ -2,7 +2,7 @@ module Pbw
   class Ability
     include CanCan::Ability
 
-    MANAGED_CLASSES = [Area, Capability, Command, Constraint, Item, ItemContainer, ItemConversion, Process, Rule, Token, Trigger, User]
+    MANAGED_CLASSES = [Area, Command, Token, Item, User]
     
     def initialize(user)
         user ||= User.new

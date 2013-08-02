@@ -1,34 +1,17 @@
 module Pbw
   class Process < Rule
-    has_many :triggers, foreign_key: 'trigger_ids', autosave: true, class_name: "::Pbw::Trigger"
-    has_many :attached_processes, foreign_key: 'attached_process_ids', autosave: true, class_name: "::Pbw::AttachedProcess"
+    has_many :triggers, foreign_key: 'trigger_ids', autosave: true, class_name: '::Pbw::Trigger'
     
-    def self.viewable_by?(user, subject)
-        user.admin?
-    end
-
-    def self.creatable_by?(user, subject)
-        true
-    end
-
-    def self.editable_by?(user, subject)
-        user.admin?
-    end
-
-    def self.deletable_by?(user, subject)
-        user.admin?
-    end
-
-    def before_run(token_or_area)
+    def before_run(container)
     	# stub method
     	true
     end
 
-    def after_triggers(token_or_area)
+    def after_triggers(container)
     	# stub method
     end
 
-    def changeset(token_or_area)
+    def changeset(container)
     	# stub method
     	Pbw::Changeset.new
     end
@@ -48,16 +31,16 @@ module Pbw
     	true
     end
 
-    def run!(token_or_area)
-    	raise PbwArgumentError('Invalid token or area') unless token_or_area
-        return false unless before_run(token_or_area)
-    	changes = changeset(token_or_area)
+    def run!(container)
+    	raise PbwArgumentError('Invalid token or area') unless container
+        return false unless before_run(container)
+    	changes = changeset(container)
     	raise PbwOperationError('No changes given') unless changes
     	raise PbwOperationError("Invalid object returned from changeset method in #{self.class.name}") unless changes.is_a?(Changeset)
     	return false token_or_area.check_constraints_and_capabilities(changes)
     	execute_changeset!(changes)
     	token_or_area.check_triggers!
-    	after_triggers(token_or_area)
+    	after_triggers(container)
     end
   end
 end
