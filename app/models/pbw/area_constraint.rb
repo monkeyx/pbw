@@ -3,7 +3,7 @@ module Pbw
 		include ::Mongoid::Document
     	include ::Mongoid::Timestamps
 
-    	belongs_to :area
-    	belongs_to :constraint
+    	belongs_to :pbw_area
+    	belongs_to :pbw_constraint
 	end
 end
